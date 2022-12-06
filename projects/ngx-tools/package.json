@@ -38,6 +38,6 @@
     "@consensus-labs/rxjs-tools": "1.0.5"
   },
   "dependencies": {
-    "tslib": "2.4.0"
+    "tslib": "2.4.1"
   }
 }

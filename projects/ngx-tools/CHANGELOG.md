@@ -1,5 +1,11 @@
 # @consensus-labs/ngx-tools
 
+## 15.1.4
+
+### Patch Changes
+
+- Have truthy pipes ignore duplicate values
+
 ## 15.1.3
 
 ### Patch Changes

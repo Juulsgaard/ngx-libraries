@@ -23,7 +23,7 @@ const minutesBefore = new Date();
 minutesBefore.setMinutes(minutesBefore.getMinutes() - 10);
 
 const minutesAfter = new Date();
-minutesAfter.setMinutes(minutesAfter.getMinutes() + 2);
+minutesAfter.setMinutes(minutesAfter.getMinutes() + 1);
 
 const hoursAfter = new Date();
 hoursAfter.setHours(hoursAfter.getHours() + 2);

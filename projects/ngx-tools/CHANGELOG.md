@@ -1,5 +1,11 @@
 # @juulsgaard/ngx-tools
 
+## 17.0.9
+
+### Patch Changes
+
+- Fix tap directive
+
 ## 17.0.8
 
 ### Patch Changes

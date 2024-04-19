@@ -1,5 +1,11 @@
 # @juulsgaard/ngx-material
 
+## 17.0.9
+
+### Patch Changes
+
+- Fix chip remove button
+
 ## 17.0.8
 
 ### Patch Changes

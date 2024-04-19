@@ -1,5 +1,11 @@
 # @juulsgaard/ngx-tools
 
+## 17.0.10
+
+### Patch Changes
+
+- Allow route service pre-population
+
 ## 17.0.9
 
 ### Patch Changes

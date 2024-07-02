@@ -1,5 +1,11 @@
 # @juulsgaard/ngx-tools
 
+## 17.1.5
+
+### Patch Changes
+
+- Fix `toLoadingSignal` handling of Observables
+
 ## 17.1.4
 
 ### Patch Changes

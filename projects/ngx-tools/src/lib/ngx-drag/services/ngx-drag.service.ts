@@ -1,23 +1,27 @@
 import {Injectable} from '@angular/core';
+import {NgxDragContext} from "../models/ngx-drag-context";
 
 @Injectable({providedIn: 'root'})
 export class NgxDragService {
 
-  drag?: unknown;
-  effect?: 'move'|'link'|'copy';
+  context?: NgxDragContext<unknown>;
 
-  constructor() {
+  startDrag<T>(element: HTMLElement, data: T): NgxDragContext<T> {
+    this.context?.dispose();
+
+    const context = new NgxDragContext(element, data);
+    this.context = context;
+
+    return context;
   }
 
-  register(data: unknown, dropEffect: "move" | "link" | "copy" | undefined) {
-    this.drag = data;
-    this.effect = dropEffect;
-  }
+  deregister(context: NgxDragContext<unknown>) {
+    if (context !== this.context) {
+      context.dispose();
+      return;
+    }
 
-  deregister(data: unknown) {
-    if (this.drag === undefined) return;
-    if (this.drag !== data) return;
-    this.drag = undefined;
-    this.effect = undefined;
+    this.context.dispose();
+    this.context = undefined;
   }
 }

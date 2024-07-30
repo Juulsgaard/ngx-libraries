@@ -1,13 +1,25 @@
 import {Disposable} from "@juulsgaard/ts-tools";
+import {deepCloneNode, getTransform, matchElementSize, MoveEvent, Position} from "./misc.models";
 
 export class NgxDragContext<T> implements Disposable {
 
-  private readonly _startedAt = Date.now();
+  readonly startedAt = Date.now();
+
   private _disposed = false;
   get dragging() {return !this._disposed}
 
-  constructor(readonly element: HTMLElement, readonly data: T) {
+  private preview: HTMLElement;
+  readonly touch: boolean
+
+  constructor(readonly element: HTMLElement, readonly data: T, firstEvent: MoveEvent, private readonly offset: Position) {
+    this.touch = firstEvent.touch;
+
     element.classList.add('ngx-dragging');
+
+    this.preview = deepCloneNode(this.element);
+    matchElementSize(this.preview, this.element.getBoundingClientRect());
+    this.preview.classList.add('ngx-drag-preview');
+    document.body.append(this.preview);
   }
 
   dispose(): void {
@@ -15,6 +27,11 @@ export class NgxDragContext<T> implements Disposable {
     this._disposed = true;
 
     this.element.classList.remove('ngx-dragging');
+    document.body.removeChild(this.preview);
+  }
+
+  updatePreview(position: Position) {
+    this.preview.style.transform = getTransform(position.x - this.offset.x, position.y - this.offset.y);
   }
 }
 

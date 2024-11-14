@@ -1,0 +1,37 @@
+{
+  "compileOnSave": false,
+  "compilerOptions": {
+    "rootDir": ".",
+    "target": "es2022",
+    "module": "es2022",
+    "declaration": false,
+    "forceConsistentCasingInFileNames": true,
+    "strict": true,
+    "noImplicitReturns": true,
+    "noImplicitOverride": true,
+    "noFallthroughCasesInSwitch": true,
+    "noUncheckedIndexedAccess": true,
+    "downlevelIteration": true,
+    "moduleResolution": "node",
+    "importHelpers": true,
+    "stripInternal": true,
+    "useDefineForClassFields": false,
+    "outDir": "./dist/out-tsc",
+    "sourceMap": true,
+    "allowSyntheticDefaultImports": true,
+    "lib": ["es2022", "dom"],
+    "skipLibCheck": true,
+    "skipDefaultLibCheck": true,
+    "baseUrl": ".",
+    "paths": {
+      "@juulsgaard/ngx-forms": ["libs/ngx-forms/src/index.ts"],
+      "@juulsgaard/ngx-forms-inputs": ["libs/ngx-forms-inputs/src/index.ts"],
+      "@juulsgaard/ngx-service-worker": [
+        "libs/ngx-service-worker/src/index.ts"
+      ],
+      "@juulsgaard/ngx-tools": ["libs/ngx-tools/src/index.ts"],
+      "@juulsgaard/ngx-ui": ["libs/ngx-ui/src/index.ts"]
+    }
+  },
+  "exclude": ["node_modules", "tmp"]
+}

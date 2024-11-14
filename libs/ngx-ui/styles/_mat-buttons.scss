@@ -1,0 +1,27 @@
+@use "libs/ngx-tools/styles/variables" as *;
+
+//<editor-fold desc="MDC Overrides">
+
+.mdc-button.mat-mdc-button-base {
+  letter-spacing: 0.03571428571em;
+}
+
+//Icons in buttons
+.mat-mdc-button-base .mdc-button__label, .mat-mdc-menu-item .mdc-list-item__primary-text {
+  > *, & {
+    vertical-align: middle;
+  }
+
+  > .mat-icon, > .ngx-icon, > i {
+    font-size: 1.125rem;
+
+    &:first-child:not(:last-child) {
+      margin-right: 8px;
+    }
+
+    &:last-child:not(:first-child) {
+      margin-left: 8px;
+    }
+  }
+}
+//</editor-fold>

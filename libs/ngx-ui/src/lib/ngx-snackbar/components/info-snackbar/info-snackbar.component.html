@@ -1,0 +1,21 @@
+<div class="band"></div>
+
+<div class="content">
+  <div class="column">
+    <p *ngIf="data.title" class="title">{{ data.title }}</p>
+
+    <p class="message-text">
+      {{ data.message }}
+      <ngx-button *ngIf="canCopy" class="action placeholder">Copy to clipboard</ngx-button>
+    </p>
+
+    <ngx-button *ngIf="canCopy" class="action floating" (click)="copy()" (pointerdown)="$event.stopPropagation()">
+      Copy to clipboard
+    </ngx-button>
+
+  </div>
+
+  <ngx-icon-button class="dismiss" alias="close" (click)="dismiss()"/>
+
+  <div class="timer" #timer></div>
+</div>

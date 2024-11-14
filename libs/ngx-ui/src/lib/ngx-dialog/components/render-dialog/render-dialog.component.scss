@@ -1,0 +1,112 @@
+@use "libs/ngx-tools/styles/variables" as *;
+
+:host {
+  display: flex;
+  flex-flow: column;
+  align-items: center;
+  justify-content: center;
+  position: fixed;
+  left: 0;
+  top: 0;
+  height: 100%;
+  width: 100%;
+}
+
+.background {
+  position: absolute;
+  left: 0;
+  top: 0;
+  right: 0;
+  bottom: 0;
+
+  :host.closable & {
+    cursor: pointer;
+  }
+}
+
+.popup {
+  position: relative;
+  z-index: 1;
+}
+
+:host.ngx-dialog-default {
+
+  .background {
+    background-color: rgba(black, 0.4);
+  }
+
+  .popup {
+    display: flex;
+    flex-flow: column;
+    background-color: $foreground;
+    border-radius: 4px;
+    min-width: min(320px, 95%);
+    max-width: min(500px, 95%);
+    max-height: 80%;
+    overflow: hidden;
+  }
+
+  .header {
+    padding: 24px 24px 0 24px;
+    font-size: 1.3rem;
+    font-weight: bold;
+    overflow: hidden;
+    flex-shrink: 0;
+  }
+
+  .popup-content {
+    display: flex;
+    flex-flow: column;
+    align-items: stretch;
+    font-size: 1rem;
+    padding: 24px;
+    color: $text-color-400;
+    background-color: transparent;
+    overflow: hidden;
+  }
+
+  .footer {
+    padding: 8px;
+    display: flex;
+    flex-flow: row;
+    justify-content: flex-end;
+    flex-shrink: 0;
+
+    &:empty {
+      display: none;
+    }
+
+    button:not(:first-child) {
+      margin-left: 8px;
+    }
+  }
+
+}
+
+//<editor-fold desc="Modifiers">
+:host.closable {
+  .background {
+    cursor: pointer;
+  }
+}
+
+:host.scrollable {
+  .popup .popup-content {
+    overflow-y: auto;
+    overflow-scrolling: touch;
+    flex-shrink: 1;
+
+    &::-webkit-scrollbar-track {
+      background-color: transparent;
+    }
+
+    &::-webkit-scrollbar {
+      width: 4px;
+    }
+
+    &::-webkit-scrollbar-thumb {
+      background: $background;
+    }
+  }
+}
+//</editor-fold>

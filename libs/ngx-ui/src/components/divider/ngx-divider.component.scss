@@ -1,0 +1,8 @@
+@use "libs/ngx-tools/styles/variables" as *;
+
+:host {
+  display: block;
+  margin: 0;
+  border-top: 1px solid;
+  border-color: $text-color-100;
+}

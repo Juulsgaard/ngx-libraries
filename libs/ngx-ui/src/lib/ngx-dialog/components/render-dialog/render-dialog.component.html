@@ -1,0 +1,29 @@
+<div class="background ngx-fade" (click)="onClose()"></div>
+
+<div class="popup ngx-move-up">
+
+    <div class="header" *ngIf="header() as header">{{ header }}</div>
+
+    <div class="popup-content" *ngIf="plainDescription">
+        <p>{{ plainDescription }}</p>
+    </div>
+
+    <div class="popup-content" *ngIf="htmlDescription" [innerHTML]="htmlDescription"></div>
+
+    <div class="popup-content" *ngIf="contentTemplate() as template" [ngxRender]="template"
+         [filter]="getNonFooters"></div>
+
+    <div class="footer" *ngIf="buttons">
+        @for (btn of buttons; track btn) {
+          <ngx-button (click)="btn.callback()" [color]="btn.color">
+            {{ btn.text }}
+          </ngx-button>
+        }
+    </div>
+
+    @if(footerTemplate(); as template) {
+        <div class="footer" [ngxRender]="template"></div>
+    } @else if(contentTemplate()) {
+        <div class="footer" [ngxRender]="contentTemplate()" [filter]="getFooters"></div>
+    }
+</div>

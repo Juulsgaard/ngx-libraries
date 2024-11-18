@@ -3,7 +3,7 @@ import {
   InputSignalWithTransform, Output
 } from '@angular/core';
 import {IconButtonComponent, UIScopeContext} from "@juulsgaard/ngx-material";
-import {elementClassManager} from "@juulsgaard/ngx-tools";
+import {setElementClasses} from "@juulsgaard/ngx-tools";
 import {MatRipple} from "@angular/material/core";
 import {NgIf} from "@angular/common";
 import {FormPage} from "@juulsgaard/ngx-forms-core";
@@ -44,6 +44,6 @@ export class FormHeaderComponent<T extends SimpleObject> {
 
   constructor() {
     const header = this.uiContext.registerHeader();
-    elementClassManager(computed(() => header().classes));
+    setElementClasses(computed(() => header().classes));
   }
 }

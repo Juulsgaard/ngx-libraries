@@ -5,7 +5,7 @@ import {fromEvent, merge, Subscription} from "rxjs";
 import {filter, first, map, tap} from "rxjs/operators";
 import {MatMenuTrigger} from "@angular/material/menu";
 
-@Directive({selector: '[contextMenu]', standalone: true})
+@Directive({selector: '[ngxContextMenu]', standalone: true})
 export class ContextMenuDirective implements OnDestroy {
 
   readonly trigger: InputSignal<MatMenuTrigger | undefined> = input<MatMenuTrigger|undefined>(undefined, {alias: 'contextMenu'});

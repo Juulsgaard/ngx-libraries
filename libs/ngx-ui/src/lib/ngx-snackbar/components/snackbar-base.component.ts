@@ -1,6 +1,5 @@
 import {ChangeDetectorRef, DestroyRef, Directive, ElementRef, HostBinding, inject, ViewChild} from "@angular/core";
 import {SnackbarContext} from "../models";
-import {PointerEvent} from "react";
 import {fromEvent, merge, Subject} from "rxjs";
 import {takeUntilDestroyed} from "@angular/core/rxjs-interop";
 
@@ -38,18 +37,18 @@ export abstract class SnackbarBaseComponent<T> {
   private swipeDismissed: 'left'|'right'|'none' = 'none';
 
   private registerGestures() {
-    fromEvent<PointerEvent<HTMLElement>>(this.element, 'pointerdown', {passive: true}).pipe(
+    fromEvent<PointerEvent>(this.element, 'pointerdown', {passive: true}).pipe(
       takeUntilDestroyed()
     ).subscribe(e => this.touchBegin(e));
 
-    fromEvent<PointerEvent<HTMLElement>>(this.element, 'pointermove', {passive: true}).pipe(
+    fromEvent<PointerEvent>(this.element, 'pointermove', {passive: true}).pipe(
       takeUntilDestroyed()
     ).subscribe(e => this.touchMove(e));
 
     merge(
-      fromEvent<PointerEvent<HTMLElement>>(this.element, 'pointerleave', {passive: true}),
-      fromEvent<PointerEvent<HTMLElement>>(this.element, 'pointerup', {passive: true}),
-      fromEvent<PointerEvent<HTMLElement>>(this.element, 'pointercancel', {passive: true}),
+      fromEvent<PointerEvent>(this.element, 'pointerleave', {passive: true}),
+      fromEvent<PointerEvent>(this.element, 'pointerup', {passive: true}),
+      fromEvent<PointerEvent>(this.element, 'pointercancel', {passive: true}),
     ).pipe(
       takeUntilDestroyed()
     ).subscribe(e => this.touchEnd(e));
@@ -61,14 +60,14 @@ export abstract class SnackbarBaseComponent<T> {
     ).subscribe(() => this._click$.next())
   }
 
-  private touchBegin(event: PointerEvent<HTMLElement>) {
+  private touchBegin(event: PointerEvent) {
     if (this.swipeDismissed !== 'none') return;
     if (this.gestureStart) return;
     this.elementWidth = this.element.clientWidth;
     this.gestureStart = new TouchPoint(event);
   }
 
-  private touchMove(event: PointerEvent<HTMLElement>) {
+  private touchMove(event: PointerEvent) {
     if (!this.gestureStart?.match(event)) return;
     const delta = this.gestureStart.distance(event);
     this.element.style.transform = `translateX(${delta.x}px)`;
@@ -81,7 +80,7 @@ export abstract class SnackbarBaseComponent<T> {
     }
   }
 
-  private touchEnd(event: PointerEvent<HTMLElement>) {
+  private touchEnd(event: PointerEvent) {
     if (!this.gestureStart) return;
     if (!this.gestureStart?.match(event)) return;
     const delta = this.gestureStart.distance(event);
@@ -148,7 +147,7 @@ class TouchPoint {
     return this.id === event.pointerId;
   }
 
-  distance(event: PointerEvent<HTMLElement>) {
+  distance(event: PointerEvent) {
     return {x: event.clientX - this.x, y: event.clientY - this.y}
   }
 

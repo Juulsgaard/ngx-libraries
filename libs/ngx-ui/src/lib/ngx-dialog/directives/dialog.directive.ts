@@ -11,7 +11,7 @@ import {TemplateDialogInstance} from "../models/template-dialog-context";
 import {RenderSource} from "@juulsgaard/ngx-tools";
 
 
-@Directive({selector: '[ngxDialog]'})
+@Directive({selector: '[ngxDialog]', standalone: true})
 export class DialogDirective implements OnDestroy, RenderSource {
 
   private defaults = inject(NgxDialogDefaults);

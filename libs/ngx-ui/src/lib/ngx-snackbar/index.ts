@@ -1,5 +1,5 @@
 
-export * from './snackbar-outlet.module';
+export * from './snackbar-provider';
 export * from './directives';
 export * from './models';
 export * from './services';

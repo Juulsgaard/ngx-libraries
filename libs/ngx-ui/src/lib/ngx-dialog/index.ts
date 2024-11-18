@@ -15,6 +15,3 @@ export* from "./models/static-dialog-context";
 
 export * from './components/dialog/dialog.component';
 
-export * from './ngx-dialog.module';
-export * from './ngx-dialog-outlet.module';
-

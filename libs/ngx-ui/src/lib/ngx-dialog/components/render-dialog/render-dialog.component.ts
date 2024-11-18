@@ -1,10 +1,9 @@
-import {ChangeDetectionStrategy, Component, effect, ElementRef, inject, signal, Signal} from '@angular/core';
-import {pairwise, startWith} from "rxjs";
+import {ChangeDetectionStrategy, Component, ElementRef, inject, signal, Signal} from '@angular/core';
 import {DIALOG_ANIMATE_IN, DIALOG_CONTEXT} from "../../models/dialog-tokens";
-import {overlayAnimation, TemplateRendering} from '@juulsgaard/ngx-tools'
+import {overlayAnimation, setElementClasses, TemplateRenderDirective, TemplateRendering} from '@juulsgaard/ngx-tools'
 import {StaticDialogButton, StaticDialogContext} from "../../models/static-dialog-context";
-import {toObservable} from "@angular/core/rxjs-interop";
-import {arrToSet} from "@juulsgaard/ts-tools";
+import {NgIf} from "@angular/common";
+import {ButtonComponent} from "../../../buttons";
 
 @Component({
   templateUrl: './render-dialog.component.html',
@@ -14,7 +13,13 @@ import {arrToSet} from "@juulsgaard/ts-tools";
     overlayAnimation(),
   ],
   host: {'[@overlay]': 'animate', '[class.ngx-dialog]': 'true'},
-  selector: 'ngx-dialog'
+  selector: 'ngx-dialog-render',
+  imports: [
+    NgIf,
+    TemplateRenderDirective,
+    ButtonComponent
+  ],
+  standalone: true
 })
 export class RenderDialogComponent {
 
@@ -59,37 +64,13 @@ export class RenderDialogComponent {
     this.contentTemplate = context.content;
     this.footerTemplate = context.footer;
 
-    effect(() => {
-      this.canClose = context.canClose();
-      this.element.classList.toggle('closable', this.canClose);
-    });
+    setElementClasses(() => ({
+      'closable': context.canClose(),
+      'scrollable': context.scrollable()
+    }));
 
-    effect(() => {
-      this.element.classList.toggle('scrollable', context.scrollable());
-    });
-
-    toObservable(context.type).pipe(
-      startWith(undefined),
-      pairwise(),
-    ).subscribe(([prev, next]) => {
-      if (prev === next) return;
-      if (prev) this.element.classList.remove(prev);
-      if (next) this.element.classList.add(next);
-    });
-
-    toObservable(context.styles).pipe(
-      startWith([] as string[]),
-      pairwise()
-    ).subscribe(([prev, next]) => {
-      const old = arrToSet(prev);
-      for (let c of next) {
-        this.element.classList.add(c);
-        old.delete(c);
-      }
-      for (let c of old) {
-        this.element.classList.remove(c);
-      }
-    });
+    setElementClasses(context.type);
+    setElementClasses(context.styles);
   }
 
   onClose() {

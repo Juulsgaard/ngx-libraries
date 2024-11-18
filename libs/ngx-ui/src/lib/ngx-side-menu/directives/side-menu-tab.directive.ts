@@ -9,7 +9,8 @@ import {isString} from "@juulsgaard/ts-tools";
 
 @Directive({
   selector: '[ngxMenuTab]',
-  providers: [{provide: NgxSideMenuTabContext, useExisting: forwardRef(() => SideMenuTabDirective)}]
+  providers: [{provide: NgxSideMenuTabContext, useExisting: forwardRef(() => SideMenuTabDirective)}],
+  standalone: true
 })
 export class SideMenuTabDirective extends NgxSideMenuTabContext implements RenderSource {
 
@@ -34,6 +35,6 @@ export class SideMenuTabDirective extends NgxSideMenuTabContext implements Rende
 
   readonly source = signal(this);
 
-  readonly template = inject(TemplateRef<{}>);
+  readonly template = inject(TemplateRef<void>);
   readonly viewContainer = inject(ViewContainerRef);
 }

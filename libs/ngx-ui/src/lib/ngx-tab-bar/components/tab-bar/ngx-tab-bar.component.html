@@ -1,5 +1,5 @@
 
-<nav mat-tab-nav-bar mat-stretch-tabs color="primary" [tabPanel]="panel" uiHeader>
+<nav mat-tab-nav-bar [mat-stretch-tabs]="true" color="primary" [tabPanel]="panel" uiHeader>
     @for (tab of tabs(); track tab) {
 
         <a mat-tab-link *ngIf="!tab.hide()" (click)="clickTab(tab)"

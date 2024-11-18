@@ -9,5 +9,8 @@
   },
   "assets": [
     "./styles/**/*.scss"
+  ],
+  "allowedNonPeerDependencies": [
+    "@ctrl/tinycolor"
   ]
 }

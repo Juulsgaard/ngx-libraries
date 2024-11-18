@@ -12,7 +12,11 @@ import {isString} from "@juulsgaard/ts-tools";
   templateUrl: './side-menu-tab.component.html',
   styleUrls: ['./side-menu-tab.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
-  providers: [{provide: NgxSideMenuTabContext, useExisting: forwardRef(() => SideMenuTabComponent)}]
+  providers: [{provide: NgxSideMenuTabContext, useExisting: forwardRef(() => SideMenuTabComponent)}],
+  imports: [
+    RenderSourceDirective
+  ],
+  standalone: true
 })
 export class SideMenuTabComponent extends NgxSideMenuTabContext {
 

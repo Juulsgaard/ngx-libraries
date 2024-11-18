@@ -6,8 +6,18 @@
   "version": "18.0.0",
   "peerDependencies": {
     "@angular/core": "^18.2.0",
+    "@angular/common": "^18.2.0",
+    "@angular/material": "^18.2.0",
+    "@angular/cdk": "^18.2.0",
+    "@angular/router": "^18.2.0",
     "@juulsgaard/ts-tools": "^1.6.7",
-    "@juulsgaard/ngx-tools": "^18.1.0"
+    "@juulsgaard/rxjs-tools": "^1.7.6",
+    "@juulsgaard/signal-tools": "^18.0.5",
+    "@juulsgaard/ngx-tools": "^18.1.0",
+    "rxjs": "^7.8.1"
+  },
+  "dependencies": {
+    "@ctrl/tinycolor": "^4.1.0"
   },
   "exports": {
     ".": {

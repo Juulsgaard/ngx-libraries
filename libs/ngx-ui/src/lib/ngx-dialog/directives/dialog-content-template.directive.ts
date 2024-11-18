@@ -1,7 +1,7 @@
 import {Directive, TemplateRef, ViewContainerRef} from '@angular/core';
 import {RenderSource} from "@juulsgaard/ngx-tools";
 
-@Directive({selector: '[dialog-content-tmpl]'})
+@Directive({selector: '[ngxDialogContentTmpl]', standalone: true})
 export class DialogContentTemplateDirective implements RenderSource {
 
   constructor(

@@ -7,7 +7,8 @@ import {BASE_OVERLAY_PROVIDERS, CUSTOM_OVERLAY_PROVIDERS, OVERLAY_ANIMATE_IN} fr
 import {OverlayContext} from "../models/overlay-context";
 import {takeUntilDestroyed} from "@angular/core/rxjs-interop";
 
-@Directive({selector: 'ngx-overlay-outlet'})
+// eslint-disable-next-line @angular-eslint/directive-selector
+@Directive({selector: 'ngx-overlay-outlet', standalone: true})
 export class OverlayOutletDirective {
 
   private component?: ComponentRef<RenderOverlayComponent>;

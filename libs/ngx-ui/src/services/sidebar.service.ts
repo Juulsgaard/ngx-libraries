@@ -1,30 +1,36 @@
-import {BehaviorSubject} from "rxjs";
-import {Provider, Type} from "@angular/core";
-import {subjectToSignal} from "@juulsgaard/signal-tools";
+import {Provider, Signal, signal, Type, untracked} from "@angular/core";
 
 export class SidebarService {
 
-  public static Provide(service?: Type<SidebarService>): Provider {
-    if (!service) return {provide: SidebarService};
-    return {provide: SidebarService, useClass: service};
+  private readonly _shown = signal(false)
+  readonly shown: Signal<boolean> = this._shown.asReadonly();
+
+  show() {
+    this._shown.set(true);
   }
 
-  private _show$ = new BehaviorSubject(false);
-  show$ = this._show$.asObservable();
-  showSignal = subjectToSignal(this._show$);
-
-  get show() {return this.showSignal()}
-  set show(show: boolean) {this._show$.next(show)}
+  hide() {
+    this._shown.set(false);
+  }
 
   toggle(show?: boolean) {
-    if (this.show) {
+    if (untracked(this.shown)) {
       if (show === true) return;
-      this.show = false;
+      this.hide();
       return;
     }
 
     if (show === false) return;
-    this.show = true;
+    this.show();
   }
 
+}
+
+export function provideSidebarService(service?: Type<SidebarService>): Provider[] {
+  if (!service) return [{provide: SidebarService}];
+
+  return [
+    service,
+    {provide: SidebarService, useExisting: service},
+  ];
 }

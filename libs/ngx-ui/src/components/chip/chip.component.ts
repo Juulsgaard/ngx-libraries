@@ -1,5 +1,5 @@
 import {
-  ChangeDetectionStrategy, Component, effect, ElementRef, EventEmitter, input, InputSignal, Output, ViewChild
+  ChangeDetectionStrategy, Component, effect, ElementRef, EventEmitter, input, InputSignal, Output, viewChild
 } from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {IconButtonComponent} from "../../lib/buttons";
@@ -37,9 +37,9 @@ export class ChipComponent {
     });
   }
 
-  @ViewChild('remove', {static: false}) removeElement?: IconButtonComponent;
+  readonly removeElement = viewChild<IconButtonComponent>('remove');
   focusRemove() {
-    this.removeElement?.focus();
+    this.removeElement()?.focus();
   }
 
 }

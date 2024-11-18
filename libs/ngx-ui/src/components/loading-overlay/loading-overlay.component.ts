@@ -1,6 +1,6 @@
 import {ChangeDetectionStrategy, Component, input, InputSignal} from '@angular/core';
 import {MatProgressSpinnerModule} from "@angular/material/progress-spinner";
-import {elementClassManager} from "@juulsgaard/ngx-tools";
+import {setElementClasses} from "@juulsgaard/ngx-tools";
 
 @Component({
   selector: 'ngx-loading-overlay',
@@ -17,7 +17,7 @@ export class LoadingOverlayComponent {
   readonly type: InputSignal<"content" | "fixed" | "absolute"> = input<'content'|'fixed'|'absolute'>('fixed');
 
   constructor() {
-    elementClassManager(this.type);
+    setElementClasses(this.type);
   }
 
 }

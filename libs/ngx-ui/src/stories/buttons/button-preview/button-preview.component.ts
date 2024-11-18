@@ -1,6 +1,7 @@
 import {ChangeDetectionStrategy, Component} from '@angular/core';
 import {CommonModule} from '@angular/common';
-import {ButtonComponent, IconButtonComponent, IconDirective} from "@juulsgaard/ngx-ui";
+import {IconDirective} from '../../../lib/icon/directives/icon.directive';
+import {ButtonComponent, IconButtonComponent} from "../../../lib/buttons";
 
 @Component({
   selector: 'ngx-button-preview',

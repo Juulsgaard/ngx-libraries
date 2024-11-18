@@ -2,13 +2,16 @@ import {
   ChangeDetectionStrategy, Component, computed, contentChildren, effect, forwardRef, inject, Injector, input,
   InputSignal, InputSignalWithTransform, model, ModelSignal, signal, Signal
 } from '@angular/core';
-import {ActivatedRoute} from "@angular/router";
+import {ActivatedRoute, RouterLink} from "@angular/router";
 import {NgxTabBarContext, NgxTabContext} from "../../services";
-import {elementClassManager, ScopedRouter, scopedRouterAttribute} from "@juulsgaard/ngx-tools";
+import {ScopedRouter, scopedRouterAttribute, setElementClasses} from "@juulsgaard/ngx-tools";
 import {INavTab} from "../../models/nav-tab.interface";
 import {UIScopeContext} from "../../../../models";
 import {toSignal} from "@angular/core/rxjs-interop";
 import {TabBarUIScopeContext} from "../../services/tab-bar-ui-scope.context";
+import {MatTabLink, MatTabNav, MatTabNavPanel} from "@angular/material/tabs";
+import {UiHeaderDirective, UiWrapperDirective} from "../../../../directives";
+import {NgIf} from "@angular/common";
 
 @Component({
   selector: 'ngx-tab-bar',
@@ -18,7 +21,17 @@ import {TabBarUIScopeContext} from "../../services/tab-bar-ui-scope.context";
     {provide: NgxTabBarContext, useExisting: forwardRef(() => NgxTabBarComponent)},
     {provide: UIScopeContext, useClass: TabBarUIScopeContext}
   ],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  imports: [
+    MatTabNav,
+    UiHeaderDirective,
+    MatTabLink,
+    NgIf,
+    UiWrapperDirective,
+    MatTabNavPanel,
+    RouterLink,
+  ],
+  standalone: true
 })
 export class NgxTabBarComponent extends NgxTabBarContext {
 
@@ -27,7 +40,7 @@ export class NgxTabBarComponent extends NgxTabBarContext {
 
   readonly children = contentChildren(NgxTabContext, {descendants: false});
   readonly tabs = computed(() => {
-    let tabs = this.children();
+    const tabs = this.children();
     return tabs.filter(t => !t.disabled());
   });
   readonly tab: Signal<NgxTabContext|undefined>;
@@ -57,7 +70,7 @@ export class NgxTabBarComponent extends NgxTabBarContext {
 
     const context = inject(UIScopeContext, {skipSelf: true});
     const wrapper = context.registerWrapper();
-    elementClassManager(computed(() => wrapper().classes));
+    setElementClasses(computed(() => wrapper().classes));
 
     this.tab = computed(() => {
       const tabs = this.tabs();

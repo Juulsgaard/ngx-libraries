@@ -5,7 +5,8 @@ import {ChangeDetectionStrategy, Component} from '@angular/core';
   templateUrl: './ngx-list.component.html',
   styleUrls: ['./ngx-list.component.scss'],
   host: {'[class.ngx-list]': 'true'},
-  changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  standalone: true
 })
 export class NgxListComponent {
 

@@ -37,7 +37,7 @@ module.exports = [
           prefix: 'ngx',
           style: 'kebab-case',
         },
-      ],
+      ]
     },
   },
   {

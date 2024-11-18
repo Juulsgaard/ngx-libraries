@@ -3,12 +3,20 @@ import {
   viewChild, viewChildren
 } from '@angular/core';
 import {BaseMultiSelectInputComponent, FormSelectValue, NgxInputDirective} from "@juulsgaard/ngx-forms";
-import {harmonicaAnimation, NgxDragEvent, NgxDragService, NoClickBubbleDirective} from "@juulsgaard/ngx-tools";
-import {MatAutocompleteSelectedEvent, MatAutocompleteTrigger} from "@angular/material/autocomplete";
+import {
+  harmonicaAnimation, NgxDragEvent, NgxDragModule, NgxDragService, NoClickBubbleDirective
+} from "@juulsgaard/ngx-tools";
+import {
+  MatAutocomplete, MatAutocompleteOrigin, MatAutocompleteSelectedEvent, MatAutocompleteTrigger, MatOption
+} from "@angular/material/autocomplete";
 import {MatFormField, MatLabel, MatSuffix} from "@angular/material/input";
-import Fuse from "fuse.js";
 import {arrToSet, isString} from "@juulsgaard/ts-tools";
 import {FormInputErrorsComponent} from "../../components";
+import {MatTooltip} from "@angular/material/tooltip";
+import {ChipComponent, IconDirective} from "@juulsgaard/ngx-ui";
+import {NgIf} from "@angular/common";
+import {throttledSignal} from "@juulsgaard/signal-tools";
+import Fuse from "fuse.js";
 
 @Component({
   selector: 'form-tag-list-input',
@@ -22,7 +30,16 @@ import {FormInputErrorsComponent} from "../../components";
     NoClickBubbleDirective,
     ChipComponent,
     FormInputErrorsComponent,
-    NgxInputDirective
+    NgxInputDirective,
+    MatTooltip,
+    IconDirective,
+    NgIf,
+    MatAutocompleteOrigin,
+    ChipComponent,
+    NgxDragModule,
+    MatAutocompleteTrigger,
+    MatAutocomplete,
+    MatOption
   ],
   providers: [NgxDragService],
   animations: [harmonicaAnimation()],
@@ -46,7 +63,7 @@ export class TagListInputComponent<TItem> extends BaseMultiSelectInputComponent<
   constructor() {
     super();
 
-    const query = throttleSignal(this.query, 500);
+    const query = throttledSignal(this.query, 500);
     const blacklist = computed(() => arrToSet(this.value));
 
     const searcher = new Fuse<FormSelectValue<TItem, string>>(

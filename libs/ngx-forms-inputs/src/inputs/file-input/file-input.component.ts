@@ -4,6 +4,7 @@ import {FileDropDirective, FileSizePipe} from "@juulsgaard/ngx-tools";
 import {NgIf} from "@angular/common";
 import {FormInputErrorsComponent} from "../../components";
 import {ButtonComponent, IconDirective} from "@juulsgaard/ngx-ui";
+import {MatTooltip} from "@angular/material/tooltip";
 
 @Component({
   selector: 'form-file-input',
@@ -20,7 +21,8 @@ import {ButtonComponent, IconDirective} from "@juulsgaard/ngx-ui";
     IconDirective,
     FormInputErrorsComponent,
     IconDirective,
-    ButtonComponent
+    ButtonComponent,
+    MatTooltip
   ],
   providers: []
 })

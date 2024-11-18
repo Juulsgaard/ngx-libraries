@@ -5,10 +5,10 @@ import {
 import {BaseInputComponent, NgxInputDirective} from '@juulsgaard/ngx-forms';
 import {fromEvent} from "rxjs";
 import {filter} from "rxjs/operators";
-import {IconDirective, NoClickBubbleDirective} from "@juulsgaard/ngx-tools";
+import {NoClickBubbleDirective} from "@juulsgaard/ngx-tools";
 import {MatFormField, MatPrefix, MatSuffix} from "@angular/material/input";
-import {IconButtonComponent} from "@juulsgaard/ngx-material";
 import {takeUntilDestroyed} from "@angular/core/rxjs-interop";
+import {IconButtonComponent, IconDirective} from "@juulsgaard/ngx-ui";
 
 
 @Component({
@@ -23,18 +23,20 @@ import {takeUntilDestroyed} from "@angular/core/rxjs-interop";
     MatPrefix,
     MatSuffix,
     IconButtonComponent,
-    NgxInputDirective
+    NgxInputDirective,
+    IconButtonComponent,
+    IconDirective
   ],
   standalone: true
 })
 export class SearchInputComponent extends BaseInputComponent<string, string|undefined> {
 
-  @Output() submit = new EventEmitter<string|undefined>();
+  @Output() submitted = new EventEmitter<string|undefined>();
 
   @HostListener('keydown.enter', ['$event'])
   onEnter() {
-    if (!this.submit.observed) return;
-    this.submit.emit(this.externalValue());
+    if (!this.submitted.observed) return;
+    this.submitted.emit(this.externalValue());
   }
 
   @HostListener('keydown.escape', ['$event'])

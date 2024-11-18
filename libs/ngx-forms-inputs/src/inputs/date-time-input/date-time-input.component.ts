@@ -3,13 +3,12 @@ import {
 } from '@angular/core';
 import {BaseInputComponent, NgxInputDirective} from "@juulsgaard/ngx-forms";
 import {NgIf} from "@angular/common";
-import {harmonicaAnimation, IconDirective, NoClickBubbleDirective} from "@juulsgaard/ngx-tools";
+import {harmonicaAnimation, NoClickBubbleDirective} from "@juulsgaard/ngx-tools";
 import {MatFormField} from "@angular/material/form-field";
 import {MatTooltip} from "@angular/material/tooltip";
 import {DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE} from "@angular/material/core";
 import {DayjsDateAdapter, MAT_DAYJS_DATETIME_FORMATS} from "../../adapters/date-adapter";
 import {NgxMatTimepickerComponent} from "ngx-mat-timepicker";
-import {IconButtonComponent} from "@juulsgaard/ngx-material";
 import {MatDialog, MatDialogRef} from "@angular/material/dialog";
 import {DatePickerDialogComponent} from "../../components/date-picker-dialog/date-picker-dialog.component";
 import {Subscription} from "rxjs";
@@ -18,6 +17,7 @@ import utc from "dayjs/plugin/utc";
 import {DayjsHelper} from "../../helpers/dayjs-helper";
 import {MatLabel, MatPrefix} from "@angular/material/input";
 import {FormInputErrorsComponent} from "../../components";
+import {IconButtonComponent, IconDirective} from "@juulsgaard/ngx-ui";
 
 dayjs.extend(utc);
 
@@ -39,6 +39,8 @@ dayjs.extend(utc);
     NgxInputDirective,
     NgxMatTimepickerComponent,
     FormInputErrorsComponent,
+    IconDirective,
+    IconButtonComponent,
   ],
   changeDetection: ChangeDetectionStrategy.OnPush,
   providers: [

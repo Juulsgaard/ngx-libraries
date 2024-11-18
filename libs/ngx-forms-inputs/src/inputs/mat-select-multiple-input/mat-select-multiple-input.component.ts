@@ -1,9 +1,14 @@
 import {ChangeDetectionStrategy, Component} from '@angular/core';
-import {harmonicaAnimation, IconDirective} from "@juulsgaard/ngx-tools";
+import {harmonicaAnimation} from "@juulsgaard/ngx-tools";
 import {BaseMultiSelectInputComponent} from "@juulsgaard/ngx-forms";
 import {NgIf} from "@angular/common";
 import {FormInputErrorsComponent} from "../../components";
-import {ButtonComponent} from "@juulsgaard/ngx-material";
+import {MatFormField} from "@angular/material/form-field";
+import {ButtonComponent, IconDirective} from "@juulsgaard/ngx-ui";
+import {MatOption, MatSelect} from "@angular/material/select";
+import {MatTooltip} from "@angular/material/tooltip";
+import {FormsModule} from "@angular/forms";
+import {MatLabel} from "@angular/material/input";
 
 @Component({
   selector: 'form-mat-select-multiple',
@@ -15,7 +20,15 @@ import {ButtonComponent} from "@juulsgaard/ngx-material";
     NgIf,
     IconDirective,
     FormInputErrorsComponent,
-    ButtonComponent
+    ButtonComponent,
+    MatFormField,
+    MatLabel,
+    IconDirective,
+    MatSelect,
+    ButtonComponent,
+    MatOption,
+    MatTooltip,
+    FormsModule
   ],
   standalone: true
 })

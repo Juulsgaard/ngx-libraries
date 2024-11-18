@@ -21,6 +21,9 @@
     "@juulsgaard/signal-tools": "18.0.6",
     "@juulsgaard/ts-tools": "1.6.7",
     "dayjs": "^1.11.13",
+    "fuse.js": "^7.0.0",
+    "ngx-colors": "^3.6.0",
+    "ngx-mat-timepicker": "^18.0.0",
     "rxjs": "~7.8.0",
     "tslib": "2.6.3",
     "zone.js": "~0.14.3"

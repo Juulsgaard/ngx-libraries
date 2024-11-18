@@ -1,6 +1,6 @@
 import {ChangeDetectionStrategy, Component, inject, Injector, signal, WritableSignal} from '@angular/core';
 import dayjs, {Dayjs} from "dayjs";
-import {harmonicaAnimation, IconDirective, NoClickBubbleDirective} from "@juulsgaard/ngx-tools";
+import {harmonicaAnimation, NoClickBubbleDirective} from "@juulsgaard/ngx-tools";
 import {DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE} from "@angular/material/core";
 import {DayjsDateAdapter, MAT_DAYJS_DATE_FORMATS} from "../../adapters/date-adapter";
 import {BaseInputComponent, NgxInputDirective} from '@juulsgaard/ngx-forms';
@@ -8,10 +8,11 @@ import {NgIf} from "@angular/common";
 import {MatFormField, MatLabel, MatPrefix} from "@angular/material/input";
 import {FormInputErrorsComponent} from "../../components";
 import {DayjsHelper} from "../../helpers/dayjs-helper";
-import {IconButtonComponent} from "@juulsgaard/ngx-material";
 import {MatDialog, MatDialogRef} from "@angular/material/dialog";
 import {DatePickerDialogComponent} from "../../components/date-picker-dialog/date-picker-dialog.component";
 import {Subscription} from "rxjs";
+import {IconButtonComponent, IconDirective} from "@juulsgaard/ngx-ui";
+import {MatTooltip} from "@angular/material/tooltip";
 
 @Component({
   selector: 'form-date-input',
@@ -29,7 +30,10 @@ import {Subscription} from "rxjs";
     MatLabel,
     MatPrefix,
     IconButtonComponent,
-    NoClickBubbleDirective
+    NoClickBubbleDirective,
+    IconDirective,
+    MatTooltip,
+    IconButtonComponent
   ],
   providers: [
     {
@@ -109,7 +113,7 @@ export class DateInputComponent extends BaseInputComponent<Date, Dayjs | undefin
     );
 
     this.datePickerSub.add(
-      this.datePickerRef.afterClosed().subscribe(val => this.datePickerRef = undefined)
+      this.datePickerRef.afterClosed().subscribe(() => this.datePickerRef = undefined)
     );
   }
 }

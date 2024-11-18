@@ -7376,6 +7376,11 @@ function-bind@^1.1.2:
   resolved "https://registry.yarnpkg.com/function-bind/-/function-bind-1.1.2.tgz#2c02d864d97f3ea6c8830c464cbd11ab6eab7a1c"
   integrity sha512-7XHNxH7qX9xG5mIwxkhumTox/MIRNcOgDrxWsMt2pAr23WHp6MrRlN7FBSFpCpr+oVO0F744iUgR82nJMfG2SA==
 
+fuse.js@^7.0.0:
+  version "7.0.0"
+  resolved "https://registry.yarnpkg.com/fuse.js/-/fuse.js-7.0.0.tgz#6573c9fcd4c8268e403b4fc7d7131ffcf99a9eb2"
+  integrity sha512-14F4hBIxqKvD4Zz/XjDc3y94mNZN6pRv3U13Udo0lNLCWRBUsrMv2xwcF/y/Z5sV6+FQW+/ow68cHpm4sunt8Q==
+
 gensync@^1.0.0-beta.2:
   version "1.0.0-beta.2"
   resolved "https://registry.yarnpkg.com/gensync/-/gensync-1.0.0-beta.2.tgz#32a6ee76c3d7f52d46b2b1ae5d93fea8580a25e0"
@@ -9558,6 +9563,21 @@ ng-packagr@~18.2.0:
     sass "^1.69.5"
   optionalDependencies:
     rollup "^4.18.0"
+
+ngx-colors@^3.6.0:
+  version "3.6.0"
+  resolved "https://registry.yarnpkg.com/ngx-colors/-/ngx-colors-3.6.0.tgz#194313ad413dd90a53bd118c0318c46ebfc66780"
+  integrity sha512-jPFzosd7t7YHKqKTBbOxdAF67aevBTiv0UdS0i7umWQMdMfi0lwcNTrL8XLhW2YbIpy98r54zWgc0iZH5FpiZA==
+  dependencies:
+    tslib "^2.0.0"
+
+ngx-mat-timepicker@^18.0.0:
+  version "18.0.0"
+  resolved "https://registry.yarnpkg.com/ngx-mat-timepicker/-/ngx-mat-timepicker-18.0.0.tgz#c6c72e629c186f7caee2299ef4b661dc1b79d33b"
+  integrity sha512-WrvNW/Z0PhljybPMfhwKa0tVHlSCb6eK+GwUmhkA04D2aCSZ6lFHoHwtMfp6eL5eJa1kCsmS75EmikhNQhS3lg==
+  dependencies:
+    ts-luxon "^4.3.2"
+    tslib "^2.5.2"
 
 nice-napi@^1.0.2:
   version "1.0.2"
@@ -11877,6 +11897,11 @@ ts-loader@^9.3.1:
     semver "^7.3.4"
     source-map "^0.7.4"
 
+ts-luxon@^4.3.2:
+  version "4.6.2"
+  resolved "https://registry.yarnpkg.com/ts-luxon/-/ts-luxon-4.6.2.tgz#5efb442aeee2414c38ba0642753172ba6d5898d2"
+  integrity sha512-I35AoZtDQ0O49rJh7tNyECISB6nhtdOzeFZSZzIxWSSUwnmgPOJK2wZr3fK0WVmKcmWPvDGSa+GKwWXFs4prjA==
+
 ts-node@10.9.1:
   version "10.9.1"
   resolved "https://registry.yarnpkg.com/ts-node/-/ts-node-10.9.1.tgz#e73de9102958af9e1f0b168a6ff320e25adcff4b"
@@ -11928,7 +11953,7 @@ tslib@2.6.3:
   resolved "https://registry.yarnpkg.com/tslib/-/tslib-2.6.3.tgz#0438f810ad7a9edcde7a241c3d80db693c8cbfe0"
   integrity sha512-xNvxJEOUiWPGhUuUdQgAJPKOOJfGnIyKySOc09XkKsgdUV/3E2zvwZYdejjmRgPCgcym1juLH3226yA7sEFJKQ==
 
-tslib@^2.0.0, tslib@^2.0.1, tslib@^2.0.3, tslib@^2.1.0, tslib@^2.3.0, tslib@^2.4.0, tslib@^2.6.2, tslib@^2.6.3, tslib@^2.8.0, tslib@^2.8.1:
+tslib@^2.0.0, tslib@^2.0.1, tslib@^2.0.3, tslib@^2.1.0, tslib@^2.3.0, tslib@^2.4.0, tslib@^2.5.2, tslib@^2.6.2, tslib@^2.6.3, tslib@^2.8.0, tslib@^2.8.1:
   version "2.8.1"
   resolved "https://registry.yarnpkg.com/tslib/-/tslib-2.8.1.tgz#612efe4ed235d567e8aba5f2a5fab70280ade83f"
   integrity sha512-oJFu94HQb+KVduSUQL7wnpmqnfmLsOA/nAh6b6EH0wCEoK0/mPeXU6c3wKDV83MkOuHPRHtSXKKU99IBazS/2w==

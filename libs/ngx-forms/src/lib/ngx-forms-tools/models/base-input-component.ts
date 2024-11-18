@@ -1,6 +1,6 @@
 import {
-  booleanAttribute, computed, Directive, effect, ElementRef, HostBinding, inject, input, InputSignal,
-  InputSignalWithTransform, model, ModelSignal, OnInit, Signal, signal, viewChild, viewChildren, WritableSignal
+  afterNextRender, booleanAttribute, computed, Directive, effect, ElementRef, HostBinding, inject, input, InputSignal,
+  InputSignalWithTransform, model, ModelSignal, Signal, signal, viewChild, viewChildren, WritableSignal
 } from "@angular/core";
 import {EMPTY, Observable, OperatorFunction, Subject, Subscribable, Subscription, switchMap} from "rxjs";
 import {NgModel} from "@angular/forms";
@@ -14,7 +14,7 @@ import {ScrollContext} from "@juulsgaard/ngx-tools";
 import {scrollToElement} from "@juulsgaard/ts-tools";
 
 @Directive()
-export abstract class BaseInputComponent<TIn, TVal> implements OnInit {
+export abstract class BaseInputComponent<TIn, TVal> {
 
     @HostBinding('class.ngx-form-input') private baseClass = true;
 
@@ -250,12 +250,10 @@ export abstract class BaseInputComponent<TIn, TVal> implements OnInit {
           switchMap(x => x?.actions$ ?? EMPTY),
           takeUntilDestroyed()
         ).subscribe(action => this.handleAction(action));
-    }
 
-    ngOnInit() {
-        if (this.autofocus()) {
-            setTimeout(() => this.focus());
-        }
+        afterNextRender(() => {
+          if (this.autofocus()) this.focus()
+        });
     }
 
     //<editor-fold desc="Actions">

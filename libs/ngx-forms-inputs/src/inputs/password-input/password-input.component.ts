@@ -3,9 +3,9 @@ import {BaseInputComponent, NgxInputDirective} from '@juulsgaard/ngx-forms';
 import {harmonicaAnimation, NoClickBubbleDirective} from "@juulsgaard/ngx-tools";
 import {NgIf} from "@angular/common";
 import {MatFormField, MatLabel, MatSuffix} from "@angular/material/input";
-import {IconButtonComponent} from "@juulsgaard/ngx-material";
 import {FormInputErrorsComponent} from "../../components";
-import {IconDirective} from "@juulsgaard/ngx-ui";
+import {IconButtonComponent, IconDirective} from "@juulsgaard/ngx-ui";
+import {MatTooltip} from "@angular/material/tooltip";
 
 
 @Component({
@@ -23,7 +23,9 @@ import {IconDirective} from "@juulsgaard/ngx-ui";
     NoClickBubbleDirective,
     IconButtonComponent,
     FormInputErrorsComponent,
-    NgxInputDirective
+    NgxInputDirective,
+    MatTooltip,
+    IconButtonComponent
   ],
   standalone: true
 })
@@ -35,7 +37,7 @@ export class PasswordInputComponent extends BaseInputComponent<string, string|un
     super();
   }
 
-  toggleShow(event: MouseEvent) {
+  toggleShow() {
     this.showPassword.update(x => !x);
     this.inputElement()?.focus();
   }

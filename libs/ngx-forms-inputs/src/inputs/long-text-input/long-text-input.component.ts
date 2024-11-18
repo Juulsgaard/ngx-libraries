@@ -1,10 +1,12 @@
 import {ChangeDetectionStrategy, Component} from '@angular/core';
 import {BaseInputComponent, NgxInputDirective} from '@juulsgaard/ngx-forms';
-import {harmonicaAnimation, IconDirective} from "@juulsgaard/ngx-tools";
+import {harmonicaAnimation} from "@juulsgaard/ngx-tools";
 import {NgIf} from "@angular/common";
 import {MatFormField, MatLabel, MatSuffix} from "@angular/material/input";
 import {FormInputErrorsComponent} from "../../components";
 import {CdkTextareaAutosize} from "@angular/cdk/text-field";
+import {MatTooltip} from "@angular/material/tooltip";
+import {IconDirective} from "@juulsgaard/ngx-ui";
 
 @Component({
   selector: 'form-long-text-input',
@@ -21,7 +23,9 @@ import {CdkTextareaAutosize} from "@angular/cdk/text-field";
     MatSuffix,
     FormInputErrorsComponent,
     NgxInputDirective,
-    CdkTextareaAutosize
+    CdkTextareaAutosize,
+    MatTooltip,
+    IconDirective
   ],
   providers: []
 })

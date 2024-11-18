@@ -1,4 +1,4 @@
-import {ApplicationRef, computed, NgZone, signal, Signal} from '@angular/core';
+import {ApplicationRef, computed, inject, NgZone, signal, Signal} from '@angular/core';
 import {SwUpdate} from "@angular/service-worker";
 import {filter, first, map, tap} from "rxjs/operators";
 import {toSignal} from "@angular/core/rxjs-interop";
@@ -6,46 +6,46 @@ import {toSignal} from "@angular/core/rxjs-interop";
 export class ServiceWorkerService {
 
   /** The app is in a broken state */
-  brokenState: Signal<boolean>;
+  readonly brokenState: Signal<boolean>;
   /** The app has an active SW */
-  serviceWorkerReady: Signal<boolean>;
+  readonly serviceWorkerReady: Signal<boolean>;
   /** A new version is ready for install */
-  updateReady: Signal<boolean>;
+  readonly updateReady: Signal<boolean>;
   /** New version is downloading */
-  downloading: Signal<boolean>;
+  readonly downloading: Signal<boolean>;
 
   /** The user can check for updates manually */
-  canCheckForUpdate: Signal<boolean>;
+  readonly canCheckForUpdate: Signal<boolean>;
   /** The app is checking for updates */
-  checking: Signal<boolean>;
+  readonly checking: Signal<boolean>;
 
   /** True when the Service Worker is not in default state */
-  working: Signal<boolean>;
+  readonly working: Signal<boolean>;
+
+  private readonly workerUpdates = inject(SwUpdate);
+  private readonly appRef = inject(ApplicationRef);
+  private readonly zone = inject(NgZone);
 
   constructor(
-    private workerUpdates: SwUpdate,
-    private appRef: ApplicationRef,
-    private zone: NgZone,
     readonly enabled: boolean
   ) {
 
-    this.serviceWorkerReady = toSignal(appRef.isStable.pipe(
+    this.serviceWorkerReady = toSignal(this.appRef.isStable.pipe(
       first(x => x),
-      map(() => workerUpdates.isEnabled),
+      map(() => this.workerUpdates.isEnabled),
     ), {initialValue: false});
 
-
-    this.updateReady = toSignal(workerUpdates.versionUpdates.pipe(
+    this.updateReady = toSignal(this.workerUpdates.versionUpdates.pipe(
       first(x => x.type === 'VERSION_READY'),
       map(() => true),
     ), {initialValue: false});
 
-    this.downloading = toSignal(workerUpdates.versionUpdates.pipe(
+    this.downloading = toSignal(this.workerUpdates.versionUpdates.pipe(
       filter(x => x.type === "VERSION_DETECTED" || x.type === "VERSION_READY"),
       map(x => x.type === "VERSION_DETECTED")
     ), {initialValue: false});
 
-    this.brokenState = toSignal(workerUpdates.unrecoverable.pipe(
+    this.brokenState = toSignal(this.workerUpdates.unrecoverable.pipe(
       first(),
       tap(e => console.error('Service worker reached an unrecoverable state:', e.reason)),
       map(() => true),

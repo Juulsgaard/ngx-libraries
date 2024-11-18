@@ -4,12 +4,9 @@ import {
 import {BaseInputComponent, NgxInputDirective} from '@juulsgaard/ngx-forms';
 import {harmonicaAnimation, IconDirective, NoClickBubbleDirective} from '@juulsgaard/ngx-tools';
 import {NgIf} from "@angular/common";
-import {MatIconModule} from "@angular/material/icon";
 import {MatFormField, MatLabel, MatPrefix, MatSuffix} from "@angular/material/input";
-import {MatTooltipModule} from "@angular/material/tooltip";
-import {NgxColorsColor, NgxColorsModule} from "ngx-colors";
+import {NgxColorsColor} from "ngx-colors";
 import {FormInputErrorsComponent} from "../../components";
-import {FormsModule} from "@angular/forms";
 
 @Component({
   selector: 'form-color-input',
@@ -20,17 +17,13 @@ import {FormsModule} from "@angular/forms";
   imports: [
     NoClickBubbleDirective,
     NgIf,
-    MatIconModule,
     IconDirective,
     MatFormField,
     MatLabel,
     MatPrefix,
     MatSuffix,
-    MatTooltipModule,
-    NgxColorsModule,
     FormInputErrorsComponent,
-    NgxInputDirective,
-    FormsModule
+    NgxInputDirective
   ],
   standalone: true
 })

@@ -8,19 +8,18 @@ export interface IScrollContext {
 
 @Injectable({providedIn: 'root', useClass: forwardRef(() => RootScrollContext)})
 export abstract class ScrollContext {
+  abstract scrollContainer: Signal<HTMLElement|undefined>;
+}
 
-  static Provide(getComponent: (() => Type<IScrollContext>)|Type<IScrollContext>): Provider {
-    return {provide: ScrollContext, useFactory: () => new ComponentScrollContext(getComponent)};
-  }
-
-  abstract scrollContainer: Signal<HTMLElement>;
+export function provideScrollContext(getComponent: (() => Type<IScrollContext>)|Type<IScrollContext>): Provider {
+  return {provide: ScrollContext, useFactory: () => new ComponentScrollContext(getComponent)};
 }
 
 export class ComponentScrollContext extends ScrollContext {
 
   component: IScrollContext;
   parent = inject(ScrollContext, {optional: true, skipSelf: true});
-  readonly scrollContainer: Signal<HTMLElement>;
+  readonly scrollContainer: Signal<HTMLElement|undefined>;
 
   constructor(getComponent: (() => Type<IScrollContext>)|Type<IScrollContext>) {
     super();
@@ -34,7 +33,7 @@ export class ComponentScrollContext extends ScrollContext {
         return this.component.element;
       }
 
-      return this.parent?.scrollContainer() ?? document.body;
+      return this.parent?.scrollContainer();
     });
   }
 }

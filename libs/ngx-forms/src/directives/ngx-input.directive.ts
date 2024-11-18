@@ -1,4 +1,4 @@
-import {Directive, effect, forwardRef, inject, NgZone} from '@angular/core';
+import {DestroyRef, Directive, effect, forwardRef, inject, NgZone} from '@angular/core';
 import {MAT_FORM_FIELD, MatFormFieldControl} from "@angular/material/form-field";
 import {fromEvent} from "rxjs";
 import {AutofillMonitor} from "@angular/cdk/text-field";
@@ -53,10 +53,8 @@ export class NgxInputDirective<T> extends NgxFormFieldDirective<T> {
       fromEvent(this.element, 'focus').pipe(takeUntilDestroyed()).subscribe(() => zone.run(() => this.onFocus()));
       fromEvent(this.element, 'blur').pipe(takeUntilDestroyed()).subscribe(() => zone.run(() => this.onBlur()));
     });
-  }
 
-  ngOnDestroy() {
-    this.autofillMonitor.stopMonitoring(this.element);
+    inject(DestroyRef).onDestroy(() => this.autofillMonitor.stopMonitoring(this.element));
   }
 
   focus(options: FocusOptions | undefined): void {

@@ -11,7 +11,7 @@ import {OVERLAY_ANIMATE_IN} from "../../models/overlay-tokens";
     overlayAnimation(),
   ],
   host: {'[@overlay]': 'animate', '[class.ngx-overlay]': 'true'},
-  selector: 'ngx-overlay',
+  selector: 'ngx-overlay-render',
   imports: [
     TemplateRenderDirective
   ],

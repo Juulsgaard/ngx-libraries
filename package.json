@@ -16,9 +16,11 @@
     "@angular/router": "~18.2.0",
     "@angular/service-worker": "~18.2.0",
     "@ctrl/tinycolor": "4.1.0",
+    "@juulsgaard/ngx-forms-core": "18.0.1",
     "@juulsgaard/rxjs-tools": "1.7.7",
     "@juulsgaard/signal-tools": "18.0.6",
     "@juulsgaard/ts-tools": "1.6.7",
+    "dayjs": "^1.11.13",
     "rxjs": "~7.8.0",
     "tslib": "2.6.3",
     "zone.js": "~0.14.3"

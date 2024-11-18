@@ -1,12 +1,7 @@
 import {ChangeDetectionStrategy, Component} from '@angular/core';
-import {FormsModule} from "@angular/forms";
 import {harmonicaAnimation, IconDirective} from "@juulsgaard/ngx-tools";
 import {BaseMultiSelectInputComponent} from "@juulsgaard/ngx-forms";
 import {NgIf} from "@angular/common";
-import {MatIconModule} from "@angular/material/icon";
-import {MatInputModule} from "@angular/material/input";
-import {MatTooltipModule} from "@angular/material/tooltip";
-import {MatSelectModule} from "@angular/material/select";
 import {FormInputErrorsComponent} from "../../components";
 import {ButtonComponent} from "@juulsgaard/ngx-material";
 
@@ -17,13 +12,8 @@ import {ButtonComponent} from "@juulsgaard/ngx-material";
   animations: [harmonicaAnimation()],
   changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [
-    FormsModule,
     NgIf,
-    MatIconModule,
     IconDirective,
-    MatInputModule,
-    MatTooltipModule,
-    MatSelectModule,
     FormInputErrorsComponent,
     ButtonComponent
   ],

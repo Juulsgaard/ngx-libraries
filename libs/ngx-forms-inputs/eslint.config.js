@@ -26,7 +26,7 @@ module.exports = [
         'error',
         {
           type: 'attribute',
-          prefix: 'ngx',
+          prefix: ['ngx', 'form'],
           style: 'camelCase',
         },
       ],
@@ -34,7 +34,7 @@ module.exports = [
         'error',
         {
           type: 'element',
-          prefix: 'ngx',
+          prefix: ['ngx', 'form'],
           style: 'kebab-case',
         },
       ],

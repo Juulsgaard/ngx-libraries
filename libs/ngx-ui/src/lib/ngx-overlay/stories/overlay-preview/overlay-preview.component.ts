@@ -1,5 +1,4 @@
 import {Component, EventEmitter, Input, model, Output} from '@angular/core';
-import {MatButtonModule} from "@angular/material/button";
 import {OverlayDirective} from "../../directives/overlay.directive";
 import {OverlayOutletDirective} from "../../directives/overlay-outlet.directive";
 
@@ -7,7 +6,6 @@ import {OverlayOutletDirective} from "../../directives/overlay-outlet.directive"
   selector: 'ngx-overlay-preview',
   standalone: true,
   imports: [
-    MatButtonModule,
     OverlayOutletDirective,
     OverlayDirective,
   ],

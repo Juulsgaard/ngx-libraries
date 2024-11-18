@@ -7,19 +7,6 @@ import {signalSet} from "@juulsgaard/signal-tools";
 @Injectable({providedIn: 'root', useClass: forwardRef(() => RootUIScopeContext)})
 export abstract class UIScopeContext {
 
-  public static Provide(config: UIScopeConfig): Provider[] {
-    return [
-      {provide: UI_SCOPE_CONFIG, useValue: config},
-      {provide: UIScopeContext, useClass: RootUIScopeContext}
-    ];
-  }
-
-  public static ProvideChild(context?: Type<UIScopeContext>): Provider[] {
-    return [
-      {provide: UIScopeContext, useClass: context ?? ChildUIScopeContext}
-    ];
-  }
-
   readonly abstract wrapper: Signal<WrapperData>;
   readonly abstract header: Signal<HeaderData>;
   readonly abstract scope: Signal<UIScope>;
@@ -68,6 +55,19 @@ export abstract class UIScopeContext {
     const added = this._children.add(context);
     if (added) destroy.onDestroy(() => this._children.delete(context));
   }
+}
+
+export function provideUiScopeConfig(config: UIScopeConfig): Provider[] {
+  return [
+    {provide: UI_SCOPE_CONFIG, useValue: config},
+    {provide: UIScopeContext, useClass: RootUIScopeContext}
+  ];
+}
+
+export function provideUiScope(context?: Type<UIScopeContext>): Provider[] {
+  return [
+    {provide: UIScopeContext, useClass: context ?? ChildUIScopeContext}
+  ];
 }
 
 interface BaseUIScopeContextOptions {

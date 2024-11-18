@@ -5,7 +5,8 @@ import {ControlFormLayer, FormList, FormUnit} from "@juulsgaard/ngx-forms-core";
 import {arrToSet} from "@juulsgaard/ts-tools";
 
 @Directive({
-  selector: '[ngxFormList][ngxFormListIn]'
+  selector: '[ngxFormList][ngxFormListIn]',
+  standalone: true
 })
 export class FormListDirective<TControls extends Record<string, FormUnit>> {
 
@@ -35,7 +36,7 @@ export class FormListDirective<TControls extends Record<string, FormUnit>> {
 
       untracked(() => {
         // Remove outdated views
-        for (let [layer, view] of this.views) {
+        for (const [layer, view] of this.views) {
           if (controlSet.has(layer)) continue;
           view.destroy();
           this.views.delete(layer);
@@ -43,7 +44,7 @@ export class FormListDirective<TControls extends Record<string, FormUnit>> {
 
         // Insert or update views
         let index = -1;
-        for (let control of controlSet) {
+        for (const control of controlSet) {
           index++;
           let view = this.views.get(control);
 
@@ -65,7 +66,7 @@ export class FormListDirective<TControls extends Record<string, FormUnit>> {
   }
 
   private clear() {
-    for (let [_, view] of this.views) {
+    for (const [_, view] of this.views) {
       view.destroy();
     }
     this.views.clear();

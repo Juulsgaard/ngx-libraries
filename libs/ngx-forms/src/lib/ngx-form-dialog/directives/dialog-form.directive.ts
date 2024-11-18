@@ -3,17 +3,18 @@ import {
   ViewContainerRef
 } from "@angular/core";
 import {BaseFormDialog, FormRoot, FormUnit} from "@juulsgaard/ngx-forms-core";
+import {SimpleObject} from "@juulsgaard/ts-tools";
 
 /** Form rendering for a FormDialog. Can only be used inside Form Dialogs */
-@Directive({selector: '[dialogForm]'})
+@Directive({selector: '[ngxDialogForm]', standalone: true})
 export class FormDialogDirective<TControls extends Record<string, FormUnit>> {
 
   form: InputSignalWithTransform<
-    FormRoot<TControls, any>,
-    BaseFormDialog<TControls, any>
+    FormRoot<TControls, SimpleObject>,
+    BaseFormDialog<TControls, SimpleObject>
   > = input.required({
     alias: 'dialogForm',
-    transform: (dialog: BaseFormDialog<TControls, any>) => dialog.form
+    transform: (dialog: BaseFormDialog<TControls, SimpleObject>) => dialog.form
   });
 
   private view?: EmbeddedViewRef<DialogFormContext<TControls>>;

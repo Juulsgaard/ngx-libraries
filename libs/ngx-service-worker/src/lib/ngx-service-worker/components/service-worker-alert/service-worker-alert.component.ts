@@ -1,8 +1,7 @@
 import {ChangeDetectionStrategy, Component, computed, inject, signal} from '@angular/core';
 import {ServiceWorkerService} from "../../services/service-worker.service";
-import {DialogComponent} from "@juulsgaard/ngx-ui";
+import {ButtonComponent, DialogComponent} from "@juulsgaard/ngx-ui";
 import {NgIf} from "@angular/common";
-import {MatButton} from "@angular/material/button";
 
 @Component({
   selector: 'ngx-service-worker-alert',
@@ -12,7 +11,7 @@ import {MatButton} from "@angular/material/button";
   imports: [
     DialogComponent,
     NgIf,
-    MatButton
+    ButtonComponent
   ],
   standalone: true
 })

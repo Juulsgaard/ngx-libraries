@@ -1,6 +1,4 @@
 
-export * from './ngx-forms-ui.module';
-
 export * from './components/form-card/form-card.component';
 export * from './components/form-flow-wrapper/form-flow-wrapper.component';
 

@@ -2,14 +2,13 @@ import {
   booleanAttribute, ChangeDetectionStrategy, Component, computed, EventEmitter, inject, input, InputSignal,
   InputSignalWithTransform, Output
 } from '@angular/core';
-import {IconButtonComponent, UIScopeContext} from "@juulsgaard/ngx-material";
-import {setElementClasses} from "@juulsgaard/ngx-tools";
+import {LoadingDirective, setElementClasses} from "@juulsgaard/ngx-tools";
 import {MatRipple} from "@angular/material/core";
 import {NgIf} from "@angular/common";
 import {FormPage} from "@juulsgaard/ngx-forms-core";
-import {MatButton} from "@angular/material/button";
 import {FormErrorStateComponent} from "../form-error-state/form-error-state.component";
 import {SimpleObject} from "@juulsgaard/ts-tools";
+import {ButtonComponent, IconButtonComponent, UIScopeContext} from "@juulsgaard/ngx-ui";
 
 @Component({
   selector: 'ngx-form-header',
@@ -17,9 +16,10 @@ import {SimpleObject} from "@juulsgaard/ts-tools";
   imports: [
     MatRipple,
     NgIf,
-    MatButton,
     FormErrorStateComponent,
-    IconButtonComponent
+    IconButtonComponent,
+    LoadingDirective,
+    ButtonComponent
   ],
   templateUrl: './form-header.component.html',
   styleUrl: './form-header.component.scss',

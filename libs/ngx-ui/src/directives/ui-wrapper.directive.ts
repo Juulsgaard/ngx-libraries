@@ -1,15 +1,15 @@
 import {computed, Directive, effect, ElementRef, inject, NgZone, OnDestroy, Signal} from '@angular/core';
-import {UIScopeContext} from "../models/ui-scope";
+import {provideUiScope, UIScopeContext} from "../models/ui-scope";
 import {CdkScrollable, ScrollDispatcher} from "@angular/cdk/overlay";
-import {IScrollContext, ScrollContext, setElementClasses} from "@juulsgaard/ngx-tools";
+import {IScrollContext, provideScrollContext, setElementClasses} from "@juulsgaard/ngx-tools";
 
 @Directive({
   // eslint-disable-next-line @angular-eslint/directive-selector
   selector: '[uiWrapper],ui-wrapper',
   standalone: true,
   providers: [
-    UIScopeContext.ProvideChild(),
-    ScrollContext.Provide(() => UiWrapperDirective)
+    provideUiScope(),
+    provideScrollContext(() => UiWrapperDirective)
   ],
   host: {'[class.ui-wrapper]': 'true'}
 })

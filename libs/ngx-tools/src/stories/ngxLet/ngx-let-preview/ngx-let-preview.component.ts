@@ -1,5 +1,4 @@
 import {ChangeDetectionStrategy, Component} from '@angular/core';
-import {CommonModule} from '@angular/common';
 import {
   NgxAsyncAwaitDirective, NgxAsyncDirective, NgxIfDirective, NgxIfNotDirective, NgxLetDirective
 } from "../../../directives";
@@ -11,7 +10,7 @@ import {cache} from "@juulsgaard/rxjs-tools";
   selector: 'ngx-ngx-let-preview',
   standalone: true,
   imports: [
-    CommonModule, NgxLetDirective, NgxAsyncDirective, NgxAsyncAwaitDirective,
+    NgxLetDirective, NgxAsyncDirective, NgxAsyncAwaitDirective,
     NgxIfDirective, NgxIfNotDirective
   ],
   templateUrl: './ngx-let-preview.component.html',
@@ -21,6 +20,7 @@ import {cache} from "@juulsgaard/rxjs-tools";
 export class NgxLetPreviewComponent {
 
   counter$ = new BehaviorSubject(0);
+
   count() {
     this.counter$.next(this.counter$.value + 1);
   }

@@ -2,9 +2,7 @@ import {ChangeDetectionStrategy, Component} from '@angular/core';
 import {BaseInputComponent, NgxInputDirective} from '@juulsgaard/ngx-forms';
 import {harmonicaAnimation, IconDirective} from "@juulsgaard/ngx-tools";
 import {NgIf} from "@angular/common";
-import {MatIconModule} from "@angular/material/icon";
 import {MatFormField, MatLabel, MatSuffix} from "@angular/material/input";
-import {MatTooltipModule} from "@angular/material/tooltip";
 import {FormInputErrorsComponent} from "../../components";
 import {CdkTextareaAutosize} from "@angular/cdk/text-field";
 
@@ -17,12 +15,10 @@ import {CdkTextareaAutosize} from "@angular/cdk/text-field";
   standalone: true,
   imports: [
     NgIf,
-    MatIconModule,
     IconDirective,
     MatFormField,
     MatLabel,
     MatSuffix,
-    MatTooltipModule,
     FormInputErrorsComponent,
     NgxInputDirective,
     CdkTextareaAutosize

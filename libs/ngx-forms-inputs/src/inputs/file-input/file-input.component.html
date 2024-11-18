@@ -8,7 +8,7 @@
 
     <ngx-icon [alias]="readonly() ? 'download' : 'upload'" [size]="40"/>
 
-    <button mat-button (click)="fileInput.click(); markAsTouched()" *ngIf="!readonly()">Browse Files</button>
+    <ngx-button (click)="fileInput.click(); markAsTouched()" *ngIf="!readonly()">Browse Files</ngx-button>
 
     @if (value) {
         <p class="file-name">{{value.name}}</p>
@@ -17,7 +17,7 @@
 </div>
 
 <div class="actions">
-    <button mat-stroked-button color="warn" (click)="value = undefined" *ngIf="!readonly()" [disabled]="!value">Clear</button>
+    <ngx-bordered-button color="warn" (click)="value = undefined" *ngIf="!readonly()" [disabled]="!value">Clear</ngx-bordered-button>
 </div>
 
 <ngx-form-input-errors [canShow]="canShowError()" [errors]="errors()" [warnings]="warnings()"/>

@@ -1,6 +1,6 @@
 import {ChangeDetectionStrategy, Component, input, InputSignal} from '@angular/core';
-import {MatProgressSpinnerModule} from "@angular/material/progress-spinner";
 import {setElementClasses} from "@juulsgaard/ngx-tools";
+import {MatProgressSpinner} from "@angular/material/progress-spinner";
 
 @Component({
   selector: 'ngx-loading-overlay',
@@ -9,7 +9,7 @@ import {setElementClasses} from "@juulsgaard/ngx-tools";
   standalone: true,
   changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [
-    MatProgressSpinnerModule
+    MatProgressSpinner
   ]
 })
 export class LoadingOverlayComponent {

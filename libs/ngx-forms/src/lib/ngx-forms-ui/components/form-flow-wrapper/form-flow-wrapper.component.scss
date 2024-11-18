@@ -1,8 +1,8 @@
-form-flow-wrapper {
+ngx-form-flow {
 	display: grid;
 	grid-auto-flow: row;
 	column-gap: 20px;
-	
+
 	> button, > .center {
 		align-self: center;
 		justify-self: center;

@@ -4,22 +4,23 @@ import {
 import {FormPage} from "@juulsgaard/ngx-forms-core";
 import {SimpleObject} from "@juulsgaard/ts-tools";
 import {FormContext} from "../../lib/ngx-forms-tools";
-import {NgxTabContext} from "@juulsgaard/ngx-material";
 import {filter, fromEvent, mergeWith, tap, throttleTime} from "rxjs";
 import {takeUntilDestroyed} from "@angular/core/rxjs-interop";
-import {MatButton} from "@angular/material/button";
 import {NgIf} from "@angular/common";
 import {FormErrorsComponent} from "../form-errors/form-errors.component";
 import {FormErrorStateComponent} from "../form-error-state/form-error-state.component";
+import {ButtonComponent, NgxTabContext} from "@juulsgaard/ngx-ui";
+import {LoadingDirective} from "@juulsgaard/ngx-tools";
 
 @Component({
   selector: 'ngx-form-submit',
   standalone: true,
   imports: [
-    MatButton,
     NgIf,
     FormErrorsComponent,
-    FormErrorStateComponent
+    FormErrorStateComponent,
+    ButtonComponent,
+    LoadingDirective
   ],
   templateUrl: './form-submit.component.html',
   styleUrl: './form-submit.component.scss',

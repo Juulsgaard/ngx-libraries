@@ -1,10 +1,9 @@
 import {ChangeDetectionStrategy, Component, HostBinding, Input} from '@angular/core';
-import {CommonModule} from '@angular/common';
 
 @Component({
   selector: 'ngx-theme-preview',
   standalone: true,
-  imports: [CommonModule],
+  imports: [],
   templateUrl: './theme-preview.component.html',
   styleUrls: ['./theme-preview.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush

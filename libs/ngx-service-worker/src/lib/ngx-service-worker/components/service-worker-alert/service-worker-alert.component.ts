@@ -1,11 +1,20 @@
 import {ChangeDetectionStrategy, Component, computed, inject, signal} from '@angular/core';
 import {ServiceWorkerService} from "../../services/service-worker.service";
+import {DialogComponent} from "@juulsgaard/ngx-ui";
+import {NgIf} from "@angular/common";
+import {MatButton} from "@angular/material/button";
 
 @Component({
   selector: 'ngx-service-worker-alert',
   templateUrl: './service-worker-alert.component.html',
   styleUrls: ['./service-worker-alert.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  imports: [
+    DialogComponent,
+    NgIf,
+    MatButton
+  ],
+  standalone: true
 })
 export class ServiceWorkerAlertComponent {
 

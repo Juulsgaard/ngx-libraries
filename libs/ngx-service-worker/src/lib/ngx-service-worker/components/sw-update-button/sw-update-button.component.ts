@@ -1,7 +1,6 @@
 import {ChangeDetectionStrategy, Component} from '@angular/core';
 import {ServiceWorkerService} from "../../services/service-worker.service";
-import {MatButton} from "@angular/material/button";
-import {IconDirective} from "@juulsgaard/ngx-ui";
+import {ButtonComponent, IconDirective} from "@juulsgaard/ngx-ui";
 import {NgIf} from "@angular/common";
 
 @Component({
@@ -10,9 +9,9 @@ import {NgIf} from "@angular/common";
   styleUrls: ['./sw-update-button.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [
-    MatButton,
     IconDirective,
-    NgIf
+    NgIf,
+    ButtonComponent
   ],
   standalone: true
 })

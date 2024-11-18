@@ -3,14 +3,14 @@ import {
   InputSignalWithTransform, TemplateRef, untracked, ViewContainerRef
 } from "@angular/core";
 import {NgxTabContext} from "../services";
-import {UIScopeContext} from "../../../models";
 import {titleCase} from "@juulsgaard/ts-tools";
+import {provideUiScope} from "../../../models/ui-scope";
 
 @Directive({
   selector: '[ngxLazyTab]',
   providers: [
     {provide: NgxTabContext, useExisting: forwardRef(() => NgxLazyTabDirective)},
-    UIScopeContext.ProvideChild()
+    provideUiScope()
   ],
   standalone: true
 })

@@ -1,5 +1,4 @@
 import {NgModule} from '@angular/core';
-import {CommonModule} from '@angular/common';
 import {
   FutureDirective, WhenDataDirective, WhenEmptyDirective, WhenEmptyErrorDirective, WhenEmptyLoadingDirective,
   WhenErrorDirective, WhenErrorOverlayDirective, WhenLoadingDirective, WhenLoadingOverlayDirective
@@ -29,8 +28,6 @@ import {
     WhenEmptyLoadingDirective,
     WhenEmptyErrorDirective
   ],
-  imports: [
-    CommonModule
-  ]
+  imports: [ ]
 })
 export class FutureBuilderModule { }

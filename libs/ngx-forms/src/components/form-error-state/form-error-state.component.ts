@@ -2,10 +2,9 @@ import {
   booleanAttribute, ChangeDetectionStrategy, Component, computed, input, InputSignal, InputSignalWithTransform, output,
   OutputEmitterRef
 } from '@angular/core';
-import {FormValidationContext} from "@juulsgaard/ngx-forms-core";
-import {IconDirective} from "@juulsgaard/ngx-tools";
-import {IconButtonComponent} from "@juulsgaard/ngx-material";
 import {MatTooltip} from "@angular/material/tooltip";
+import {IconButtonComponent, IconDirective} from "@juulsgaard/ngx-ui";
+import {FormValidationContext} from "@juulsgaard/ngx-forms-core";
 
 @Component({
   selector: 'ngx-form-error-state',

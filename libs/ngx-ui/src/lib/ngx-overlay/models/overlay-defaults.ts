@@ -9,10 +9,6 @@ export interface NgxOverlayDefaultOptions {
 @Injectable({providedIn: 'root', useClass: forwardRef(() => NgxRootOverlayDefaults)})
 export abstract class NgxOverlayDefaults {
 
-  static Provide(options: NgxOverlayDefaultOptions): Provider {
-    return {provide: NgxOverlayDefaults, useFactory: () => new NgxInjectedOverlayDefaults(options)};
-  }
-
   abstract type: string;
   abstract styles: string[];
   abstract scrollable: boolean;
@@ -30,6 +26,10 @@ class NgxInjectedOverlayDefaults extends NgxOverlayDefaults {
     this.styles = options.styles ?? this.parent.styles;
     this.type = options.type ?? this.parent.type;
   }
+}
+
+export function provideOverlayDefaults(options: NgxOverlayDefaultOptions): Provider {
+  return {provide: NgxOverlayDefaults, useFactory: () => new NgxInjectedOverlayDefaults(options)};
 }
 
 @Injectable()

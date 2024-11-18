@@ -2,9 +2,7 @@ import {ChangeDetectionStrategy, Component} from '@angular/core';
 import {BaseInputComponent, NgxInputDirective} from '@juulsgaard/ngx-forms';
 import {harmonicaAnimation, IconDirective} from "@juulsgaard/ngx-tools";
 import {NgIf} from "@angular/common";
-import {MatIconModule} from "@angular/material/icon";
 import {MatFormField, MatLabel, MatSuffix} from "@angular/material/input";
-import {MatTooltipModule} from "@angular/material/tooltip";
 import {FormInputErrorsComponent} from "../../components";
 
 @Component({
@@ -19,9 +17,7 @@ import {FormInputErrorsComponent} from "../../components";
     MatLabel,
     MatSuffix,
     NgIf,
-    MatIconModule,
     IconDirective,
-    MatTooltipModule,
     FormInputErrorsComponent,
     NgxInputDirective
   ],

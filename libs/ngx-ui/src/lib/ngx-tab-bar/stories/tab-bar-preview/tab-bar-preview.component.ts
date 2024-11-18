@@ -1,12 +1,11 @@
 import {Component, EventEmitter, Output} from '@angular/core';
-import {CommonModule} from '@angular/common';
-import {NgxLazyTabDirective, NgxTabDirective} from "../../directives";
+import {NgxTabDirective} from "../../directives";
 import {NgxTabBarComponent} from "../../components";
 
 @Component({
   selector: 'ngx-tab-bar-preview',
   standalone: true,
-  imports: [CommonModule, NgxTabBarComponent, NgxTabDirective, NgxTabDirective, NgxTabBarComponent, NgxLazyTabDirective],
+  imports: [NgxTabBarComponent, NgxTabDirective, NgxTabDirective, NgxTabBarComponent],
   templateUrl: './tab-bar-preview.component.html',
   styleUrls: ['./tab-bar-preview.component.css']
 })

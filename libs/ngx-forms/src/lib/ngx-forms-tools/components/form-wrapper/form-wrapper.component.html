@@ -2,7 +2,7 @@
     <ng-content></ng-content>
 </ng-template>
 
-<form (ngSubmit)="submit.emit()">
+<form (ngSubmit)="submitted.emit()">
     @if (fieldset()) {
         <fieldset [disabled]="readonly()">
             <ng-container *ngTemplateOutlet="content"/>

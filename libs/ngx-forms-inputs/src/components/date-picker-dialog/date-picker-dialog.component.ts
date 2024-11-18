@@ -1,8 +1,8 @@
 import {ChangeDetectionStrategy, Component, inject, signal, ViewEncapsulation} from '@angular/core';
-import {MatDatepickerModule} from "@angular/material/datepicker";
-import {MAT_DIALOG_DATA, MatDialogModule, MatDialogRef} from "@angular/material/dialog";
-import {MatButtonModule} from "@angular/material/button";
+import {MAT_DIALOG_DATA, MatDialogActions, MatDialogClose, MatDialogRef} from "@angular/material/dialog";
 import {Dayjs} from "dayjs";
+import {ButtonComponent} from "@juulsgaard/ngx-ui";
+import {MatCalendar} from "@angular/material/datepicker";
 
 @Component({
   selector: 'ngx-date-picker-dialog',
@@ -11,9 +11,10 @@ import {Dayjs} from "dayjs";
   styleUrls: ['./date-picker-dialog.component.scss'],
   encapsulation: ViewEncapsulation.None,
   imports: [
-    MatDatepickerModule,
-    MatDialogModule,
-    MatButtonModule
+    ButtonComponent,
+    MatDialogActions,
+    MatCalendar,
+    MatDialogClose
   ],
   changeDetection: ChangeDetectionStrategy.OnPush
 })

@@ -1,3 +1,4 @@
+<!-- eslint-disable @angular-eslint/template/interactive-supports-focus -->
 
 <ng-template #content ngxSource>
 
@@ -17,7 +18,7 @@
 </ng-template>
 
 <ng-template #footer ngxSource>
-    <button mat-button (click)="config().close()">Cancel</button>
-    <button mat-button color="primary" (click)="config().submit()" [disabled]="!config().canSubmit()" [isLoading]="config().working()">{{config().buttonText}}</button>
+    <ngx-button (click)="config().close()">Cancel</ngx-button>
+    <ngx-button color="primary" (click)="config().submit()" [disabled]="!config().canSubmit()" [ngxLoading]="config().working()">{{config().buttonText}}</ngx-button>
     <ngx-form-error-state [errors]="config().errorState()" [warnings]="config().warningState()" button [(show)]="showErrors"/>
 </ng-template>

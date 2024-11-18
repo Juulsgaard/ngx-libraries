@@ -1,8 +1,6 @@
 import {ChangeDetectionStrategy, Component} from '@angular/core';
 import {autoDisable, Form, formPage, Validators} from "@juulsgaard/ngx-forms-core";
-import {
-  FormHeaderComponent, FormSubmitComponent, FormWrapperComponent, NgxFormsDirectivesModule, NgxFormsUiModule
-} from "@juulsgaard/ngx-forms";
+import {FormHeaderComponent, FormSubmitComponent} from "@juulsgaard/ngx-forms";
 import {
   BoolInputComponent, DateInputComponent, DateTimeInputComponent, NumberInputComponent, TextInputComponent,
   TimeInputComponent
@@ -13,11 +11,8 @@ import {
   standalone: true,
   imports: [
     FormHeaderComponent,
-    FormWrapperComponent,
-    NgxFormsDirectivesModule,
     TextInputComponent,
     BoolInputComponent,
-    NgxFormsUiModule,
     DateInputComponent,
     TimeInputComponent,
     FormSubmitComponent,

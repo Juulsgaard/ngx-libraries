@@ -3,19 +3,32 @@ import {
   InputSignal, InputSignalWithTransform, OnDestroy, signal, viewChild
 } from '@angular/core';
 import {FormDialog} from "@juulsgaard/ngx-forms-core";
-import {DialogManagerService, NgxDialogDefaults, TemplateDialogInstance} from "@juulsgaard/ngx-material";
-import {RenderSourceDirective} from "@juulsgaard/ngx-tools";
+import {LoadingDirective, RenderSourceDirective} from "@juulsgaard/ngx-tools";
 import {FormDialogDirective} from "../../directives/dialog-form.directive";
 import {toObservable, toSignal} from "@angular/core/rxjs-interop";
 import {delay, of, switchMap} from "rxjs";
+import {ButtonComponent, DialogManagerService, NgxDialogDefaults, TemplateDialogInstance} from "@juulsgaard/ngx-ui";
+import {NgIf} from "@angular/common";
+import {FormInputDirective} from "../../../../directives";
+import {FormErrorsComponent, FormErrorStateComponent} from "../../../../components";
 
 @Component({
   selector: 'ngx-form-dialog',
   templateUrl: './form-dialog.component.html',
   styleUrls: ['./form-dialog.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
+  imports: [
+    RenderSourceDirective,
+    NgIf,
+    FormInputDirective,
+    FormErrorsComponent,
+    FormErrorStateComponent,
+    LoadingDirective,
+    ButtonComponent
+  ],
+  standalone: true
 })
-export class FormDialogComponent<T extends Record<string, any>> implements OnDestroy {
+export class FormDialogComponent<T extends Record<string, unknown>> implements OnDestroy {
 
   readonly showErrors = signal(false);
 

@@ -1,11 +1,10 @@
 import {ChangeDetectionStrategy, Component, Input} from '@angular/core';
-import {CommonModule} from '@angular/common';
 import {CountdownDirective, CountdownOptions, TimeAgoDirective} from "../../../directives";
 
 @Component({
   selector: 'ngx-time-directive-preview',
   standalone: true,
-  imports: [CommonModule, CountdownDirective, TimeAgoDirective],
+  imports: [CountdownDirective, TimeAgoDirective],
   templateUrl: './time-directive-preview.component.html',
   styleUrls: ['./time-directive-preview.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush

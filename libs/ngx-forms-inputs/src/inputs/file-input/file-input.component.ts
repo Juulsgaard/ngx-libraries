@@ -1,11 +1,9 @@
 import {ChangeDetectionStrategy, Component, input, InputSignal} from '@angular/core';
 import {BaseInputComponent} from '@juulsgaard/ngx-forms';
-import {FileDropDirective, FileSizePipe, IconDirective} from "@juulsgaard/ngx-tools";
+import {FileDropDirective, FileSizePipe} from "@juulsgaard/ngx-tools";
 import {NgIf} from "@angular/common";
-import {MatIconModule} from "@angular/material/icon";
-import {MatButtonModule} from "@angular/material/button";
-import {MatTooltipModule} from "@angular/material/tooltip";
 import {FormInputErrorsComponent} from "../../components";
+import {ButtonComponent, IconDirective} from "@juulsgaard/ngx-ui";
 
 @Component({
   selector: 'form-file-input',
@@ -17,13 +15,12 @@ import {FormInputErrorsComponent} from "../../components";
     FileDropDirective,
     NgIf,
     FileSizePipe,
-    MatIconModule,
     FileDropDirective,
     FileSizePipe,
     IconDirective,
-    MatButtonModule,
-    MatTooltipModule,
-    FormInputErrorsComponent
+    FormInputErrorsComponent,
+    IconDirective,
+    ButtonComponent
   ],
   providers: []
 })

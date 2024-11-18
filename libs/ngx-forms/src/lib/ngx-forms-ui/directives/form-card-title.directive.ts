@@ -1,10 +1,9 @@
 import {Directive} from '@angular/core';
 
 @Directive({
-  selector: '[form-card-title]',
+  selector: '[ngxFormCardTitle]',
   host: {class: 'ngx-form-card-title'}
 })
 export class NgxFormCardTitleDirective {
-  constructor() {
-  }
+
 }

@@ -2,18 +2,10 @@ import {
   booleanAttribute, ChangeDetectionStrategy, Component, computed, input, InputSignalWithTransform, Signal, signal,
   viewChild, viewChildren
 } from '@angular/core';
-import {CommonModule} from '@angular/common';
 import {BaseMultiSelectInputComponent, FormSelectValue, NgxInputDirective} from "@juulsgaard/ngx-forms";
-import {
-  harmonicaAnimation, IconDirective, NgxDragEvent, NgxDragModule, NgxDragService, NoClickBubbleDirective, throttleSignal
-} from "@juulsgaard/ngx-tools";
-import {ChipComponent} from "@juulsgaard/ngx-material";
-import {
-  MatAutocompleteModule, MatAutocompleteSelectedEvent, MatAutocompleteTrigger
-} from "@angular/material/autocomplete";
-import {MatFormFieldModule} from "@angular/material/form-field";
+import {harmonicaAnimation, NgxDragEvent, NgxDragService, NoClickBubbleDirective} from "@juulsgaard/ngx-tools";
+import {MatAutocompleteSelectedEvent, MatAutocompleteTrigger} from "@angular/material/autocomplete";
 import {MatFormField, MatLabel, MatSuffix} from "@angular/material/input";
-import {MatTooltipModule} from "@angular/material/tooltip";
 import Fuse from "fuse.js";
 import {arrToSet, isString} from "@juulsgaard/ts-tools";
 import {FormInputErrorsComponent} from "../../components";
@@ -22,18 +14,13 @@ import {FormInputErrorsComponent} from "../../components";
   selector: 'form-tag-list-input',
   standalone: true,
   imports: [
-    CommonModule,
     ChipComponent,
     IconDirective,
-    MatAutocompleteModule,
     MatFormField,
     MatLabel,
     MatSuffix,
-    MatFormFieldModule,
-    MatTooltipModule,
     NoClickBubbleDirective,
     ChipComponent,
-    NgxDragModule,
     FormInputErrorsComponent,
     NgxInputDirective
   ],

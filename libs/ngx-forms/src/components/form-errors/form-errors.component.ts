@@ -3,10 +3,10 @@ import {
   ModelSignal, Signal, signal
 } from '@angular/core';
 import {FormValidationContext, isFormNode} from "@juulsgaard/ngx-forms-core";
-import {harmonicaInAnimation, IconDirective} from "@juulsgaard/ngx-tools";
+import {harmonicaInAnimation} from "@juulsgaard/ngx-tools";
 import {NgIf} from "@angular/common";
 import {isString} from "@juulsgaard/ts-tools";
-import {ButtonComponent, IconButtonComponent} from "@juulsgaard/ngx-material";
+import {ButtonComponent, IconButtonComponent, IconDirective} from "@juulsgaard/ngx-ui";
 
 @Component({
   selector: 'ngx-form-errors',

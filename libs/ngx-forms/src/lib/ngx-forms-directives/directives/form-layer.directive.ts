@@ -5,6 +5,7 @@ import {FormLayer, FormUnit} from "@juulsgaard/ngx-forms-core";
 
 @Directive({
   selector: '[ngxFormLayer]',
+  standalone: true
 })
 export class FormLayerDirective<TControls extends Record<string, FormUnit>> {
 

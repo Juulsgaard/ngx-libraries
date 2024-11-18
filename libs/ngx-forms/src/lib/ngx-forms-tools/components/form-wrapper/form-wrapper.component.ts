@@ -1,26 +1,25 @@
 import {
-  booleanAttribute, ChangeDetectionStrategy, Component, EventEmitter, forwardRef, input, InputSignalWithTransform,
-  Output
+  booleanAttribute, ChangeDetectionStrategy, Component, forwardRef, input, InputSignalWithTransform, output
 } from '@angular/core';
 import {FormContext} from "../../services/form-context.service";
-import {CommonModule} from "@angular/common";
 import {FormsModule} from "@angular/forms";
+import {NgTemplateOutlet} from "@angular/common";
 
 @Component({
-  selector: 'form-wrapper',
+  selector: 'ngx-form-wrapper',
   templateUrl: './form-wrapper.component.html',
   styleUrls: ['./form-wrapper.component.scss'],
   providers: [{provide: FormContext, useExisting: forwardRef(() => FormWrapperComponent)}],
   imports: [
-    CommonModule,
-    FormsModule
+    FormsModule,
+    NgTemplateOutlet
   ],
   standalone: true,
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class FormWrapperComponent extends FormContext {
 
-  @Output() submit = new EventEmitter<void>();
+  readonly submitted = output();
 
   readonly fieldset: InputSignalWithTransform<boolean, unknown> = input(false, {transform: booleanAttribute});
   readonly readonly: InputSignalWithTransform<boolean, unknown> = input(false, {transform: booleanAttribute});

@@ -4,11 +4,8 @@ import {harmonicaAnimation, IconDirective, NoClickBubbleDirective} from "@juulsg
 import {DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE} from "@angular/material/core";
 import {DayjsDateAdapter, MAT_DAYJS_DATE_FORMATS} from "../../adapters/date-adapter";
 import {BaseInputComponent, NgxInputDirective} from '@juulsgaard/ngx-forms';
-import {MatDatepickerModule} from "@angular/material/datepicker";
 import {NgIf} from "@angular/common";
-import {MatIconModule} from "@angular/material/icon";
 import {MatFormField, MatLabel, MatPrefix} from "@angular/material/input";
-import {MatTooltipModule} from "@angular/material/tooltip";
 import {FormInputErrorsComponent} from "../../components";
 import {DayjsHelper} from "../../helpers/dayjs-helper";
 import {IconButtonComponent} from "@juulsgaard/ngx-material";
@@ -24,11 +21,8 @@ import {Subscription} from "rxjs";
   changeDetection: ChangeDetectionStrategy.OnPush,
   standalone: true,
   imports: [
-    MatDatepickerModule,
     NgIf,
-    MatIconModule,
     IconDirective,
-    MatTooltipModule,
     FormInputErrorsComponent,
     NgxInputDirective,
     MatFormField,

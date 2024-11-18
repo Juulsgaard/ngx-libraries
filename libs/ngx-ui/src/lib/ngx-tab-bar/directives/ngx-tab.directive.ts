@@ -3,14 +3,14 @@ import {
   InputSignalWithTransform
 } from '@angular/core';
 import {NgxTabContext} from "../services";
-import {UIScopeContext} from "../../../models";
 import {titleCase} from "@juulsgaard/ts-tools";
+import {provideUiScope} from "../../../models/ui-scope";
 
 @Directive({
   selector: '[ngxTab]',
   providers: [
     {provide: NgxTabContext, useExisting: forwardRef(() => NgxTabDirective)},
-    UIScopeContext.ProvideChild()
+    provideUiScope()
   ],
   host: {'[class.ngx-tab]': 'true'},
   standalone: true

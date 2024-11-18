@@ -1,14 +1,13 @@
 import {
   ChangeDetectionStrategy, Component, effect, ElementRef, EventEmitter, input, InputSignal, Output, viewChild
 } from '@angular/core';
-import {CommonModule} from '@angular/common';
 import {IconButtonComponent} from "../../lib/buttons";
 import {mostReadable, TinyColor} from "@ctrl/tinycolor";
 
 @Component({
   selector: 'ngx-chip',
   standalone: true,
-  imports: [CommonModule, IconButtonComponent],
+  imports: [IconButtonComponent],
   templateUrl: './chip.component.html',
   styleUrls: ['./chip.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,

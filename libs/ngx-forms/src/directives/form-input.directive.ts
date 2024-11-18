@@ -9,6 +9,7 @@ import {FormInputRegistry} from "../services";
 import {BaseInputComponent} from "../lib/ngx-forms-tools";
 
 @Directive({
+  // eslint-disable-next-line @angular-eslint/directive-selector
   selector: 'form-input',
   standalone: true,
   host: {'[style.display]': '"none"'}

@@ -11,17 +11,17 @@ export interface NgxDialogDefaultOptions {
 @Injectable({providedIn: 'root', useClass: forwardRef(() => NgxRootDialogDefaults)})
 export abstract class NgxDialogDefaults {
 
-  static Provide(options: NgxDialogDefaultOptions): Provider[] {
-    return [
-      {provide: NgxDialogDefaults, useFactory: () => new NgxInjectedDialogDefaults(options)},
-      DialogService
-    ];
-  }
-
   abstract type: string;
   abstract styles: string[];
   abstract scrollable: boolean;
   abstract canClose: boolean;
+}
+
+export function provideDialogDefaults(options: NgxDialogDefaultOptions): Provider[] {
+  return [
+    {provide: NgxDialogDefaults, useFactory: () => new NgxInjectedDialogDefaults(options)},
+    DialogService
+  ];
 }
 
 class NgxInjectedDialogDefaults extends NgxDialogDefaults {

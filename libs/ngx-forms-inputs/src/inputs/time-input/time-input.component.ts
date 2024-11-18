@@ -1,12 +1,9 @@
 import {ChangeDetectionStrategy, Component, inject, LOCALE_ID} from '@angular/core';
-import {NgxMatTimepickerComponent, NgxMatTimepickerModule} from "ngx-mat-timepicker";
+import {NgxMatTimepickerComponent} from "ngx-mat-timepicker";
 import {harmonicaAnimation, IconDirective, NoClickBubbleDirective} from "@juulsgaard/ngx-tools";
 import {BaseInputComponent, NgxInputDirective} from '@juulsgaard/ngx-forms';
 import {NgIf} from "@angular/common";
-import {MatIconModule} from "@angular/material/icon";
 import {MatFormField, MatLabel, MatPrefix, MatSuffix} from "@angular/material/input";
-import {MatTooltipModule} from "@angular/material/tooltip";
-import {MatButtonModule} from "@angular/material/button";
 import {IconButtonComponent} from "@juulsgaard/ngx-material";
 import dayjs from "dayjs";
 import utc from "dayjs/plugin/utc";
@@ -22,16 +19,12 @@ dayjs.extend(utc);
   changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [
     NoClickBubbleDirective,
-    NgxMatTimepickerModule,
     MatFormField,
     MatLabel,
     MatPrefix,
     MatSuffix,
     NgIf,
-    MatIconModule,
     IconDirective,
-    MatTooltipModule,
-    MatButtonModule,
     IconButtonComponent,
     FormInputErrorsComponent,
     NgxInputDirective,

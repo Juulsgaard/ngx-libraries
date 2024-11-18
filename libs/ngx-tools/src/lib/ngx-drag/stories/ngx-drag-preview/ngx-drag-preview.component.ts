@@ -1,13 +1,11 @@
 import {ChangeDetectionStrategy, Component} from '@angular/core';
-import {CommonModule} from '@angular/common';
-import {NgxDragModule} from "../../ngx-drag.module";
 import {NgxDragEvent} from "../../models/ngx-drag-event";
 import {NgxDragContext} from "../../models/ngx-drag-context";
 
 @Component({
   selector: 'ngx-ngx-drag-preview',
   standalone: true,
-  imports: [CommonModule, NgxDragModule],
+  imports: [],
   templateUrl: './ngx-drag-preview.component.html',
   styleUrls: ['./ngx-drag-preview.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush

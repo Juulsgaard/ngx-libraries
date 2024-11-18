@@ -148,7 +148,7 @@ export abstract class NgxFormFieldDirective<T> implements MatFormFieldControl<T 
   protected readonly _userAriaDescribedBy = computed(() => this.userAriaDescribedByIn() ?? '');
   get userAriaDescribedBy() {return this._userAriaDescribedBy()};
 
-  onContainerClick(event: MouseEvent): void {
+  onContainerClick(): void {
     if (this.focused) return;
     this.focus();
   }

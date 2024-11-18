@@ -6,10 +6,7 @@ import {BaseInputComponent, NgxInputDirective} from '@juulsgaard/ngx-forms';
 import {fromEvent} from "rxjs";
 import {filter} from "rxjs/operators";
 import {IconDirective, NoClickBubbleDirective} from "@juulsgaard/ngx-tools";
-import {MatRippleModule} from "@angular/material/core";
-import {MatIconModule} from "@angular/material/icon";
 import {MatFormField, MatPrefix, MatSuffix} from "@angular/material/input";
-import {MatButtonModule} from "@angular/material/button";
 import {IconButtonComponent} from "@juulsgaard/ngx-material";
 import {takeUntilDestroyed} from "@angular/core/rxjs-interop";
 
@@ -21,13 +18,10 @@ import {takeUntilDestroyed} from "@angular/core/rxjs-interop";
   changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [
     NoClickBubbleDirective,
-    MatRippleModule,
-    MatIconModule,
     IconDirective,
     MatFormField,
     MatPrefix,
     MatSuffix,
-    MatButtonModule,
     IconButtonComponent,
     NgxInputDirective
   ],

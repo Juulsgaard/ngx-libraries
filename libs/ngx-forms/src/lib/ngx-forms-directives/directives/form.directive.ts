@@ -10,7 +10,8 @@ import {FormRoot, FormUnit, isFormRoot} from "@juulsgaard/ngx-forms-core";
   providers: [{
     provide: ControlContainer,
     useExisting: forwardRef(() => FormDirective)
-  }]
+  }],
+  standalone: true
 })
 export class FormDirective<TControls extends Record<string, FormUnit>> {
 

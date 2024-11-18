@@ -7,8 +7,8 @@ function provideService(iconService?: Type<IconService>): Provider[] {
   if (!iconService) return [IconService]
 
   return [
-    {provide: IconService, useClass: iconService},
-    iconService
+    iconService,
+    {provide: IconService, useExisting: iconService},
   ];
 }
 

@@ -3,7 +3,7 @@ import {
   InputSignalWithTransform, Output, Signal
 } from '@angular/core';
 import {NgIf} from "@angular/common";
-import {elementClassManager} from "@juulsgaard/ngx-tools";
+import {setElementClasses} from "@juulsgaard/ngx-tools";
 import {UIScopeContext} from "../../models";
 import {SidebarService} from "../../services";
 import {IconButtonComponent} from "../../lib/buttons";
@@ -37,7 +37,7 @@ export class HeaderComponent {
 
   constructor() {
     const header = this.uiContext.registerHeader();
-    elementClassManager(computed(() => header().classes));
+    setElementClasses(computed(() => header().classes));
 
     this.showMenu = computed(() => {
       if (!this.sidebarService || !header) return false;

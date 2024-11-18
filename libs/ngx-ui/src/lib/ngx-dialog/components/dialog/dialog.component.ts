@@ -17,6 +17,10 @@ import {arrToSet, setToArr} from "@juulsgaard/ts-tools";
   templateUrl: './dialog.component.html',
   styleUrls: ['./dialog.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
+  imports: [
+    RenderSourceDirective
+  ],
+  standalone: true
 })
 export class DialogComponent implements OnDestroy {
 

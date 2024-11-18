@@ -10,11 +10,11 @@ import {toObservable, toSignal} from "@angular/core/rxjs-interop";
 import {NgxOverlayDefaults} from "../models/overlay-defaults";
 import {arrToSet, setToArr} from "@juulsgaard/ts-tools";
 
-@Directive({selector: '[ngxOverlay]'})
+@Directive({selector: '[ngxOverlay]', standalone: true})
 export class OverlayDirective implements OnDestroy {
 
   private defaults = inject(NgxOverlayDefaults);
-  private templateRef = inject(TemplateRef<{}>);
+  private templateRef = inject(TemplateRef<void>);
   private viewContainer = inject(ViewContainerRef);
   private manager = inject(OverlayManagerService);
 

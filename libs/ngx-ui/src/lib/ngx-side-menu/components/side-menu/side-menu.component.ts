@@ -4,19 +4,28 @@ import {
 } from '@angular/core';
 import {NgxSideMenuTabContext} from "../../models/menu-tab-context";
 import {NgxSideMenuContext} from "../../models/menu-context";
+import {MatBadge} from "@angular/material/badge";
+import {IconButtonComponent} from "../../../buttons";
+import {MatTooltip} from "@angular/material/tooltip";
 
 @Component({
   selector: 'ngx-side-menu',
   templateUrl: './side-menu.component.html',
   styleUrls: ['./side-menu.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
-  providers: [{provide: NgxSideMenuContext, useExisting: forwardRef(() => SideMenuComponent)}]
+  providers: [{provide: NgxSideMenuContext, useExisting: forwardRef(() => SideMenuComponent)}],
+  imports: [
+    MatBadge,
+    IconButtonComponent,
+    MatTooltip
+  ],
+  standalone: true
 })
 export class SideMenuComponent extends NgxSideMenuContext {
 
   readonly children = contentChildren(NgxSideMenuTabContext, {descendants: false});
   readonly tabs = computed(() => {
-    let tabs = this.children();
+    const tabs = this.children();
     return tabs.filter(t => !t.disabled());
   });
 

@@ -3,12 +3,12 @@
 <ngx-dialog [header]="header" [disableClose]="!canClose" [show]="show()" (showChange)="show.set($event)">
     <p>{{ text }}</p>
     <button mat-button dialogFooter (click)="show.set(false)">Cancel</button>
-    <button mat-button color="primary" dialogFooter (click)="submit.emit()">Submit</button>
+    <button mat-button color="primary" dialogFooter (click)="submitted.emit()">Submit</button>
 </ngx-dialog>
 
 <ng-template ngxDialog header="Directive Dialog" (closed)="close()" [show]="showDirective()" (showChange)="showDirective.set($event)" allowClose>
     <p>{{text}}</p>
     <ng-container></ng-container>
     <button mat-button dialogFooter (click)="showDirective.set(false)">Cancel</button>
-    <button mat-button color="primary" dialogFooter (click)="submit.emit()">Submit</button>
+    <button mat-button color="primary" dialogFooter (click)="submitted.emit()">Submit</button>
 </ng-template>

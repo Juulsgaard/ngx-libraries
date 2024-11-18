@@ -4,7 +4,7 @@ import {takeUntilDestroyed} from "@angular/core/rxjs-interop";
 import {SnackbarBaseComponent} from "../snackbar-base.component";
 import {asapScheduler, auditTime} from "rxjs";
 
-@Component({selector: 'ngx-snackbar-silo', template: '<ng-container #render/>'})
+@Component({selector: 'ngx-snackbar-silo', template: '<ng-container #render/>', standalone: true})
 export class SnackbarSiloComponent {
 
   private element = inject(ElementRef<HTMLElement>).nativeElement;
@@ -30,7 +30,7 @@ export class SnackbarSiloComponent {
     snackbars.forEach(x => toRemove.delete(x));
 
     // Remove old snackbars
-    for (let oldInstance of toRemove) {
+    for (const oldInstance of toRemove) {
       const component = this.snackbars.get(oldInstance);
       if (!component) continue;
       const element = component.location.nativeElement as HTMLElement;

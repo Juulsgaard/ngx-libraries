@@ -57,7 +57,7 @@ export abstract class BaseRenderDirective<T extends object> implements OnDestroy
 }
 
 // eslint-disable-next-line @angular-eslint/directive-selector
-@Directive({selector: 'ngx-render', host: {'[style.display]': 'renderInside() ? "" : "hidden"'}})
+@Directive({selector: 'ngx-render', host: {'[style.display]': 'renderInside() ? "" : "hidden"'}, standalone: true})
 export class RenderOutletDirective<T extends object> extends BaseRenderDirective<T> {
 
   readonly template: InputSignal<TemplateRendering<T> | undefined> = input<TemplateRendering<T>>();
@@ -69,7 +69,7 @@ export class RenderOutletDirective<T extends object> extends BaseRenderDirective
   readonly filter: InputSignal<((node: Node) => boolean) | undefined> = input<(node: Node) => boolean>();
 }
 
-@Directive({selector: '[ngxRender]'})
+@Directive({selector: '[ngxRender]', standalone: true})
 export class TemplateRenderDirective<T extends object> extends BaseRenderDirective<T> {
 
   readonly template: InputSignal<TemplateRendering<T> | undefined> = input<TemplateRendering<T>|undefined>(undefined, {alias: 'ngxRender'});

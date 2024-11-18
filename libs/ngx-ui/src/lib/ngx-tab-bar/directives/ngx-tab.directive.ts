@@ -12,7 +12,8 @@ import {titleCase} from "@juulsgaard/ts-tools";
     {provide: NgxTabContext, useExisting: forwardRef(() => NgxTabDirective)},
     UIScopeContext.ProvideChild()
   ],
-  host: {'[class.ngx-tab]': 'true'}
+  host: {'[class.ngx-tab]': 'true'},
+  standalone: true
 })
 export class NgxTabDirective extends NgxTabContext {
 

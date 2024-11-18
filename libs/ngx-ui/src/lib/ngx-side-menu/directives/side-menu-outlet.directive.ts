@@ -8,7 +8,9 @@ import {SIDE_MENU_ANIMATE_IN} from "../models/menu-tokens";
 import {takeUntilDestroyed} from "@angular/core/rxjs-interop";
 
 @Directive({
-  selector: 'ngx-side-menu-outlet'
+  // eslint-disable-next-line @angular-eslint/directive-selector
+  selector: 'ngx-side-menu-outlet',
+  standalone: true
 })
 export class NgxSideMenuOutletDirective {
 

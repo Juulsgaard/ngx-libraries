@@ -12,7 +12,7 @@ export namespace MaterialTheme {
 
   function applyThemeColor(element: HTMLElement, color: string, type: 'primary'|'accent') {
     const palette = generatePalette(color);
-    for (let c of palette) {
+    for (const c of palette) {
       element.style.setProperty(`--theme-${type}-${c.name}`, c.color.toHex8String());
     }
   }
@@ -39,7 +39,7 @@ export namespace MaterialTheme {
       {color: baseDark.mix(baseTriad[3]!, 15).saturate(100).lighten(40), name: 'A700'}
     ];
 
-    for (let color of [...colors]) {
+    for (const color of [...colors]) {
       colors.push({
         color: mostReadable(color.color, contrastColors) ?? contrastColors[0]!,
         name: `contrast-${color.name}`

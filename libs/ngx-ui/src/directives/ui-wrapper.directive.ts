@@ -1,9 +1,10 @@
 import {computed, Directive, effect, ElementRef, inject, NgZone, OnDestroy, Signal} from '@angular/core';
 import {UIScopeContext} from "../models/ui-scope";
 import {CdkScrollable, ScrollDispatcher} from "@angular/cdk/overlay";
-import {elementClassManager, IScrollContext, ScrollContext} from "@juulsgaard/ngx-tools";
+import {IScrollContext, ScrollContext, setElementClasses} from "@juulsgaard/ngx-tools";
 
 @Directive({
+  // eslint-disable-next-line @angular-eslint/directive-selector
   selector: '[uiWrapper],ui-wrapper',
   standalone: true,
   providers: [
@@ -30,7 +31,7 @@ export class UiWrapperDirective implements OnDestroy, IScrollContext {
     const context = inject(UIScopeContext, {skipSelf: true});
 
     const wrapper = context.registerWrapper();
-    elementClassManager(computed(() => wrapper().classes));
+    setElementClasses(computed(() => wrapper().classes));
 
     this.scrollable = computed(() => wrapper().scrollable);
     effect(() => {

@@ -5,7 +5,8 @@ import {booleanAttribute, ChangeDetectionStrategy, Component, input, InputSignal
   templateUrl: './ngx-list-item.component.html',
   styleUrls: ['./ngx-list-item.component.scss'],
   host: {'[class.ngx-list-item]': 'true', '[class.active]': 'active()'},
-  changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  standalone: true
 })
 export class NgxListItemComponent {
 

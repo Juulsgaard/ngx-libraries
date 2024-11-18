@@ -3,7 +3,7 @@ import {objToMap} from "@juulsgaard/ts-tools";
 export function applyButtonClasses(element: HTMLElement) {
   const tagName = element.tagName.toLowerCase().replaceAll('-', '');
 
-  for (let attr of [tagName, ...element.getAttributeNames()]) {
+  for (const attr of [tagName, ...element.getAttributeNames()]) {
     const match = buttonClassLookup.get(attr.toLowerCase());
     if (!match) continue;
     element.classList.add(...match);

@@ -6,7 +6,7 @@ import {Platform} from "@angular/cdk/platform";
 import {fromEvent} from "rxjs";
 import {takeUntilDestroyed} from "@angular/core/rxjs-interop";
 import {applyButtonClasses} from "./button-classes";
-import {elementClassManager} from "@juulsgaard/ngx-tools";
+import {setElementClasses} from "@juulsgaard/ngx-tools";
 import {NgxThemeColor} from "../../../models";
 
 @Directive()
@@ -50,11 +50,18 @@ export class BaseButton implements RippleTarget {
     effect(() => this.element.classList.toggle('disabled', this.disabled()));
     effect(() => this.element.classList.toggle('active', this.active()));
 
-    elementClassManager(this.color);
-    elementClassManager(this.background);
+    setElementClasses(this.color);
+    setElementClasses(this.background);
 
     const zone = inject(NgZone);
-    this._rippleRenderer = new RippleRenderer(this, zone, this.element, inject(Platform));
+    this._rippleRenderer = new RippleRenderer(
+      this,
+      zone,
+      this.element,
+      inject(Platform),
+      // TODO: 19.0.0
+      // inject(Injector)
+    );
     this._rippleRenderer.setupTriggerEvents(this.element);
 
     zone.runOutsideAngular(() => {

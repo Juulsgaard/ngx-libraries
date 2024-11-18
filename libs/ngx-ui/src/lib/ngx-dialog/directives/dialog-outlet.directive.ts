@@ -7,7 +7,9 @@ import {DIALOG_ANIMATE_IN, DIALOG_CONTEXT} from "../models/dialog-tokens";
 import {takeUntilDestroyed} from "@angular/core/rxjs-interop";
 
 @Directive({
-  selector: 'ngx-dialog-outlet'
+  // eslint-disable-next-line @angular-eslint/directive-selector
+  selector: 'ngx-dialog-outlet',
+  standalone: true
 })
 export class DialogOutletDirective {
 

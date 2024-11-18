@@ -14,7 +14,6 @@
     "src/**/*.test.ts",
     "**/*.stories.ts",
     "**/*.stories.js",
-    "**/stories/**",
   ],
   "include": ["src/**/*.ts"]
 }

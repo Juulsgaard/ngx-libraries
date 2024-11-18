@@ -11,7 +11,8 @@ import {titleCase} from "@juulsgaard/ts-tools";
   providers: [
     {provide: NgxTabContext, useExisting: forwardRef(() => NgxLazyTabDirective)},
     UIScopeContext.ProvideChild()
-  ]
+  ],
+  standalone: true
 })
 export class NgxLazyTabDirective extends NgxTabContext {
 

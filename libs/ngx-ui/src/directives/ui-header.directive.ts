@@ -1,7 +1,8 @@
-import {computed, Directive, inject} from '@angular/core';
+import {Directive, inject} from '@angular/core';
 import {UIScopeContext} from "../models";
-import {elementClassManager} from "@juulsgaard/ngx-tools";
+import {setElementClasses} from "@juulsgaard/ngx-tools";
 
+// eslint-disable-next-line @angular-eslint/directive-selector
 @Directive({selector: '[uiHeader]', standalone: true})
 export class UiHeaderDirective {
 
@@ -9,6 +10,6 @@ export class UiHeaderDirective {
 
   constructor() {
     const header = this.uiContext.registerHeader();
-    elementClassManager(computed(() => header().classes));
+    setElementClasses(() => header().classes);
   }
 }

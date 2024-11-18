@@ -10,7 +10,7 @@ export abstract class SideMenuRenderContext {
   abstract readonly tabs: Signal<NgxSideMenuTabContext[]>;
   abstract readonly showButtons: Signal<boolean>;
 
-  protected constructor(options: SideMenuOptions) {
+  protected constructor(private readonly options: SideMenuOptions) {
 
   }
 

@@ -5,7 +5,8 @@ import {SnackbarSilo} from "../models";
 import {SnackbarSiloComponent} from "../components/snackbar-silo/snackbar-silo.component";
 import {takeUntilDestroyed} from "@angular/core/rxjs-interop";
 
-@Directive({selector: 'ngx-snackbar-outlet'})
+// eslint-disable-next-line @angular-eslint/directive-selector
+@Directive({selector: 'ngx-snackbar-outlet', standalone: true})
 export class SnackbarOutletDirective {
 
   private manager = inject(SnackbarManagerService);

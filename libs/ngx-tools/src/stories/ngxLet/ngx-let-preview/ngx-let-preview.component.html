@@ -1,55 +1,54 @@
-
-<section *ngxLet="'Lorem Ipsum' as counter">
-    <p>Text: {{counter}}</p>
-</section>
-
-<hr>
-
+<p><b>Counter (Async)</b></p>
 <section *ngxAsync="counter$ as counter">
-    <p>Count: {{counter}}</p>
-    <button (click)="count()">+ 1</button>
+  <button (click)="count()">+ 1</button>
+  <p>Count: {{ counter }}</p>
 </section>
 
 <hr>
 
+<p><b>Counter + Timer (Async)</b></p>
 <section *ngxAsync="{counter: counter$, timer: timer$} as vars">
-    <p>Count: {{vars.counter}}</p>
-    <button (click)="count()">+ 1</button>
-    <br>
-    <p>Timer: {{vars.timer}}</p>
+  <button (click)="count()">+ 1</button>
+  <p>Count: {{ vars.counter }}</p>
+  <br>
+  <p>Timer: {{ vars.timer }}</p>
 </section>
 
 <hr>
 
+<p><b>Counter + AboveTen (AsyncAwait)</b></p>
 <section *ngxAsyncAwait="{delay: delay$, counted: aboveTen$} as x; else waiting">
-    <p>Waited</p>
-    <p>delay: {{x.delay}}</p>
-    <p>counted: {{x.counted}}</p>
+  <p>Waited</p>
+  <p>delay: {{ x.delay }}</p>
+  <p>counted: {{ x.counted }}</p>
 </section>
 
 <hr>
 
+<p><b>Counter (Above 0) (If)</b></p>
 <section *ngxIf="counter$ as value; waiting: waiting; else: elseTmp">
-    <p>Counter: {{value}}</p>
+  <p>Counter: {{ value }}</p>
 </section>
 
 <hr>
 
+<p><b>countedToTen (If)</b></p>
 <section *ngxIf="countedToTen$ as value; waiting: waiting; else: elseTmp">
-    <p>Counted to ten: {{value}}</p>
+  <p>Counted to ten: {{ value }}</p>
 </section>
 
 <hr>
 
+<p><b>Not countedToTen (IfNot)</b></p>
 <section *ngxIfNot="countedToTen$; else: elseTmp">
-    <p>Not counted to ten</p>
+  <p>Not counted to ten</p>
 </section>
 
 
 <ng-template #waiting>
-    <p>Waiting...</p>
+  <p>Waiting...</p>
 </ng-template>
 
 <ng-template #elseTmp>
-    <p>False</p>
+  <p>Else State</p>
 </ng-template>

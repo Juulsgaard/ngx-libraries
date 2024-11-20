@@ -52,7 +52,7 @@ export class IconDirective {
 
     const icon = computed(() => this.getIcon());
 
-    effect(() => this.applyIcon(icon()), {allowSignalWrites: true});
+    effect(() => this.applyIcon(icon()));
   }
 
   getIcon(): IconData | undefined {

@@ -1,6 +1,6 @@
 import {
   booleanAttribute, Directive, effect, ElementRef, inject, Injector, input, InputSignal, InputSignalWithTransform,
-  OnDestroy, signal, Signal, untracked
+  OnDestroy, signal, Signal
 } from "@angular/core";
 import {TemplateRendering} from "../models/template-rendering";
 
@@ -44,15 +44,13 @@ export abstract class BaseRenderDirective<T extends object> implements OnDestroy
     const context = this.context();
     const filter = this.filter()
 
-    untracked(() => {
-      if (inside) {
-        template.attachInside(this.element, this.injector, context, filter);
-      } else {
-        template.attachAfter(this.element, this.injector, context, filter);
-      }
+    if (inside) {
+      template.attachInside(this.element, this.injector, context, filter);
+    } else {
+      template.attachAfter(this.element, this.injector, context, filter);
+    }
 
-      template.updateContext(context);
-    });
+    template.updateContext(context);
   }
 }
 

@@ -1,6 +1,6 @@
 import {AsyncOrSyncVal, AsyncValueMapper, UnwrappedAsyncOrSyncVal} from "@juulsgaard/rxjs-tools";
 import {
-  computed, Directive, effect, EmbeddedViewRef, signal, Signal, TemplateRef, untracked, ViewContainerRef
+  computed, Directive, effect, EmbeddedViewRef, signal, Signal, TemplateRef, ViewContainerRef
 } from "@angular/core";
 import {Dispose} from "../decorators";
 import {toSignal} from "@angular/core/rxjs-interop";
@@ -31,7 +31,7 @@ export abstract class NgxConditionDirective<T extends AsyncOrSyncVal<any>, TCont
     effect(() => {
       const emitted = this.valueMapper.update(this.value());
       this.waiting.set(!emitted);
-    }, {allowSignalWrites: true});
+    });
 
     const value$ = this.valueMapper.value$.pipe(
       tap(() => this.waiting.set(false))
@@ -40,27 +40,23 @@ export abstract class NgxConditionDirective<T extends AsyncOrSyncVal<any>, TCont
 
     effect(() => {
       if (this.waiting()) {
-        untracked(() => {
-          this.destroyMain();
-          this.destroyElse();
-          this.renderWaiting();
-        });
+        this.destroyMain();
+        this.destroyElse();
+        this.renderWaiting();
         return;
       }
 
       const context = this.buildContext(value() as UnwrappedAsyncOrSyncVal<T>);
 
-      untracked(() => {
-        this.destroyWaiting();
+      this.destroyWaiting();
 
-        if (context) {
-          this.destroyElse();
-          this.renderMain(context);
-        } else {
-          this.destroyMain();
-          this.renderElse();
-        }
-      });
+      if (context) {
+        this.destroyElse();
+        this.renderMain(context);
+      } else {
+        this.destroyMain();
+        this.renderElse();
+      }
     });
   }
 
@@ -77,8 +73,6 @@ export abstract class NgxConditionDirective<T extends AsyncOrSyncVal<any>, TCont
 
     if (!this.view) {
       this.view = this.viewContainer.createEmbeddedView(this.templateRef, context);
-      this.view.detectChanges();
-      this.view.markForCheck();
     } else {
       Object.assign(this.view.context, context);
       this.view.markForCheck();
@@ -97,8 +91,6 @@ export abstract class NgxConditionDirective<T extends AsyncOrSyncVal<any>, TCont
 
     this.waitingView?.destroy();
     this.waitingView = this.viewContainer.createEmbeddedView(tmpl);
-    this.waitingView.detectChanges();
-    this.waitingView.markForCheck();
   }
 
   destroyElse() {
@@ -111,8 +103,6 @@ export abstract class NgxConditionDirective<T extends AsyncOrSyncVal<any>, TCont
     const tmpl = this.elseTemplate();
     if (!tmpl) return;
     this.elseView = this.viewContainer.createEmbeddedView(tmpl);
-    this.elseView.detectChanges();
-    this.elseView.markForCheck();
   }
 
   //</editor-fold>

@@ -35,14 +35,14 @@ export abstract class TemplateRendering<T extends object = object> {
   private getView(injector: Injector | undefined): EmbeddedViewRef<T> {
     if (this.view) return this.view;
     this.view = this.render(injector, this.context);
-    this.view.detectChanges();
-    this.view.markForCheck();
+
     this.view.onDestroy(() => {
       this.rendering?.nodes.filter(x => !!x.anchor)
         .forEach(x => x.node.parentNode?.removeChild(x.node));
       this.rendering = undefined;
       this.view = undefined;
     });
+
     return this.view;
   }
 

@@ -1,4 +1,4 @@
-import {ChangeDetectorRef, EmbeddedViewRef, TemplateRef, untracked, ViewContainerRef} from "@angular/core";
+import {ChangeDetectorRef, EmbeddedViewRef, TemplateRef, ViewContainerRef} from "@angular/core";
 
 export abstract class BaseFutureRender<TContext extends object> {
 
@@ -12,24 +12,20 @@ export abstract class BaseFutureRender<TContext extends object> {
   protected embeddedView?: EmbeddedViewRef<TContext>;
 
   updateView(context: TContext | undefined) {
-    untracked(() => {
-      if (this.embeddedView) {
+    if (this.embeddedView) {
 
-        if (!context) {
-          this.embeddedView.destroy();
-          this.embeddedView = undefined;
-          return;
-        }
-
-        Object.assign(this.embeddedView.context, context);
-        this.embeddedView.markForCheck();
+      if (!context) {
+        this.embeddedView.destroy();
+        this.embeddedView = undefined;
         return;
       }
 
-      if (!context) return;
-      this.embeddedView = this.viewContainer.createEmbeddedView(this.templateRef, context);
-      this.embeddedView.detectChanges();
+      Object.assign(this.embeddedView.context, context);
       this.embeddedView.markForCheck();
-    });
+      return;
+    }
+
+    if (!context) return;
+    this.embeddedView = this.viewContainer.createEmbeddedView(this.templateRef, context);
   }
 }

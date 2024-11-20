@@ -6,7 +6,8 @@ import {toObservable} from "@angular/core/rxjs-interop";
 import {distinctUntilChanged} from "rxjs/operators";
 
 @Directive({
-  selector: '[ngxFuture]'
+  selector: '[ngxFuture]',
+  standalone: false
 })
 export class FutureDirective<T> {
 

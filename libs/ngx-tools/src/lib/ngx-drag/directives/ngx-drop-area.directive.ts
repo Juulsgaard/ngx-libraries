@@ -9,7 +9,8 @@ import {NgxDragEvent} from "../models/ngx-drag-event";
 
 @Directive({
   selector: '[ngxDropArea]',
-  host: {'[class.ngx-drop-area]': 'true'}
+  host: {'[class.ngx-drop-area]': 'true'},
+  standalone: false
 })
 export class NgxDropAreaDirective<T> {
 

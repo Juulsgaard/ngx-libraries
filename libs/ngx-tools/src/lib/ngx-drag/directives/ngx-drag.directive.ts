@@ -7,7 +7,8 @@ import {NgxDragService} from "../services/ngx-drag.service";
 
 @Directive({
   selector: '[ngxDrag]',
-  host: {'[class.ngx-drag]': 'true'}
+  host: {'[class.ngx-drag]': 'true'},
+  standalone: false
 })
 export class NgxDragDirective<T> {
 

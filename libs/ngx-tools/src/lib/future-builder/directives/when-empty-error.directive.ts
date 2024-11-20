@@ -5,7 +5,7 @@ import {BaseFutureRender} from "../models/base-future.render";
 import {toObservable, toSignal} from "@angular/core/rxjs-interop";
 
 // eslint-disable-next-line @angular-eslint/directive-selector
-@Directive({selector: '[whenEmptyError]'})
+@Directive({selector: '[whenEmptyError]', standalone: false})
 export class WhenEmptyErrorDirective<T> extends BaseFutureRender<TemplateContext> {
 
   state: InputSignal<FutureSwitch<T>> = input.required<FutureSwitch<T>>({alias: 'whenEmptyError'});

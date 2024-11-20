@@ -63,7 +63,7 @@ export class FormErrorsComponent {
     effect(() => {
       if (this.show()) return;
       this._showAll.set(false)
-    }, {allowSignalWrites: true});
+    });
   }
 
   toggle() {

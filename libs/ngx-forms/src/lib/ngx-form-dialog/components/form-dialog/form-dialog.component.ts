@@ -55,7 +55,7 @@ export class FormDialogComponent<T extends Record<string, unknown>> implements O
       const template = this.formTemplate();
       if (!template) return;
       template.show.set(showTemplate());
-    }, {allowSignalWrites: true});
+    });
 
     effect(() => {
       const config = this.config();

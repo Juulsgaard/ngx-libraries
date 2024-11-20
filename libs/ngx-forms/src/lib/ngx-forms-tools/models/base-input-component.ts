@@ -232,7 +232,7 @@ export abstract class BaseInputComponent<TIn, TVal> {
             }
 
             this._value.set(this.preprocessValue(value));
-        }, {allowSignalWrites: true});
+        });
 
         // Handle control resets
         toObservable(this.control).pipe(

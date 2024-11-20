@@ -27,7 +27,7 @@ export class NgxAsyncDirective<T extends AsyncVal<unknown>|AsyncObject|undefined
       else if (values instanceof Promise) this.updateSingle(values);
       else if (values instanceof Observable || isSubscribable(values)) this.updateSingle(values);
       else if (isObject(values)) this.updateObject(values);
-    }, {allowSignalWrites: true});
+    });
 
     this.valueMapper.value$.pipe(
       mergeWith(this.objectMapper.values$),
@@ -40,8 +40,6 @@ export class NgxAsyncDirective<T extends AsyncVal<unknown>|AsyncObject|undefined
   private render(value: MappedValues<T>) {
     if (!this.view) {
       this.view = this.viewContainer.createEmbeddedView(this.templateRef, {ngxAsync: value as MappedValues<T>});
-      this.view.detectChanges();
-      this.view.markForCheck();
     } else {
       this.view.context.ngxAsync = value;
       this.view.markForCheck();

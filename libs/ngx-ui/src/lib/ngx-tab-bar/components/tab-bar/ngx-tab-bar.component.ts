@@ -98,7 +98,7 @@ export class NgxTabBarComponent extends NgxTabBarContext {
       const slug = routeSlug();
       if (slug === null) return;
       this.slug.set(slug);
-    }, {allowSignalWrites: true});
+    });
   }
 
   override async openTab(slug: string) {

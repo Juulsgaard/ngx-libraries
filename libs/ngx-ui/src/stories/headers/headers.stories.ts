@@ -1,6 +1,6 @@
 import {applicationConfig, Meta, moduleMetadata, StoryObj} from "@storybook/angular";
 import {HeadersPreviewComponent} from "./headers-preview/headers-preview.component";
-import {UIScopeConfig, UIScopeContext} from "../../models/ui-scope";
+import {provideUiScopeConfig, UIScopeConfig} from "../../models/ui-scope";
 import {provideRouter} from "@angular/router";
 
 const defaultConfig: UIScopeConfig = {
@@ -37,7 +37,7 @@ export default {
       imports: [],
     }),
     applicationConfig({
-      providers: [UIScopeContext.Provide(defaultConfig), provideRouter([])]
+      providers: [provideUiScopeConfig(defaultConfig), provideRouter([])]
     })
   ]
 } satisfies Meta;

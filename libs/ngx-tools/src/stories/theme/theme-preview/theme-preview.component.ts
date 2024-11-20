@@ -1,9 +1,13 @@
 import {ChangeDetectionStrategy, Component, HostBinding, Input} from '@angular/core';
+import {NgClass, NgForOf} from "@angular/common";
 
 @Component({
   selector: 'ngx-theme-preview',
   standalone: true,
-  imports: [],
+  imports: [
+    NgForOf,
+    NgClass
+  ],
   templateUrl: './theme-preview.component.html',
   styleUrls: ['./theme-preview.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush

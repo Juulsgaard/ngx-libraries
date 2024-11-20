@@ -1,7 +1,5 @@
 import {ChangeDetectionStrategy, Component} from '@angular/core';
-import {
-  NgxAsyncAwaitDirective, NgxAsyncDirective, NgxIfDirective, NgxIfNotDirective, NgxLetDirective
-} from "../../../directives";
+import {NgxAsyncAwaitDirective, NgxAsyncDirective, NgxIfDirective, NgxIfNotDirective} from "../../../directives";
 import {BehaviorSubject, interval, startWith, timer} from "rxjs";
 import {filter, map} from "rxjs/operators";
 import {cache} from "@juulsgaard/rxjs-tools";
@@ -10,7 +8,7 @@ import {cache} from "@juulsgaard/rxjs-tools";
   selector: 'ngx-ngx-let-preview',
   standalone: true,
   imports: [
-    NgxLetDirective, NgxAsyncDirective, NgxAsyncAwaitDirective,
+    NgxAsyncDirective, NgxAsyncAwaitDirective,
     NgxIfDirective, NgxIfNotDirective
   ],
   templateUrl: './ngx-let-preview.component.html',

@@ -1,4 +1,4 @@
-@use "index";
+@use "index" as theme;
 
 html {
   height: 100%;
@@ -6,10 +6,10 @@ html {
   color: var(--ngx-text-color);
 
   &.light-theme {
-    @include index.ngx-light-theme();
+    @include theme.ngx-light-theme();
   }
 
   &.dark-theme {
-    @include index.ngx-dark-theme();
+    @include theme.ngx-dark-theme();
   }
 }

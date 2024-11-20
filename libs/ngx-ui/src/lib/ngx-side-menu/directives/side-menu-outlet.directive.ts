@@ -1,4 +1,4 @@
-import {ComponentRef, Directive, Injector, ViewContainerRef} from '@angular/core';
+import {ComponentRef, Directive, Injector, OnDestroy, ViewContainerRef} from '@angular/core';
 import {asapScheduler, auditTime} from "rxjs";
 import {RenderSideMenuComponent} from "../components/render-side-menu/render-side-menu.component";
 import {SideMenuManagerService} from "../services/side-menu-manager.service";
@@ -12,7 +12,7 @@ import {takeUntilDestroyed} from "@angular/core/rxjs-interop";
   selector: 'ngx-side-menu-outlet',
   standalone: true
 })
-export class NgxSideMenuOutletDirective {
+export class NgxSideMenuOutletDirective implements OnDestroy {
 
   private component?: ComponentRef<RenderSideMenuComponent>;
 

@@ -5,7 +5,7 @@ import {BaseFutureRender} from "../models/base-future.render";
 import {toObservable, toSignal} from "@angular/core/rxjs-interop";
 
 // eslint-disable-next-line @angular-eslint/directive-selector
-@Directive({selector: '[whenData]'})
+@Directive({selector: '[whenData]', standalone: false})
 export class WhenDataDirective<T> extends BaseFutureRender<TemplateContext<T>> {
 
   state: InputSignal<FutureSwitch<T>> = input.required<FutureSwitch<T>>({alias: 'whenData'})

@@ -6,7 +6,7 @@ import {BaseFutureRender} from "../models/base-future.render";
 import {toObservable, toSignal} from "@angular/core/rxjs-interop";
 
 // eslint-disable-next-line @angular-eslint/directive-selector
-@Directive({selector: '[whenLoading]'})
+@Directive({selector: '[whenLoading]', standalone: false})
 export class WhenLoadingDirective<T> extends BaseFutureRender<TemplateContext<T>> {
 
   state: InputSignal<FutureSwitch<T>> = input.required<FutureSwitch<T>>({alias: 'whenLoading'});

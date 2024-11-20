@@ -1,5 +1,6 @@
 import {
-  booleanAttribute, Directive, effect, ElementRef, inject, input, InputSignal, InputSignalWithTransform, NgZone
+  booleanAttribute, Directive, effect, ElementRef, inject, Injector, input, InputSignal, InputSignalWithTransform,
+  NgZone
 } from "@angular/core";
 import {RippleConfig, RippleRenderer, RippleTarget} from "@angular/material/core";
 import {Platform} from "@angular/cdk/platform";
@@ -59,8 +60,7 @@ export class BaseButton implements RippleTarget {
       zone,
       this.element,
       inject(Platform),
-      // TODO: 19.0.0
-      // inject(Injector)
+      inject(Injector)
     );
     this._rippleRenderer.setupTriggerEvents(this.element);
 

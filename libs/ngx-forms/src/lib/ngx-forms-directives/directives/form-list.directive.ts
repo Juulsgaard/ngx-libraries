@@ -1,6 +1,4 @@
-import {
-  Directive, effect, EmbeddedViewRef, input, InputSignal, signal, TemplateRef, untracked, ViewContainerRef
-} from "@angular/core";
+import {Directive, effect, EmbeddedViewRef, input, InputSignal, TemplateRef, ViewContainerRef} from "@angular/core";
 import {ControlFormLayer, FormList, FormUnit} from "@juulsgaard/ngx-forms-core";
 import {arrToSet} from "@juulsgaard/ts-tools";
 
@@ -12,9 +10,7 @@ export class FormListDirective<TControls extends Record<string, FormUnit>> {
 
   readonly list: InputSignal<FormList<TControls, any, any>> = input.required<FormList<TControls, any, any>>({alias: 'ngxFormListIn'});
 
-  // Disable functionality because of change detection timing
-  // readonly show: InputSignal<boolean> = input(true, {alias: 'ngxFormListWhen'});
-  readonly show = signal(true);
+  readonly show: InputSignal<boolean> = input(true, {alias: 'ngxFormListWhen'});
 
   views = new Map<ControlFormLayer<TControls>, EmbeddedViewRef<FormListDirectiveContext<TControls>>>();
 
@@ -25,7 +21,7 @@ export class FormListDirective<TControls extends Record<string, FormUnit>> {
 
     effect(() => {
       if (!this.show()) {
-        untracked(() => this.clear());
+        this.clear();
         return;
       }
 
@@ -34,32 +30,30 @@ export class FormListDirective<TControls extends Record<string, FormUnit>> {
       const controlList = controls.map(x => x.controls());
       const controlSet = arrToSet(controls);
 
-      untracked(() => {
-        // Remove outdated views
-        for (const [layer, view] of this.views) {
-          if (controlSet.has(layer)) continue;
-          view.destroy();
-          this.views.delete(layer);
+      // Remove outdated views
+      for (const [layer, view] of this.views) {
+        if (controlSet.has(layer)) continue;
+        view.destroy();
+        this.views.delete(layer);
+      }
+
+      // Insert or update views
+      let index = -1;
+      for (const control of controlSet) {
+        index++;
+        let view = this.views.get(control);
+
+        if (view) {
+          this.viewContainer.move(view, index);
+          const changed = view.context.update(control, index, controlList);
+          if (changed) view.markForCheck();
+          continue;
         }
 
-        // Insert or update views
-        let index = -1;
-        for (const control of controlSet) {
-          index++;
-          let view = this.views.get(control);
-
-          if (view) {
-            this.viewContainer.move(view, index);
-            const changed = view.context.update(control, index, controlList);
-            if (changed) view.markForCheck();
-            continue;
-          }
-
-          const context = new FormListDirectiveContext(control, index, controlList);
-          view = this.viewContainer.createEmbeddedView(this.templateRef, context, {index});
-          this.views.set(control, view);
-        }
-      });
+        const context = new FormListDirectiveContext(control, index, controlList);
+        view = this.viewContainer.createEmbeddedView(this.templateRef, context, {index});
+        this.views.set(control, view);
+      }
     });
   }
 

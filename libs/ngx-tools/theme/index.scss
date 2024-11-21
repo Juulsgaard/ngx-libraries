@@ -11,19 +11,20 @@
 ) {
 	--ngx-background: #{$background};
 
-	$delta: color.channel($foreground, 'lightness', $space: hsl) - color.channel($background, 'lightness', $space: hsl);
+  //TODO: Update SASS color uses when plugin updates
+	$delta: lightness($foreground) - lightness($background);
 	$step: math.div($delta, 5);
 
 	--ngx-foreground: #{$foreground};
-	--ngx-foreground-900: #{color.adjust($foreground, $lightness: -12%, $space: hsl)};
-	--ngx-foreground-800: #{color.adjust($foreground, $lightness: -9%, $space: hsl)};
-	--ngx-foreground-700: #{color.adjust($foreground, $lightness: -6%, $space: hsl)};
-	--ngx-foreground-600: #{color.adjust($foreground, $lightness: -3%, $space: hsl)};
+	--ngx-foreground-900: #{darken($foreground, 12)};
+	--ngx-foreground-800: #{darken($foreground, 9)};
+	--ngx-foreground-700: #{darken($foreground, 6)};
+	--ngx-foreground-600: #{darken($foreground, 3)};
 	--ngx-foreground-500: #{$foreground};
-	--ngx-foreground-400: #{color.adjust($foreground, $lightness: -($step * 1), $space: hsl)};
-	--ngx-foreground-300: #{color.adjust($foreground, $lightness: -($step * 2), $space: hsl)};
-	--ngx-foreground-200: #{color.adjust($foreground, $lightness: -($step * 3), $space: hsl)};
-	--ngx-foreground-100: #{color.adjust($foreground, $lightness: -($step * 4), $space: hsl)};
+	--ngx-foreground-400: #{darken($foreground, $step * 1)};
+	--ngx-foreground-300: #{darken($foreground, $step * 2)};
+	--ngx-foreground-200: #{darken($foreground, $step * 3)};
+	--ngx-foreground-100: #{darken($foreground, $step * 4)};
 
 	--ngx-primary: #{$primary};
 	$primary-palette: _create-palette($primary, true);
@@ -60,19 +61,19 @@
 ) {
 	--ngx-background: #{$background};
 
-	$delta: color.channel($foreground, 'lightness', $space: hsl) - color.channel($background, 'lightness', $space: hsl);
+	$delta: lightness($foreground) - lightness($background);
 	$step: math.div($delta, 5);
 
 	--ngx-foreground: #{$foreground};
-	--ngx-foreground-900: #{color.adjust($foreground, $lightness: 12%, $space: hsl)};
-	--ngx-foreground-800: #{color.adjust($foreground, $lightness: 9%, $space: hsl)};
-	--ngx-foreground-700: #{color.adjust($foreground, $lightness: 6%, $space: hsl)};
-	--ngx-foreground-600: #{color.adjust($foreground, $lightness: 3%, $space: hsl)};
+	--ngx-foreground-900: #{lighten($foreground, 12)};
+	--ngx-foreground-800: #{lighten($foreground, 9)};
+	--ngx-foreground-700: #{lighten($foreground, 6)};
+	--ngx-foreground-600: #{lighten($foreground, 3)};
 	--ngx-foreground-500: #{$foreground};
-	--ngx-foreground-400: #{color.adjust($foreground, $lightness: -($step * 1), $space: hsl)};
-	--ngx-foreground-300: #{color.adjust($foreground, $lightness: -($step * 2), $space: hsl)};
-	--ngx-foreground-200: #{color.adjust($foreground, $lightness: -($step * 3), $space: hsl)};
-	--ngx-foreground-100: #{color.adjust($foreground, $lightness: -($step * 4), $space: hsl)};
+	--ngx-foreground-400: #{darken($foreground, $step * 1)};
+	--ngx-foreground-300: #{darken($foreground, $step * 2)};
+	--ngx-foreground-200: #{darken($foreground, $step * 3)};
+	--ngx-foreground-100: #{darken($foreground, $step * 4)};
 
 	--ngx-primary: #{$primary};
 	$primary-palette: _create-palette($primary, false);
@@ -101,21 +102,21 @@
 }
 
 @function _create-palette($color, $light: true) {
-	$low-delta: if($light, 100% - color.channel($color, 'lightness', $space: hsl), color.channel($color, 'lightness', $space: hsl));
+	$low-delta: if($light, 100% - lightness($color), lightness($color));
 	$low-step: math.div($low-delta, 5);
 	$high-delta: 100% - $low-delta;
 	$high-step: math.div($high-delta, 5);
 
 	@return (
-					"100": _lighten-theme($color, $low-step * 4, $light),
-					"200": _lighten-theme($color, $low-step * 3, $light),
-					"300": _lighten-theme($color, $low-step * 2, $light),
-					"400": _lighten-theme($color, $low-step * 1, $light),
-					"500": $color,
-					"600": _darken-theme($color, $high-step * 1, $light),
-					"700": _darken-theme($color, $high-step * 2, $light),
-					"800": _darken-theme($color, $high-step * 3, $light),
-					"900": _darken-theme($color, $high-step * 4, $light),
+		"100": _lighten-theme($color, $low-step * 4, $light),
+		"200": _lighten-theme($color, $low-step * 3, $light),
+		"300": _lighten-theme($color, $low-step * 2, $light),
+		"400": _lighten-theme($color, $low-step * 1, $light),
+		"500": $color,
+		"600": _darken-theme($color, $high-step * 1, $light),
+		"700": _darken-theme($color, $high-step * 2, $light),
+		"800": _darken-theme($color, $high-step * 3, $light),
+		"900": _darken-theme($color, $high-step * 4, $light),
 	)
 }
 
@@ -134,18 +135,18 @@
 
 @function _lighten-theme($color, $amount, $light: true) {
 	@if $light {
-		@return color.adjust($color, $lightness: $amount, $space: hsl);
+		@return lighten($color, $amount);
 	}
-	@return color.adjust($color, $lightness: -$amount, $space: hsl);
+	@return darken($color, $amount);
 }
 
 @function _darken-theme($color, $amount, $light: true) {
 	@if $light {
-		@return color.adjust($color, $lightness: -$amount, $space: hsl);
+		@return darken($color, $amount);
 	}
-	@return color.adjust($color, $lightness: $amount, $space: hsl);
+	@return lighten($color, $amount);
 }
 
 @function _get-contrast($color) {
-	@return if(color.channel($color, 'lightness', $space: hsl) < 60%, #FFFFFFDD, #000000DD)
+	@return if(lightness($color) < 60%, #FFFFFFDD, #000000DD)
 }

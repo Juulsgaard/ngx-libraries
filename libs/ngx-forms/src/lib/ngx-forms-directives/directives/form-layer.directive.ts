@@ -1,6 +1,4 @@
-import {
-  Directive, effect, EmbeddedViewRef, input, InputSignal, signal, TemplateRef, untracked, ViewContainerRef
-} from '@angular/core';
+import {Directive, effect, EmbeddedViewRef, input, InputSignal, TemplateRef, ViewContainerRef} from '@angular/core';
 import {FormLayer, FormUnit} from "@juulsgaard/ngx-forms-core";
 
 @Directive({
@@ -11,9 +9,7 @@ export class FormLayerDirective<TControls extends Record<string, FormUnit>> {
 
   readonly layer: InputSignal<FormLayer<TControls, any>> = input.required({alias: 'ngxFormLayer'});
 
-  // Disable functionality because of change detection timing
-  // readonly show: InputSignal<boolean> = input(true, {alias: 'ngxFormLayerWhen'});
-  readonly show = signal(true);
+  readonly show: InputSignal<boolean> = input(true, {alias: 'ngxFormLayerWhen'});
 
   view?: EmbeddedViewRef<FormLayerDirectiveContext<TControls>>;
 
@@ -24,25 +20,19 @@ export class FormLayerDirective<TControls extends Record<string, FormUnit>> {
 
     effect(() => {
       if (!this.show()) {
-        untracked(() => {
-          this.view?.destroy();
-          this.view = undefined;
-        });
+        this.view?.destroy();
+        this.view = undefined;
         return;
       }
 
-      const controls = this.layer().controls();
+      if (!this.view) {
+        const context = {ngxFormLayer: this.layer().controls()};
+        this.view = this.viewContainer.createEmbeddedView(this.templateRef, context);
+        return;
+      }
 
-      untracked(() => {
-        if (!this.view) {
-          const context = {ngxFormLayer: controls};
-          this.view = this.viewContainer.createEmbeddedView(this.templateRef, context);
-          return;
-        }
-
-        this.view.context.ngxFormLayer = controls;
-        this.view.markForCheck();
-      });
+      this.view.context.ngxFormLayer = this.layer().controls();
+      this.view.markForCheck();
     });
   }
 

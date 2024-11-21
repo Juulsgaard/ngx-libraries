@@ -50,9 +50,6 @@ export class NgxSideMenuOutletDirective implements OnDestroy {
       RenderSideMenuComponent,
       {injector: injector}
     );
-
-    this.component.changeDetectorRef.detectChanges();
-    this.component.changeDetectorRef.markForCheck();
   }
 
   ngOnDestroy() {

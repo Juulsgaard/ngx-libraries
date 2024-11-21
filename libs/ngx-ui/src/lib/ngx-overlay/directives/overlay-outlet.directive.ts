@@ -54,8 +54,5 @@ export class OverlayOutletDirective {
       RenderOverlayComponent,
       {injector: injector}
     );
-
-    this.component.changeDetectorRef.detectChanges();
-    this.component.changeDetectorRef.markForCheck();
   }
 }

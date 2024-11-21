@@ -41,8 +41,6 @@ export class FormDialogDirective<TControls extends Record<string, FormUnit>> {
       untracked(() => {
         if (!this.view) {
           this.view = this.viewContainer.createEmbeddedView(this.template, {dialogForm: _controls});
-          this.view.detectChanges();
-          this.view.markForCheck();
           return;
         }
 

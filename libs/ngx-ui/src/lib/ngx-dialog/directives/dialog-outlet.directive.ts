@@ -49,9 +49,6 @@ export class DialogOutletDirective {
       RenderDialogComponent,
       {injector: injector}
     );
-
-    this.component.changeDetectorRef.detectChanges();
-    this.component.changeDetectorRef.markForCheck();
   }
 }
 

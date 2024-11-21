@@ -1,6 +1,6 @@
 import {Subject} from "rxjs";
 import {OverlayToken, Rendering, RenderSource, TemplateRendering} from "@juulsgaard/ngx-tools";
-import {computed, Injector, Signal, untracked} from "@angular/core";
+import {computed, Injector, Signal} from "@angular/core";
 import {Disposable} from "@juulsgaard/ts-tools";
 
 export interface TemplateDialogOptions {
@@ -54,16 +54,14 @@ export class TemplateDialogInstance extends TemplateDialogContext implements Dis
     this.token.escape$.subscribe(() => this.close());
 
     this.content = computed(() => {
-      const oldContent = this._content;
-      if (oldContent) untracked(() => oldContent.dispose());
+      this._content?.dispose();
       const source = options.content();
       this._content = Rendering.FromSource.Static(source);
       return this._content;
     });
 
     this.footer = computed(() => {
-      const oldFooter = this._footer;
-      if (oldFooter) untracked(() => oldFooter.dispose());
+      this._footer?.dispose();
       const source = options.footer();
       this._footer = source && Rendering.FromSource.Static(source);
       return this._footer;

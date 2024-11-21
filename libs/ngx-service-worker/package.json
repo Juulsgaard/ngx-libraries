@@ -5,11 +5,10 @@
   "homepage": "https://github.com/Juulsgaard/ngx-libraries/tree/main/libs/ngx-service-worker",
   "version": "18.1.0",
   "peerDependencies": {
-    "@angular/common": "^18.2.0",
-    "@angular/core": "^18.2.0",
-    "@angular/material": "^18.2.0",
-    "@angular/service-worker": "^18.2.0",
-    "@juulsgaard/ngx-ui": "^18.0.0",
+    "@angular/common": "~19.0.0",
+    "@angular/core": "~19.0.0",
+    "@angular/service-worker": "~19.0.0",
+    "@juulsgaard/ngx-ui": "~18.0.0",
     "rxjs": "^7.8.1"
   },
   "sideEffects": false

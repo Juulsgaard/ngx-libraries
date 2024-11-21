@@ -4,6 +4,7 @@
 	display: flex;
 	flex-flow: column;
 	align-items: center;
+  counter-reset: ngx-form-card-counter;
 }
 
 fieldset, form {

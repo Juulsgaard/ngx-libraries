@@ -1,6 +1,6 @@
 import {
   booleanAttribute, ComponentRef, computed, Directive, effect, inject, input, InputSignal, InputSignalWithTransform,
-  untracked, ViewContainerRef
+  ViewContainerRef
 } from '@angular/core';
 import {ThemePalette} from "@angular/material/core";
 import {MatFormFieldAppearance} from "@angular/material/form-field";
@@ -43,22 +43,6 @@ export class FormInputDirective {
   readonly disabled: InputSignalWithTransform<boolean, unknown> = input(false, {transform: booleanAttribute});
   readonly readonly: InputSignalWithTransform<boolean, unknown> = input(false, {transform: booleanAttribute});
 
-  private getContext(): Context {
-    return {
-      control: this.control(),
-      label: this.label(),
-      placeholder: this.placeholder(),
-      autocomplete: this.autocomplete(),
-      autofocus: this.autofocus(),
-      tooltip: this.tooltip(),
-      color: this.color(),
-      appearance: this.appearance(),
-      direction: this.direction(),
-      readonly: this.readonly(),
-      disabled: this.disabled()
-    }
-  }
-
   readonly control: InputSignal<AnonFormNode | undefined> = input<AnonFormNode>();
 
   private registry = inject(FormInputRegistry);
@@ -74,44 +58,39 @@ export class FormInputDirective {
 
     effect(() => {
       const _componentType = componentType();
+
       if (!_componentType) {
-        untracked(() => {
-          this.component?.destroy();
-          this.component = undefined;
-        });
+        this.component?.destroy();
+        this.component = undefined;
         return;
       }
 
-      const context = this.getContext();
+      if (!this.component) {
+        this.component = this.viewContainer.createComponent(_componentType);
+      } else if (this.component.componentType !== _componentType) {
+        this.component.destroy();
+        this.component = this.viewContainer.createComponent(_componentType);
+      }
 
-      untracked(() => {
-        if (!this.component) {
-          this.component = this.viewContainer.createComponent(_componentType);
-        } else if (this.component.componentType !== _componentType) {
-          this.component.destroy();
-          this.component = this.viewContainer.createComponent(_componentType);
-        }
-
-        this.applyContext(context);
-      });
+      this.updateComponentInputs();
     });
   }
 
-  private applyContext(context: Context) {
+  private updateComponentInputs() {
     const component = this.component;
     if (!component) return;
 
-    component.setInput('control', context.control);
-    component.setInput('appearance', context.appearance);
-    component.setInput('color', context.color);
-    component.setInput('readonly', context.readonly);
-    component.setInput('autocomplete', context.autocomplete);
-    component.setInput('tooltip', context.tooltip);
-    component.setInput('disabled', context.disabled);
-    component.setInput('label', context.label);
-    component.setInput('placeholder', context.placeholder);
-    component.setInput('autofocus', context.autofocus);
-    component.setInput('direction', context.direction);
+    component.setInput('control', this.control());
+    component.setInput('appearance', this.appearance());
+    component.setInput('color', this.color());
+    component.setInput('readonly', this.readonly());
+    component.setInput('autocomplete', this.autocomplete());
+    component.setInput('tooltip', this.tooltip());
+    component.setInput('disabled', this.disabled());
+    component.setInput('label', this.label());
+    component.setInput('placeholder', this.placeholder());
+    component.setInput('autofocus', this.autofocus());
+    component.setInput('direction', this.direction());
   }
 }
 

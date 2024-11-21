@@ -1,6 +1,5 @@
 import {
-  computed, Directive, effect, EmbeddedViewRef, input, InputSignalWithTransform, signal, TemplateRef, untracked,
-  ViewContainerRef
+  computed, Directive, effect, EmbeddedViewRef, input, InputSignalWithTransform, signal, TemplateRef, ViewContainerRef
 } from "@angular/core";
 import {BaseFormDialog, FormRoot, FormUnit} from "@juulsgaard/ngx-forms-core";
 import {SimpleObject} from "@juulsgaard/ts-tools";
@@ -18,6 +17,7 @@ export class FormDialogDirective<TControls extends Record<string, FormUnit>> {
   });
 
   private view?: EmbeddedViewRef<DialogFormContext<TControls>>;
+  // Show toggle controlled by Dialog state
   readonly show = signal(false);
 
   constructor(
@@ -29,24 +29,20 @@ export class FormDialogDirective<TControls extends Record<string, FormUnit>> {
     effect(() => {
 
       if (!this.show()) {
-        untracked(() => {
-          this.view?.destroy();
-          this.view = undefined;
-        });
+        this.view?.destroy();
+        this.view = undefined;
         return;
       }
 
       const _controls = controls();
 
-      untracked(() => {
-        if (!this.view) {
-          this.view = this.viewContainer.createEmbeddedView(this.template, {dialogForm: _controls});
-          return;
-        }
+      if (!this.view) {
+        this.view = this.viewContainer.createEmbeddedView(this.template, {dialogForm: _controls});
+        return;
+      }
 
-        this.view.context.dialogForm = _controls;
-        this.view.markForCheck();
-      });
+      this.view.context.dialogForm = _controls;
+      this.view.markForCheck();
     });
   }
 

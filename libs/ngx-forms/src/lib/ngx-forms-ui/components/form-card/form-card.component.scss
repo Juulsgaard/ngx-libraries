@@ -12,6 +12,7 @@ form-card {
   color: $text-color;
   border-radius: 16px;
   margin: 40px 0;
+  counter-increment: ngx-form-card-counter;
 
   transition: background-color 100ms linear, color 100ms linear;
 
@@ -38,6 +39,10 @@ form-card {
 
       &::after {
         display: inline-block;
+      }
+
+      &:empty::after {
+        content: counter(ngx-form-card-counter);
       }
     }
   }

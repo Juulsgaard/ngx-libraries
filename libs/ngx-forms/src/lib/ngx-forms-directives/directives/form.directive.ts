@@ -1,16 +1,10 @@
 import {
-  Directive, effect, EmbeddedViewRef, forwardRef, input, InputSignalWithTransform, signal, TemplateRef, untracked,
-  ViewContainerRef
+  Directive, effect, EmbeddedViewRef, input, InputSignal, InputSignalWithTransform, TemplateRef, ViewContainerRef
 } from '@angular/core';
-import {ControlContainer} from "@angular/forms";
 import {FormRoot, FormUnit, isFormRoot} from "@juulsgaard/ngx-forms-core";
 
 @Directive({
   selector: '[ngxForm]',
-  providers: [{
-    provide: ControlContainer,
-    useExisting: forwardRef(() => FormDirective)
-  }],
   standalone: true
 })
 export class FormDirective<TControls extends Record<string, FormUnit>> {
@@ -23,9 +17,7 @@ export class FormDirective<TControls extends Record<string, FormUnit>> {
     transform: (form: FormRoot<TControls, any>|{readonly form: FormRoot<TControls, any>}) => isFormRoot(form) ? form : form.form
   });
 
-  // Disable functionality because of change detection timing
-  // readonly show: InputSignal<boolean> = input(true, {alias: 'ngxFormWhen'});
-  readonly show = signal(true);
+  readonly show: InputSignal<boolean> = input(true, {alias: 'ngxFormWhen'});
 
   view?: EmbeddedViewRef<FormDirectiveContext<TControls>>
 
@@ -36,25 +28,19 @@ export class FormDirective<TControls extends Record<string, FormUnit>> {
 
     effect(() => {
       if (!this.show()) {
-        untracked(() => {
-          this.view?.destroy();
-          this.view = undefined;
-        });
+        this.view?.destroy();
+        this.view = undefined;
         return;
       }
 
-      const controls =  this.form().controls();
+      if (!this.view) {
+        const context = {ngxForm: this.form().controls()};
+        this.view = this.viewContainer.createEmbeddedView(this.templateRef, context);
+        return;
+      }
 
-      untracked(() => {
-        if (!this.view) {
-          const context = {ngxForm: controls};
-          this.view = this.viewContainer.createEmbeddedView(this.templateRef, context);
-          return;
-        }
-
-        this.view.context.ngxForm = controls;
-        this.view.markForCheck();
-      });
+      this.view.context.ngxForm = this.form().controls();
+      this.view.markForCheck();
     });
   }
 

@@ -1,5 +1,6 @@
 @use 'sass:map';
 @use 'sass:math';
+@use 'sass:color';
 
 @mixin ngx-light-theme(
 	$primary: #455a64,
@@ -10,6 +11,7 @@
 ) {
 	--ngx-background: #{$background};
 
+  //TODO: Update SASS color uses when plugin updates
 	$delta: lightness($foreground) - lightness($background);
 	$step: math.div($delta, 5);
 

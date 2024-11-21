@@ -70,7 +70,7 @@ export class TruthyPipe implements PipeTransform, OnDestroy {
 
     this.asyncValue = this.parseValue(value);
     if (this.startup) return;
-    this.ref.detectChanges();
+    this.ref.markForCheck();
   }
 
   ngOnDestroy() {

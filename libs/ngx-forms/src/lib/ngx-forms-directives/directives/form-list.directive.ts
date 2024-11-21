@@ -57,8 +57,6 @@ export class FormListDirective<TControls extends Record<string, FormUnit>> {
 
           const context = new FormListDirectiveContext(control, index, controlList);
           view = this.viewContainer.createEmbeddedView(this.templateRef, context, {index});
-          view.detectChanges();
-          view.markForCheck();
           this.views.set(control, view);
         }
       });

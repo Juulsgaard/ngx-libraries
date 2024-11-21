@@ -13,7 +13,7 @@
     "@juulsgaard/ts-tools": "~1.7.0",
     "@juulsgaard/rxjs-tools": "~1.8.0",
     "@juulsgaard/signal-tools": "~19.0.0",
-    "@juulsgaard/ngx-tools": "~18.0.2",
+    "@juulsgaard/ngx-tools": "~18.1.0",
     "rxjs": "^7.8.1"
   },
   "dependencies": {

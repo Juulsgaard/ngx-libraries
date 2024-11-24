@@ -141,9 +141,15 @@ a.ngx-button-base {
     transition: opacity 200ms ease;
   }
 
-  &:hover, &:focus-visible {
+  &:hover {
     &::after {
       opacity: 0.1;
+    }
+  }
+
+  &:focus-visible {
+    &::after {
+      opacity: 0.2;
     }
   }
 }

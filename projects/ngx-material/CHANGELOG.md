@@ -1,5 +1,11 @@
 # @juulsgaard/ngx-material
 
+## 18.0.2
+
+### Patch Changes
+
+- Update Icon Button to accept custom content
+
 ## 18.0.1
 
 ### Patch Changes

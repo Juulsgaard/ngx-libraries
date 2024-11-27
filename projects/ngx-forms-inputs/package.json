@@ -3,7 +3,7 @@
   "description": "A library containing default input components for different input types",
   "repository": "git@github.com:Juulsgaard/ngx-libraries.git",
   "homepage": "https://github.com/Juulsgaard/ngx-libraries/tree/main/projects/ngx-forms-inputs",
-  "version": "18.0.1",
+  "version": "18.0.2",
   "publishConfig": {
     "directory": "../../dist/ngx-forms-inputs"
   },
@@ -32,9 +32,9 @@
     "@angular/core": "^18.1.2",
     "@angular/forms": "^18.1.2",
     "@angular/material": "^18.1.2",
-    "@juulsgaard/ngx-forms": "^18.0.1",
+    "@juulsgaard/ngx-forms": "^18.0.2",
     "@juulsgaard/ngx-forms-core": "^18.0.1",
-    "@juulsgaard/ngx-tools": "^18.0.2",
+    "@juulsgaard/ngx-tools": "^18.0.3",
     "dayjs": "^1.11.12",
     "ngx-colors": "^3.6.0",
     "ngx-mat-timepicker": "^18.0.0",
@@ -48,9 +48,9 @@
     "@angular/forms": "18.1.2",
     "@angular/material": "18.1.2",
     "@angular/platform-browser": "18.1.2",
-    "@juulsgaard/ngx-forms": "18.0.1",
+    "@juulsgaard/ngx-forms": "18.0.2",
     "@juulsgaard/ngx-forms-core": "18.0.1",
-    "@juulsgaard/ngx-tools": "18.0.2",
+    "@juulsgaard/ngx-tools": "18.0.3",
     "dayjs": "1.11.12",
     "ngx-colors": "3.6.0",
     "ngx-mat-timepicker": "18.0.0"

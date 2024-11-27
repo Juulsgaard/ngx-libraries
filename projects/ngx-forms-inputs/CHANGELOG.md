@@ -1,5 +1,14 @@
 # @juulsgaard/ngx-forms-inputs
 
+## 18.0.2
+
+### Patch Changes
+
+- SCSS updates
+- Updated dependencies
+  - @juulsgaard/ngx-forms@18.0.2
+  - @juulsgaard/ngx-tools@18.0.3
+
 ## 18.0.1
 
 ### Patch Changes

@@ -34,7 +34,7 @@
     "@angular/material": "^18.1.2",
     "@juulsgaard/ngx-forms": "^18.0.2",
     "@juulsgaard/ngx-forms-core": "^18.0.1",
-    "@juulsgaard/ngx-tools": "^18.0.3",
+    "@juulsgaard/ngx-tools": "^18.0.4",
     "dayjs": "^1.11.12",
     "ngx-colors": "^3.6.0",
     "ngx-mat-timepicker": "^18.0.0",
@@ -50,7 +50,7 @@
     "@angular/platform-browser": "18.1.2",
     "@juulsgaard/ngx-forms": "18.0.2",
     "@juulsgaard/ngx-forms-core": "18.0.1",
-    "@juulsgaard/ngx-tools": "18.0.3",
+    "@juulsgaard/ngx-tools": "18.0.4",
     "dayjs": "1.11.12",
     "ngx-colors": "3.6.0",
     "ngx-mat-timepicker": "18.0.0"

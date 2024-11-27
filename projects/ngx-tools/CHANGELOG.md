@@ -1,5 +1,11 @@
 # @juulsgaard/ngx-tools
 
+## 18.0.4
+
+### Patch Changes
+
+- Add units to SCSS
+
 ## 18.0.3
 
 ### Patch Changes

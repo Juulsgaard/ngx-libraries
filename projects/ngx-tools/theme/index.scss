@@ -1,7 +1,6 @@
-@use "sass:color";
-
 @use 'sass:map';
 @use 'sass:math';
+@use 'sass:color';
 
 @mixin ngx-light-theme(
 	$primary: #455a64,
@@ -16,10 +15,10 @@
 	$step: math.div($delta, 5);
 
 	--ngx-foreground: #{$foreground};
-	--ngx-foreground-900: #{color.adjust($foreground, $lightness: -12, $space: hsl)};
-	--ngx-foreground-800: #{color.adjust($foreground, $lightness: -9, $space: hsl)};
-	--ngx-foreground-700: #{color.adjust($foreground, $lightness: -6, $space: hsl)};
-	--ngx-foreground-600: #{color.adjust($foreground, $lightness: -3, $space: hsl)};
+	--ngx-foreground-900: #{color.adjust($foreground, $lightness: -12%, $space: hsl)};
+	--ngx-foreground-800: #{color.adjust($foreground, $lightness: -9%, $space: hsl)};
+	--ngx-foreground-700: #{color.adjust($foreground, $lightness: -6%, $space: hsl)};
+	--ngx-foreground-600: #{color.adjust($foreground, $lightness: -3%, $space: hsl)};
 	--ngx-foreground-500: #{$foreground};
 	--ngx-foreground-400: #{color.adjust($foreground, $lightness: -($step * 1), $space: hsl)};
 	--ngx-foreground-300: #{color.adjust($foreground, $lightness: -($step * 2), $space: hsl)};
@@ -65,10 +64,10 @@
 	$step: math.div($delta, 5);
 
 	--ngx-foreground: #{$foreground};
-	--ngx-foreground-900: #{color.adjust($foreground, $lightness: 12, $space: hsl)};
-	--ngx-foreground-800: #{color.adjust($foreground, $lightness: 9, $space: hsl)};
-	--ngx-foreground-700: #{color.adjust($foreground, $lightness: 6, $space: hsl)};
-	--ngx-foreground-600: #{color.adjust($foreground, $lightness: 3, $space: hsl)};
+	--ngx-foreground-900: #{color.adjust($foreground, $lightness: 12%, $space: hsl)};
+	--ngx-foreground-800: #{color.adjust($foreground, $lightness: 9%, $space: hsl)};
+	--ngx-foreground-700: #{color.adjust($foreground, $lightness: 6%, $space: hsl)};
+	--ngx-foreground-600: #{color.adjust($foreground, $lightness: 3%, $space: hsl)};
 	--ngx-foreground-500: #{$foreground};
 	--ngx-foreground-400: #{color.adjust($foreground, $lightness: -($step * 1), $space: hsl)};
 	--ngx-foreground-300: #{color.adjust($foreground, $lightness: -($step * 2), $space: hsl)};
@@ -108,15 +107,15 @@
 	$high-step: math.div($high-delta, 5);
 
 	@return (
-		"100": _lighten-theme($color, $low-step * 4, $light),
-		"200": _lighten-theme($color, $low-step * 3, $light),
-		"300": _lighten-theme($color, $low-step * 2, $light),
-		"400": _lighten-theme($color, $low-step * 1, $light),
-		"500": $color,
-		"600": _darken-theme($color, $high-step * 1, $light),
-		"700": _darken-theme($color, $high-step * 2, $light),
-		"800": _darken-theme($color, $high-step * 3, $light),
-		"900": _darken-theme($color, $high-step * 4, $light),
+					"100": _lighten-theme($color, $low-step * 4, $light),
+					"200": _lighten-theme($color, $low-step * 3, $light),
+					"300": _lighten-theme($color, $low-step * 2, $light),
+					"400": _lighten-theme($color, $low-step * 1, $light),
+					"500": $color,
+					"600": _darken-theme($color, $high-step * 1, $light),
+					"700": _darken-theme($color, $high-step * 2, $light),
+					"800": _darken-theme($color, $high-step * 3, $light),
+					"900": _darken-theme($color, $high-step * 4, $light),
 	)
 }
 

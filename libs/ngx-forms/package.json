@@ -3,7 +3,7 @@
   "description": "This library contains Angular components and tools for working with Forms",
   "repository": "git@github.com:Juulsgaard/ngx-libraries.git",
   "homepage": "https://github.com/Juulsgaard/ngx-libraries/tree/main/libs/ngx-forms",
-  "version": "19.0.2-0",
+  "version": "19.0.2",
   "peerDependencies": {
     "@angular/cdk": "~19.0.0",
     "@angular/common": "~19.0.0",

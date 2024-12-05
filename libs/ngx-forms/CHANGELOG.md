@@ -1,3 +1,7 @@
+## 19.0.2 (2024-12-05)
+
+This was a version bump only for ngx-forms to align it with other projects, there were no code changes.
+
 ## 19.0.2-0 (2024-12-05)
 
 This was a version bump only for ngx-forms to align it with other projects, there were no code changes.

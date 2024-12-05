@@ -3,7 +3,7 @@
   "description": "A library adding Material inspired utilities and components",
   "repository": "git@github.com:Juulsgaard/ngx-libraries.git",
   "homepage": "https://github.com/Juulsgaard/ngx-libraries/tree/main/libs/ngx-ui",
-  "version": "19.0.0",
+  "version": "19.0.1-0",
   "peerDependencies": {
     "@angular/core": "~19.0.0",
     "@angular/common": "~19.0.0",

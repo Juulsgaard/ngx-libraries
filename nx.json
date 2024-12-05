@@ -31,7 +31,7 @@
   "targetDefaults": {
     "nx-release-publish": {
       "options": {
-        "packageRoot": "dist/libs/{packageName}"
+        "packageRoot": "dist/libs/{projectName}"
       },
       "dependsOn": ["build"]
     },

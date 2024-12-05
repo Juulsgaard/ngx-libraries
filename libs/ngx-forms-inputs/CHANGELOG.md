@@ -1,4 +1,6 @@
-# @juulsgaard/ngx-forms-inputs
+## 19.0.0-beta.1 (2024-12-05)
+
+Upgrade to Angular 19 and switch to nx
 
 ## 18.0.2
 

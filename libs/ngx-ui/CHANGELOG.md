@@ -1,3 +1,7 @@
+# 19.0.0 (2024-12-05)
+
+This was a version bump only for ngx-ui to align it with other projects, there were no code changes.
+
 ## 19.0.0-beta.1 (2024-12-05)
 
 Upgrade to Angular 19 and switch to nx

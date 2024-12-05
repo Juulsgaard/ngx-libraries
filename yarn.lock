@@ -1307,7 +1307,7 @@
   dependencies:
     "@jridgewell/trace-mapping" "0.3.9"
 
-"@ctrl/tinycolor@4.1.0":
+"@ctrl/tinycolor@4.1.0", "@ctrl/tinycolor@^4.1.0":
   version "4.1.0"
   resolved "https://registry.yarnpkg.com/@ctrl/tinycolor/-/tinycolor-4.1.0.tgz#91a8f8120ffc9da2feb2a38f7862b300d5e9691a"
   integrity sha512-WyOx8cJQ+FQus4Mm4uPIZA64gbk3Wxh0so5Lcii0aJifqwoVOlfFtorjLE0Hen4OYyHZMXDWqMmaQemBhgxFRQ==
@@ -2101,6 +2101,12 @@
   integrity sha512-fD1WjTC1ILCzZ1GjUszXeKZxJEwU3YWWQfE47lU9+lWZvZVz3xJfcjI+neNU41cESn16Ep6luCiTOsYDIDtPYg==
   dependencies:
     tslib "^2.8.1"
+
+"@juulsgaard/ngx-tools@file:./libs/ngx-tools":
+  version "19.0.1-0"
+  dependencies:
+    "@ctrl/tinycolor" "^4.1.0"
+    tslib "2.8.1"
 
 "@juulsgaard/rxjs-tools@1.8.0":
   version "1.8.0"

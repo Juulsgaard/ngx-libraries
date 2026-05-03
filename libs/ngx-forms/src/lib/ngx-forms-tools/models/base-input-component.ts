@@ -1,6 +1,6 @@
 import {
-  afterNextRender, booleanAttribute, computed, Directive, effect, ElementRef, HostBinding, inject, input, InputSignal,
-  InputSignalWithTransform, model, ModelSignal, Signal, signal, viewChild, viewChildren, WritableSignal
+    afterNextRender, booleanAttribute, computed, Directive, effect, ElementRef, HostBinding, inject, input, InputSignal,
+    InputSignalWithTransform, model, ModelSignal, Signal, signal, viewChild, viewChildren, WritableSignal
 } from "@angular/core";
 import {EMPTY, Observable, OperatorFunction, Subject, Subscribable, Subscription, switchMap} from "rxjs";
 import {NgModel} from "@angular/forms";
@@ -321,7 +321,7 @@ function mapObservableToSignal<T>(): OperatorFunction<Observable<T>|undefined, S
                 itemSub?.unsubscribe();
                 if (!val$) {
                     itemSub = undefined;
-                    subscriber.next(undefined);
+                    subscriber.next(signal(undefined));
                     return;
                 }
                 const sig = signal<T|undefined>(undefined);

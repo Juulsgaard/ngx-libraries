@@ -1,4 +1,4 @@
-import {OverlayToken, Rendering} from "@juulsgaard/ngx-tools";
+import {OverlayToken, Rendering, StaticTemplateRendering} from "@juulsgaard/ngx-tools";
 import {TemplateRef, ViewContainerRef} from "@angular/core";
 import {OverlayOptions} from "./overlay-options";
 import {OverlayContext} from "./overlay-context";
@@ -6,7 +6,7 @@ import {Subject} from "rxjs";
 
 export class OverlayInstance extends OverlayContext {
 
-  readonly content = Rendering.Static(this.viewContainer, this.template);
+  readonly content: StaticTemplateRendering;
 
   private _close$ = new Subject<void>();
   readonly close$ = this._close$.asObservable();
@@ -23,6 +23,7 @@ export class OverlayInstance extends OverlayContext {
   ) {
     super(options, token.zIndex);
     this.token.escape$.subscribe(() => this.close());
+    this.content = Rendering.Static(viewContainer, template);
   }
 
   dispose() {

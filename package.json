@@ -5,10 +5,10 @@
   "scripts": {},
   "private": true,
   "devDependencies": {
-    "@angular/build": "~21.2.0",
-    "@angular/cli": "~21.2.0",
-    "@angular/compiler-cli": "~21.2.0",
-    "ng-packagr": "~21.2.0",
+    "@angular/build": "catalog:",
+    "@angular/cli": "catalog:",
+    "@angular/compiler-cli": "catalog:",
+    "ng-packagr": "catalog:",
     "typescript": "~5.9.0"
   },
   "packageManager": "pnpm@11.0.4"

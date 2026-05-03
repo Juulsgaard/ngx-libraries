@@ -2,9 +2,16 @@ packages:
   - libs/*
 
 allowBuilds:
-  '@parcel/watcher': set this to true or false
-  esbuild: set this to true or false
-  lmdb: set this to true or false
-  msgpackr-extract: set this to true or false
+  '@parcel/watcher': true
+  esbuild: true
+  lmdb: true
+  msgpackr-extract: true
 
-nodeLinker: hoisted
+catalog:
+  '@angular/build': ^21.2.0
+  '@angular/cli': ^21.2.0
+  '@angular/compiler-cli': ^21.2.0
+  '@angular/core': ^21.2.0
+  'ng-packagr': ^21.2.0
+
+nodeLinker: isolated

@@ -3,13 +3,13 @@
   "description": "Utilities for working with Service Workers in Angular",
   "repository": "git@github.com:Juulsgaard/ngx-libraries.git",
   "homepage": "https://github.com/Juulsgaard/ngx-libraries/tree/main/libs/ngx-service-worker",
-  "version": "19.0.2",
+  "version": "21.0.0",
   "peerDependencies": {
-    "@angular/common": "~19.0.0",
-    "@angular/core": "~19.0.0",
-    "@angular/service-worker": "~19.0.0",
-    "@juulsgaard/ngx-ui": "~19.0.0",
-    "rxjs": "^7.8.1"
+    "@angular/common": "^21.2.0",
+    "@angular/core": "^21.2.0",
+    "@angular/service-worker": "^21.2.0",
+    "@juulsgaard/ngx-ui": "workspace:~",
+    "rxjs": "^7.8.2"
   },
   "sideEffects": false
 }

@@ -34,13 +34,13 @@ export class SearchInputComponent extends BaseInputComponent<string, string|unde
   @Output() submitted = new EventEmitter<string|undefined>();
 
   @HostListener('keydown.enter', ['$event'])
-  onEnter() {
+  onEnter(_event: Event) {
     if (!this.submitted.observed) return;
     this.submitted.emit(this.externalValue());
   }
 
   @HostListener('keydown.escape', ['$event'])
-  escape(event: KeyboardEvent) {
+  escape(event: Event) {
     event.stopPropagation();
     this.value = '';
     this.inputElement()?.blur();

@@ -8,7 +8,7 @@ export class ImageFallbackDirective {
   constructor(private element: ElementRef<HTMLImageElement>) {
   }
 
-  @HostListener('error', ['$event'])
+  @HostListener('error', [])
   onError() {
     const fallback = this.fallbackSrc();
     if (!fallback) return;

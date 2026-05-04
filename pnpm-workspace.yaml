@@ -4,14 +4,24 @@ packages:
 allowBuilds:
   '@parcel/watcher': true
   esbuild: true
+  less: true
   lmdb: true
   msgpackr-extract: true
+  nx: true
 
 catalog:
   '@angular/build': ^21.2.0
   '@angular/cli': ^21.2.0
   '@angular/compiler-cli': ^21.2.0
   '@angular/core': ^21.2.0
+  '@angular/common': ^21.2.0
+  '@angular/router': ^21.2.0
+  '@angular/material': ^21.2.0
+  '@angular/forms': ^21.2.0
+  '@angular/cdk': ^21.2.0
+  '@angular/animations': ^21.2.0
+  "@angular/platform-browser": ^21.2.0
+  "@angular/service-worker": ^21.2.0
   'ng-packagr': ^21.2.0
 
 nodeLinker: isolated

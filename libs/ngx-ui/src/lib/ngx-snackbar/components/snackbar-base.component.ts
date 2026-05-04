@@ -34,7 +34,7 @@ export abstract class SnackbarBaseComponent<T> {
   private elementWidth = 0;
 
   @HostBinding('@snackbar')
-  private swipeDismissed: 'left'|'right'|'none' = 'none';
+  public swipeDismissed: 'left'|'right'|'none' = 'none';
 
   private registerGestures() {
     fromEvent<PointerEvent>(this.element, 'pointerdown', {passive: true}).pipe(

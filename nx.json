@@ -3,6 +3,16 @@
   "workspaceLayout": {
     "libsDir": "libs"
   },
+  "namedInputs": {
+    "default": [
+      "{projectRoot}/**/*"
+    ],
+    "production": [
+      "default",
+      "!{projectRoot}/**/*.stories.@(js|jsx|ts|tsx|mdx)",
+      "!{projectRoot}/.storybook/**/*"
+    ]
+  },
   "release": {
     "projectsRelationship": "independent",
     "changelog": {
@@ -16,12 +26,19 @@
       "options": {
         "packageRoot": "dist/libs/{projectName}"
       },
-      "dependsOn": ["build"]
+      "dependsOn": [
+        "build"
+      ]
     },
     "@nx/angular:package": {
       "cache": true,
-      "dependsOn": ["^build"],
-      "inputs": ["production", "^production"]
+      "dependsOn": [
+        "^build"
+      ],
+      "inputs": [
+        "production",
+        "^production"
+      ]
     }
   },
   "generators": {
@@ -34,5 +51,6 @@
     "@nx/angular:component": {
       "style": "scss"
     }
-  }
+  },
+  "analytics": false
 }

@@ -38,9 +38,13 @@ export class LongTapDirective implements OnDestroy {
   }
 
   @HostListener('touchdown', ['$event'])
-  onTouchDown(event: TouchEvent) {
+  onTouchDown(event: Event) {
    this.zone.runOutsideAngular(() => {
      if (this.longTapDisabled()) return;
+
+     const isValid = event instanceof TouchEvent;
+     if (!isValid) return;
+
      this.eventStartPos = this.getPosition(event);
      this.onStart(
        fromEvent<MouseEvent>(window, 'touchmove', {passive: true}),

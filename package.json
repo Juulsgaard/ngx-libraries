@@ -9,7 +9,13 @@
     "@angular/cli": "catalog:",
     "@angular/compiler-cli": "catalog:",
     "ng-packagr": "catalog:",
-    "typescript": "~5.9.0"
+    "typescript": "~5.9.0",
+    "nx": "^22.7.1",
+    "@nx/angular": "^22.7.1",
+    "storybook": "^10.3.6",
+    "@storybook/angular": "^10.3.6",
+    "@storybook/addon-themes": "^10.3.6",
+    "@storybook/addon-links": "^10.3.6"
   },
   "packageManager": "pnpm@11.0.4"
 }

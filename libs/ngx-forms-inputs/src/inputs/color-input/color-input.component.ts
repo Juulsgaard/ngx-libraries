@@ -44,6 +44,7 @@ export class ColorInputComponent extends BaseInputComponent<string, string|undef
   }
 
   postprocessValue(value: string|undefined): string|undefined {
+    console.log(value)
     if (!value) return undefined;
     value = value.trim();
 
@@ -142,9 +143,5 @@ const colors = [
   {
     color: "azul gris", preview: "#90A4AE", variants:
       ["#ECEFF1", "#CFD8DC", "#B0BEC5", "#90A4AE", "#78909C", "#607D8B", "#546E7A", "#455A64", "#37474F"]
-  },
-  {
-    color: 'Consensus', preview: '#4957F5', variants:
-      ['#4957F5', '#001AAB', '#4BBC92', '#F5C43D', '#F071A6']
   }
 ];

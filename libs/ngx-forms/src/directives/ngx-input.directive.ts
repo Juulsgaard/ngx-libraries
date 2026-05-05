@@ -67,7 +67,7 @@ export class NgxInputDirective<T> extends NgxFormFieldDirective<T> {
   }
 
   protected writeValue(value: T | undefined): void {
-    this.element.value = value ?? null;
+    this.element.value = value ?? '';
   }
 
 }

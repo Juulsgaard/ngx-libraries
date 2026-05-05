@@ -1,6 +1,9 @@
 import {ChangeDetectionStrategy, Component} from '@angular/core';
 import {autoDisable, Form, formPage, Validators} from "@juulsgaard/ngx-forms-core";
-import {FormHeaderComponent, FormSubmitComponent} from "@juulsgaard/ngx-forms";
+import {
+  FormCardComponent, FormDirective, FormHeaderComponent, FormLayerDirective, FormSubmitComponent, FormWrapperComponent,
+  NgxFormCardDescriptionDirective, NgxFormCardTitleDirective
+} from "@juulsgaard/ngx-forms";
 import {
   BoolInputComponent, DateInputComponent, DateTimeInputComponent, NumberInputComponent, TextInputComponent,
   TimeInputComponent
@@ -17,7 +20,13 @@ import {
     TimeInputComponent,
     FormSubmitComponent,
     DateTimeInputComponent,
-    NumberInputComponent
+    NumberInputComponent,
+    FormWrapperComponent,
+    FormCardComponent,
+    NgxFormCardTitleDirective,
+    NgxFormCardDescriptionDirective,
+    FormLayerDirective,
+    FormDirective
   ],
   templateUrl: './form-preview.component.html',
   styleUrl: './form-preview.component.scss',
@@ -25,25 +34,28 @@ import {
 })
 export class FormPreviewComponent {
 
-  form = formPage.create<FormValue>().withForm({
-    bool: Form.bool(true).withLabel('Enable Text Input'),
-    str: Form.text().withLabel('Text Input').required().withErrors(Validators.minLength(2)).withWarnings(Validators.maxLength(10, 'Avoid making the text too long')),
-    layer: Form.layer<LayerValue>({
-      date: Form.nullable.date().withLabel('Start Date'),
-      time: Form.nullable.time().withLabel('Start Time')
-    }).withErrors(this.validate),
-    dateTime: Form.datetime().required().withLabel('End Date and Time'),
-    number: Form.number().withLabel('Max participants').withErrors(Validators.min(1), Validators.max(1000)),
-  })
+  form = formPage.create<FormValue>()
+    .withForm({
+      bool: Form.bool(true).withLabel('Enable Text Input'),
+      str: Form.text().withLabel('Text Input').required()
+        .withErrors(Validators.minLength(2))
+        .withWarnings(Validators.maxLength(10, 'Avoid making the text too long')),
+      layer: Form.layer<LayerValue>({
+        date: Form.nullable.date().withLabel('Start Date'),
+        time: Form.nullable.time().withLabel('Start Time')
+      }).withErrors(this.validate),
+      dateTime: Form.datetime().required().withLabel('End Date and Time'),
+      number: Form.number().withLabel('Max participants')
+        .withErrors(Validators.min(1), Validators.max(1000)),
+    })
     .withSubmit(x => console.log(x))
     .done();
 
   constructor() {
     autoDisable(this.form, disable => disable.str(state => !state.bool()));
-
   }
 
-  *validate(layer: LayerValue): Generator<string> {
+  * validate(layer: LayerValue): Generator<string> {
     if (layer.date && layer.time) return;
     if (!layer.date && !layer.time) return;
     yield 'Both date and time need to be set';

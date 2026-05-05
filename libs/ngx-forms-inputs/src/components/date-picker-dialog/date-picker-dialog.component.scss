@@ -4,10 +4,10 @@ ngx-date-picker-dialog {
   .mat-calendar-header {
     background: $primary;
     color: $primary-500-contrast;
-    --mat-datepicker-calendar-period-button-icon-color: #{$primary-500-contrast};
+    --mat-sys-on-surface-variant: #{$primary-500-contrast};
 
     .mat-mdc-button.mat-unthemed {
-      --mdc-text-button-label-text-color: #{$primary-500-contrast};
+      --mat-button-text-state-layer-color: #{$primary-500-contrast};
     }
   }
 

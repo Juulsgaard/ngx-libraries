@@ -184,7 +184,7 @@ export abstract class BaseInputComponent<TIn, TVal> {
 
     /** Add a tooltip with additional information about the input */
     readonly tooltipIn: InputSignal<string | undefined> = input<string|undefined>(undefined, {alias: 'tooltip'});
-    protected tooltip = computed(() => this.tooltipIn() ?? this.control()?.tooltip);
+    protected tooltip: Signal<string|undefined> = computed(() => this.tooltipIn() ?? this.control()?.tooltip);
 
     /** Set the theme color for the input */
     readonly colorIn: InputSignal<ThemePalette> = input<ThemePalette>('primary', {alias: 'color'});
@@ -313,7 +313,7 @@ export abstract class BaseInputComponent<TIn, TVal> {
 }
 
 function mapObservableToSignal<T>(): OperatorFunction<Observable<T>|undefined, Signal<T|undefined>|undefined> {
-    return (source) => new Observable<Signal<T|undefined>>(subscriber => {
+    return (source) => new Observable<Signal<T|undefined>|undefined>(subscriber => {
         let itemSub: Subscription|undefined;
 
         const sub = source.subscribe({
@@ -321,7 +321,7 @@ function mapObservableToSignal<T>(): OperatorFunction<Observable<T>|undefined, S
                 itemSub?.unsubscribe();
                 if (!val$) {
                     itemSub = undefined;
-                    subscriber.next(signal(undefined));
+                    subscriber.next(undefined);
                     return;
                 }
                 const sig = signal<T|undefined>(undefined);

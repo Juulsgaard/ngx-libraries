@@ -1,33 +1,33 @@
 
 <ngx-form-header [form]="form" heading="Form"/>
 
-<form-wrapper *ngxForm="form as root">
+<ngx-form-wrapper *ngxForm="form as root">
 
-    <form-card>
+    <ngx-form-card>
 
         <p ngxFormCardTitle>Form Section</p>
         <p ngxFormCardDescription>Section description</p>
 
         <form-bool-input [control]="root.bool"/>
         <form-text-input [control]="root.str"/>
-    </form-card>
+    </ngx-form-card>
 
-    <form-card *ngxFormLayer="root.layer as layer">
+    <ngx-form-card *ngxFormLayer="root.layer as layer">
 
         <p ngxFormCardTitle>Date & Time</p>
 
         <form-date-input [control]="layer.date"/>
         <form-time-input [control]="layer.time"/>
-    </form-card>
+    </ngx-form-card>
 
-    <form-card>
+    <ngx-form-card>
 
         <p ngxFormCardTitle>Misc</p>
 
         <form-date-time-input [control]="root.dateTime"/>
         <form-number-input [control]="root.number"/>
-    </form-card>
+    </ngx-form-card>
 
     <ngx-form-submit [form]="form" disableShortcut/>
 
-</form-wrapper>
+</ngx-form-wrapper>

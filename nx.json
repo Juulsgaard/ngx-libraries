@@ -24,7 +24,7 @@
   "targetDefaults": {
     "nx-release-publish": {
       "options": {
-        "packageRoot": "dist/libs/{projectName}"
+        "packageRoot": "libs/{projectName}"
       },
       "dependsOn": [
         "build"

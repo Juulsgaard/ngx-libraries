@@ -72,7 +72,7 @@ export class TagListInputComponent<TItem> extends BaseMultiSelectInputComponent<
     );
     const filtered = computed(() => {
       const _blacklist = blacklist();
-      const items = _blacklist.size ? this.mappedItems().filter(x => !_blacklist.has(x.id)) : this.mappedItems();
+      const items = _blacklist.size ? this.mappedItems().filter((x: FormSelectValue<TItem, string>) => !_blacklist.has(x.id)) : this.mappedItems();
       searcher.setCollection(items);
       return items;
     });

@@ -37,7 +37,7 @@ export abstract class BaseSelectInputComponent<TValue, TItem, TMultiple extends 
   readonly itemsIn: InputSignal<TItem[] | undefined> = input<TItem[] | undefined>(undefined, {alias: 'items'});
   protected items: Signal<TItem[]> = computed(() => this.itemsIn() ?? this.controlItems() ?? []);
 
-  protected mappedItems: Signal<FormSelectValue<TItem, TValue>[]> = computed(() => {
+  protected readonly mappedItems: Signal<FormSelectValue<TItem, TValue>[]> = computed(() => {
     const mapValue = this.getValue();
     const mapOption = this.getOption();
     return this.items().map(x => new FormSelectValue(x, mapValue?.(x), mapOption?.(x)));

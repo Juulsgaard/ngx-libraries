@@ -33,16 +33,17 @@ export abstract class BaseRenderDirective<T extends object> implements OnDestroy
   update() {
     const template = this.template();
 
-    if (template == null) {
-      this._template?.detach(this.element);
-      this._template = undefined;
-      return;
+    if (template !== this._template) {
+      if (this.autoDispose()) this._template?.dispose();
+      else this._template?.detach(this.element);
     }
 
     this._template = template;
+    if (!template) return;
+
     const inside = this.renderInside();
     const context = this.context();
-    const filter = this.filter()
+    const filter = this.filter();
 
     if (inside) {
       template.attachInside(this.element, this.injector, context, filter);

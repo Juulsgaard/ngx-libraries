@@ -3,6 +3,9 @@
   "workspaceLayout": {
     "libsDir": "libs"
   },
+  "cli": {
+    "packageManager": "pnpm"
+  },
   "namedInputs": {
     "default": [
       "{projectRoot}/**/*"
@@ -15,6 +18,9 @@
   },
   "release": {
     "projectsRelationship": "independent",
+    "version": {
+      "updateDependents": "never"
+    },
     "changelog": {
       "projectChangelogs": true,
       "workspaceChangelog": false

@@ -67,7 +67,7 @@ export abstract class TemplateRendering<T extends object = object> {
   }
 
   /**
-   * Get the root nodes of the rendered template
+   * Get the root nodes of the rendered template and assign them to a new anchor
    * @param anchor - The current anchor
    * @param injector - Optionally override the injector used when rendering
    * @param filter - Optional filter for which nodes to return
@@ -86,7 +86,7 @@ export abstract class TemplateRendering<T extends object = object> {
     const nodes = arrToSet(this.rendering.nodes.filter(x => filter(x.node)));
     nodes.forEach(x => x.anchor = anchor);
 
-    // Remove all non-matching nodes
+    // Remove all non-matching nodes that were previously attached to this anchor
     this.rendering.nodes
       .filter(x => !nodes.has(x))
       .filter(x => x.anchor == anchor)

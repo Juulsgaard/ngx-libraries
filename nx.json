@@ -26,7 +26,6 @@
       "workspaceChangelog": false
     }
   },
-  "nxCloudId": "6735de08f1704f56307506c1",
   "targetDefaults": {
     "nx-release-publish": {
       "options": {

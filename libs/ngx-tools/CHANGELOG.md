@@ -1,3 +1,7 @@
+## 21.0.1 (2026-05-29)
+
+This was a version bump only for ngx-tools to align it with other projects, there were no code changes.
+
 ## 19.0.2 (2024-12-05)
 
 This was a version bump only for ngx-tools to align it with other projects, there were no code changes.

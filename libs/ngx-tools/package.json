@@ -3,7 +3,7 @@
   "description": "Basic utilities for working with Angular",
   "repository": "git@github.com:Juulsgaard/ngx-libraries.git",
   "homepage": "https://github.com/Juulsgaard/ngx-libraries/tree/main/libs/ngx-tools",
-  "version": "21.0.0",
+  "version": "21.0.1",
   "main": "src/index.ts",
   "publishConfig": {
     "directory": "../../dist/libs/ngx-tools"

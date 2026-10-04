@@ -1,21 +1,48 @@
 import {
   afterNextRender, assertInInjectionContext, computed, inject, Injector, linkedSignal, runInInjectionContext, signal,
-  Signal, untracked, viewChildren, WritableSignal
+  Signal, untracked, WritableSignal
 } from "@angular/core";
 import {ErrorStateMatcher} from "@angular/material/core";
-import {
-  alwaysErrorStateMatcher, FormContext, InputComponent, neverErrorStateMatcher, touchedErrorStateMatcher
-} from "@juulsgaard/ngx-forms";
 import {scrollToElement} from "@juulsgaard/ts-tools";
 import {ScrollContext} from "@juulsgaard/ngx-tools";
 import {takeUntilDestroyed} from "@angular/core/rxjs-interop";
 import {FormInputEvent, InputEvents} from "@juulsgaard/ngx-forms-core";
-import {NgModel} from "@angular/forms";
+import {FormContext} from "../ngx-forms-tools";
+import {alwaysErrorStateMatcher, neverErrorStateMatcher, touchedErrorStateMatcher} from "./error-state-matchers";
+import {InputComponent} from "./input-component";
 
-export class InputControls<T> {
+export interface InputControls<T> {
+  readonly value: WritableSignal<T | undefined>;
+  readonly label: Signal<string | undefined>
+  readonly placeholder: Signal<string | undefined>
+  readonly tooltip: Signal<string | undefined>
+  readonly autocomplete: Signal<string | undefined>
+  readonly required: Signal<boolean>
+  readonly disabled: Signal<boolean>
+  readonly hideWhenDisabled: Signal<boolean>
+  readonly hidden: Signal<boolean>
+  readonly autoFocus: Signal<boolean>
+  readonly readonly: Signal<boolean>
+  readonly errors: Signal<string[]>
+  readonly hasError: Signal<boolean>
+  readonly warnings: Signal<string[]>
+  readonly hasWarning: Signal<boolean>
+  readonly showValidation: Signal<boolean>
+  readonly showError: Signal<boolean>
+  readonly errorMatcher: Signal<ErrorStateMatcher>
+  readonly touched: Signal<boolean>
+
+  touch(): void;
+  untouch(): void;
+  focus(options?: FocusOptions): void;
+  select(): void;
+  scrollTo(): void;
+}
+
+export class InputControlsImpl<T> implements InputControls<T> {
 
   private scrollContainer = inject(ScrollContext, {optional: true});
-  private input = computed(() => this.component.input());
+  protected input = computed(() => this.component.input());
 
   readonly value: WritableSignal<T | undefined>;
 
@@ -44,6 +71,9 @@ export class InputControls<T> {
     () => this.component.disabled?.() || this.input()?.disabled() || false
   );
 
+  readonly hideWhenDisabled: Signal<boolean> = computed(() => this.component.hideDisabled?.() ?? true);
+  readonly hidden: Signal<boolean> = computed(() => this.hideWhenDisabled() && this.disabled());
+
   readonly autoFocus: Signal<boolean> = computed(
     () => this.component.autoFocus?.() || this.input()?.autoFocus || false
   );
@@ -55,14 +85,16 @@ export class InputControls<T> {
 
   //<editor-fold desc="Validation">
   readonly errors: Signal<string[]> = computed(() => [
-    ...this.input()?.errors() ?? [],
-    ...this.component.error?.() ? [this.component.error()!] : []
+    ...this.component.localError?.() ? [this.component.localError()!] : [],
+    ...this.component.error?.() ? [this.component.error()!] : [],
+    ...this.input()?.errors() ?? []
   ]);
   readonly hasError: Signal<boolean> = computed(() => this.errors().length > 0)
 
   readonly warnings: Signal<string[]> = computed(() => [
-    ...this.input()?.warnings() ?? [],
-    ...this.component.warning?.() ? [this.component.warning()!] : []
+    ...this.component.localWarning?.() ? [this.component.localWarning()!] : [],
+    ...this.component.warning?.() ? [this.component.warning()!] : [],
+    ...this.input()?.warnings() ?? []
   ]);
   readonly hasWarning: Signal<boolean> = computed(() => this.warnings().length > 0);
 
@@ -75,12 +107,12 @@ export class InputControls<T> {
   });
   //</editor-fold>
 
-  readonly changed = computed(() => this.input()?.changed() ?? false);
+  readonly changed: Signal<boolean> = computed(() => this.input()?.changed() ?? false);
 
   private readonly _touched = signal(false);
   readonly touched: Signal<boolean> = computed(() => this.input()?.touched() ?? this._touched());
 
-  constructor(private readonly component: InputComponent<T>) {
+  constructor(protected readonly component: InputComponent<T>) {
 
     this.value = linkedSignal(() => {
       const input = component.input();
@@ -120,15 +152,16 @@ export class InputControls<T> {
   //</editor-fold>
 
   //<editor-fold desc="Reset">
-  /** A list of all NgModels in the input */
-  private ngModels = viewChildren(NgModel);
 
   private handleReset() {
-    untracked(this.ngModels).forEach(x => {
+    const ngModels = untracked(() => this.component.ngModels?.() ?? []);
+
+    ngModels.forEach(x => {
       x.control.markAsPristine();
       x.control.markAsUntouched();
     });
   }
+
   //</editor-fold>
 
   //<editor-fold desc="Actions">
@@ -197,12 +230,16 @@ interface InputControlOptions {
   injector?: Injector
 }
 
-export function inputControl<T>(component: InputComponent<T>, options?: InputControlOptions): InputControls<T> {
+export function inputControl<T>(
+  component: InputComponent<T>,
+  options?: InputControlOptions
+): InputControls<T> {
 
   const injector = options?.injector;
   if (!injector) assertInInjectionContext(inputControl);
 
   return injector
-    ? runInInjectionContext(injector, () => new InputControls<T>(component))
-    : new InputControls<T>(component);
+    ? runInInjectionContext(injector, () => new InputControlsImpl<T>(component))
+    : new InputControlsImpl<T>(component);
 }
+

@@ -1,22 +1,28 @@
-<div class="wrapper" [@harmonica]="show() && !hidden()">
+@if (!control.hidden()) {
+    <mat-form-field [appearance]="appearance()" [color]="color()" subscriptSizing="dynamic">
 
-    <mat-form-field appearance="fill" [hideRequiredMarker]="hideRequired()" [color]="color()" subscriptSizing="dynamic">
+        @if (control.label(); as l) {
+            <mat-label>
+                {{l}}
+                @if (control.tooltip(); as t) {
+                    <ngx-icon class="tooltip" alias="help" [matTooltip]="t"
+                              matTooltipPosition="above" matTooltipTouchGestures="off"/>
+                }
+            </mat-label>
+        }
 
-        <mat-label *ngIf="label()">
-            {{label()}}
-            <ngx-icon class="tooltip" alias="help" *ngIf="tooltip() as t" [matTooltip]="t"
-                      matTooltipPosition="above" matTooltipTouchGestures="off"/>
-        </mat-label>
+        <mat-select [errorStateMatcher]="control.errorMatcher()" (openedChange)="onOpenStatus($event)"
+                    [(ngModel)]="model" [ngModelOptions]="{standalone: true}" #input
+                    [multiple]="true" [placeholder]="control.placeholder() ?? ''"
+                    [required]="control.required()" [disabled]="control.readonly()">
 
-        <mat-select [errorStateMatcher]="errorMatcher()" [(ngModel)]="value" [ngModelOptions]="{standalone: true}"
-                    (openedChange)="onOpenStatus($event)"
-                    [multiple]="true" [placeholder]="placeholder()" [required]="required()" [disabled]="readonly()">
+            @if (control.clearable()) {
+                <ngx-button class="mat-mdc-option clear" [disabled]="model().length <= 0" (click)="clear()">Clear</ngx-button>
+            }
 
-            <ngx-button class="mat-mdc-option clear" *ngIf="clearable()" [disabled]="value.length <= 0" (click)="clear()">Clear</ngx-button>
-
-            @for (item of mappedItems(); track item.id) {
-                <mat-option [value]="item.id">
-                    {{item.name}}
+            @for (item of control.options(); track item.value) {
+                <mat-option [value]="item.value">
+                    {{item.label}}
                 </mat-option>
             }
 
@@ -24,5 +30,5 @@
 
     </mat-form-field>
 
-    <ngx-form-input-errors [canShow]="canShowError()" [errors]="errors()" [warnings]="warnings()"/>
-</div>
+    <ngx-form-input-errors [control]="control"/>
+}

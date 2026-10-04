@@ -17,7 +17,7 @@
     "@juulsgaard/ngx-forms-core": "~22.0.2",
     "@juulsgaard/ngx-tools": "workspace:~",
     "@juulsgaard/ngx-ui": "workspace:~",
-    "@juulsgaard/signal-tools": "~22.0.0",
+    "@juulsgaard/signal-tools": "~22.0.4",
     "@juulsgaard/ts-tools": "~1.9.1",
     "dayjs": "^1.11.23",
     "fuse.js": "^7.5.0",

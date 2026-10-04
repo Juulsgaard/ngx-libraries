@@ -1,28 +1,24 @@
 import {
   computed, Directive, effect, EmbeddedViewRef, input, InputSignalWithTransform, signal, TemplateRef, ViewContainerRef
 } from "@angular/core";
-import {BaseFormDialog, FormRoot, FormUnit} from "@juulsgaard/ngx-forms-core";
-import {SimpleObject} from "@juulsgaard/ts-tools";
+import {FormLayerControls, IFormDialog, IFormRoot} from "@juulsgaard/ngx-forms-core";
 
 /** Form rendering for a FormDialog. Can only be used inside Form Dialogs */
 @Directive({selector: '[ngxDialogForm]', standalone: true})
-export class FormDialogDirective<TControls extends Record<string, FormUnit>> {
+export class FormDialogDirective<T> {
 
-  form: InputSignalWithTransform<
-    FormRoot<TControls, SimpleObject>,
-    BaseFormDialog<TControls, SimpleObject>
-  > = input.required({
+  form: InputSignalWithTransform<IFormRoot<T>, IFormDialog<T>> = input.required({
     alias: 'dialogForm',
-    transform: (dialog: BaseFormDialog<TControls, SimpleObject>) => dialog.form
+    transform: (dialog: IFormDialog<T>) => dialog.form
   });
 
-  private view?: EmbeddedViewRef<DialogFormContext<TControls>>;
+  private view?: EmbeddedViewRef<DialogFormContext<T>>;
   // Show toggle controlled by Dialog state
   readonly show = signal(false);
 
   constructor(
     public readonly viewContainer: ViewContainerRef,
-    public readonly template: TemplateRef<DialogFormContext<TControls>>,
+    public readonly template: TemplateRef<DialogFormContext<T>>,
   ) {
     const controls = computed(() => this.form().controls());
 
@@ -46,14 +42,14 @@ export class FormDialogDirective<TControls extends Record<string, FormUnit>> {
     });
   }
 
-  static ngTemplateContextGuard<TControls extends Record<string, FormUnit>>(
-    directive: FormDialogDirective<TControls>,
+  static ngTemplateContextGuard<T>(
+    directive: FormDialogDirective<T>,
     context: unknown
-  ): context is DialogFormContext<TControls> {
+  ): context is DialogFormContext<T> {
     return true;
   }
 }
 
-export interface DialogFormContext<TControls extends Record<string, FormUnit>> {
-  dialogForm: TControls;
+export interface DialogFormContext<T> {
+  dialogForm: FormLayerControls<T>;
 }

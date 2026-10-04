@@ -26,5 +26,6 @@ catalog:
 
 minimumReleaseAgeExclude:
   - '@juulsgaard/ngx-forms-core@22.0.0 || 22.0.2'
+  - '@juulsgaard/signal-tools@22.0.1 || 22.0.3 || 22.0.4'
 
 nodeLinker: isolated

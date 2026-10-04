@@ -1,17 +1,20 @@
-<div class="wrapper" [@harmonica]="show()">
+@if (!control.hidden()) {
+    <mat-form-field [appearance]="appearance()" [color]="color()" subscriptSizing="dynamic">
 
-    <mat-form-field [appearance]="appearance()" [color]="color()"
-                    [hideRequiredMarker]="hideRequired()" subscriptSizing="dynamic">
+        @if (control.label(); as l) {
+            <mat-label>
+                {{l}}
+                @if (control.tooltip(); as t) {
+                    <ngx-icon class="tooltip" alias="help" [matTooltip]="t"
+                              matTooltipPosition="above" matTooltipTouchGestures="off"/>
+                }
+            </mat-label>
+        }
 
-        <mat-label *ngIf="label()">
-            {{label()}}
-            <ngx-icon class="tooltip" alias="help" *ngIf="tooltip() as t" [matTooltip]="t"
-                      matTooltipPosition="above" matTooltipTouchGestures="off"/>
-        </mat-label>
-
-        <input type="number" ngxInput [placeholder]="placeholder()" [required]="required()" [readonly]="readonly()"
-               [(ngxModel)]="value" (touched)="markAsTouched()"
-               [autocomplete]="autocomplete()" [showError]="showError()"
+        <input type="number" ngxInput [placeholder]="control.placeholder()"
+               [required]="control.required()" [readonly]="control.readonly()"
+               [(ngxModel)]="model" (touched)="control.touch()"
+               [autocomplete]="control.autocomplete()" [showError]="control.showError()"
                #input [attr.dir]="direction()">
 
         <div matIconSuffix class="fix">
@@ -20,5 +23,5 @@
 
     </mat-form-field>
 
-    <ngx-form-input-errors [canShow]="canShowError()" [errors]="errors()" [warnings]="warnings()"/>
-</div>
+    <ngx-form-input-errors [control]="control"/>
+}

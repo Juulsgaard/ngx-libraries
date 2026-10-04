@@ -1,5 +1,5 @@
 import {ChangeDetectionStrategy, Component} from '@angular/core';
-import {autoDisable, Form, formPage, Validators} from "@juulsgaard/ngx-forms-core";
+import {formInput, formLayer, formPage, Validators} from "@juulsgaard/ngx-forms-core";
 import {
   FormCardComponent, FormDirective, FormHeaderComponent, FormLayerDirective, FormSubmitComponent, FormWrapperComponent,
   NgxFormCardDescriptionDirective, NgxFormCardTitleDirective
@@ -34,26 +34,21 @@ import {
 })
 export class FormPreviewComponent {
 
-  form = formPage.create<FormValue>()
-    .withForm({
-      bool: Form.bool(true).withLabel('Enable Text Input'),
-      str: Form.text().withLabel('Text Input').required()
+  form = formPage<FormValue>({
+      bool: formInput.bool(true).withLabel('Enable Text Input').done(),
+      str: formInput.text().withLabel('Text Input').required()
         .withErrors(Validators.minLength(2))
-        .withWarnings(Validators.maxLength(10, 'Avoid making the text too long')),
-      layer: Form.layer<LayerValue>({
-        date: Form.nullable.date().withLabel('Start Date'),
-        time: Form.nullable.time().withLabel('Start Time')
-      }).withErrors(this.validate),
-      dateTime: Form.datetime().required().withLabel('End Date and Time'),
-      number: Form.number().withLabel('Max participants')
-        .withErrors(Validators.min(1), Validators.max(1000)),
+        .withWarnings(Validators.maxLength(10, 'Avoid making the text too long')).done(),
+      layer: formLayer.build<LayerValue>({
+        date: formInput.nullable.date().withLabel('Start Date').done(),
+        time: formInput.nullable.time().withLabel('Start Time').done()
+      }).withErrors(this.validate).done(),
+      dateTime: formInput.datetime().required().withLabel('End Date and Time').done(),
+      number: formInput.number().withLabel('Max participants')
+        .withErrors(Validators.min(1), Validators.max(1000)).done(),
     })
     .withSubmit(x => console.log(x))
     .done();
-
-  constructor() {
-    autoDisable(this.form, disable => disable.str(state => !state.bool()));
-  }
 
   * validate(layer: LayerValue): Generator<string> {
     if (layer.date && layer.time) return;

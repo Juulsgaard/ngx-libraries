@@ -1,25 +1,33 @@
-<div class="wrapper" [@harmonica]="show()">
+@if (!control.hidden()) {
+    <mat-form-field [appearance]="appearance()" [color]="color()" subscriptSizing="dynamic">
 
-    <mat-form-field [appearance]="appearance()" [color]="color()"
-                    [hideRequiredMarker]="hideRequired()" subscriptSizing="dynamic">
+        @if (control.label(); as l) {
+            <mat-label>
+                {{l}}
 
-        <mat-label *ngIf="label()">
-            {{label()}}
-            <ngx-icon class="tooltip" alias="help" *ngIf="tooltip() as t" [matTooltip]="t"
-                      matTooltipPosition="above" matTooltipTouchGestures="off"/>
-        </mat-label>
+                @if (control.tooltip(); as t) {
+                    <ngx-icon class="tooltip" alias="help" [matTooltip]="t"
+                              matTooltipPosition="above" matTooltipTouchGestures="off"/>
+                }
+
+            </mat-label>
+        }
+
 
         <div class="color" matIconPrefix ngx-colors-trigger
-             [colorPickerControls]="withAlpha() ? 'default' : 'no-alpha'" colorsAnimation="popup" [hideTextInput]="true"
-             [(ngModel)]="value" format="hex" [disabled]="readonly()" [palette]="palette()"
-             noClickBubble>
-            <div class="fill" [style.background-color]="externalValue()"></div>
+             [lockValues]="{alpha: withAlpha() ? undefined : 1}"
+             animation="popup" [display]="{text: false}" outputModel="HEXA"
+             [(ngModel)]="model" [disabled]="control.readonly() || control.disabled()"
+             [palette]="palette()" noClickBubble>
+
+            <div class="fill" [style.background-color]="control.value()"></div>
+
         </div>
 
-        <input ngxInput type="text" [placeholder]="placeholder()" [required]="required()"
-               [(ngxModel)]="value" (touched)="markAsTouched()"
-               [autocomplete]="autocomplete()" [readonly]="readonly()" #input
-               [showError]="showError()" [attr.dir]="direction()">
+        <input ngxInput type="text" [placeholder]="control.placeholder()" [required]="control.required()"
+               [(ngxModel)]="model" (touched)="control.touch()"
+               [autocomplete]="control.autocomplete()" [readonly]="control.readonly()" #input
+               [showError]="control.showError()" [attr.dir]="direction()">
 
         <div matIconSuffix class="fix">
             <ng-content/>
@@ -27,5 +35,5 @@
 
     </mat-form-field>
 
-    <ngx-form-input-errors [canShow]="canShowError()" [errors]="errors()" [warnings]="warnings()"/>
-</div>
+    <ngx-form-input-errors [control]="control"/>
+}

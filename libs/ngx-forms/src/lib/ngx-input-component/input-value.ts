@@ -1,54 +1,72 @@
-import {isSignal, linkedSignal, WritableSignal} from "@angular/core";
-
-import {InputControls} from "./input-control";
+import {isSignal, WritableSignal} from "@angular/core";
+import {InputControls} from "./input-controls";
+import {proxySignal, ProxySignal} from "@juulsgaard/signal-tools";
 
 function ctor<TIn, T>(
   control: InputControls<TIn>,
   importFn: (input: TIn | undefined) => T,
   exportFn: (value: T) => TIn | undefined
-): WritableSignal<T>;
+): ProxySignal<T>;
 function ctor<TIn, T>(
   value: WritableSignal<TIn>,
   importFn: (input: TIn | undefined) => T,
   exportFn: (value: T) => TIn | undefined
-): WritableSignal<T>;
+): ProxySignal<T>;
 function ctor<TIn, T>(
   control: InputControls<TIn> | WritableSignal<TIn>,
   importFn: (input: TIn | undefined) => T,
   exportFn: (value: T) => TIn | undefined
-): WritableSignal<T> {
+): ProxySignal<T> {
   const input = isSignal(control) ? control : control.value;
-  const value = linkedSignal(() => importFn(input()));
-  value.set = x => input.set(exportFn(x));
-  return value;
+  return proxySignal(input, x => importFn(x), x => exportFn(x));
 }
 
 function nullable<T>(
   control: InputControls<T>,
   fallback: NonNullable<T>,
   nullCoalesce?: boolean
-): WritableSignal<NonNullable<T>>;
+): ProxySignal<NonNullable<T>>;
 function nullable<T>(
   value: WritableSignal<T>,
   fallback: NonNullable<T>,
   nullCoalesce?: boolean
-): WritableSignal<NonNullable<T>>;
+): ProxySignal<NonNullable<T>>;
 function nullable<T>(
   control: InputControls<T> | WritableSignal<T>,
   fallback: NonNullable<T>,
   nullCoalesce?: boolean
-): WritableSignal<NonNullable<T>> {
+): ProxySignal<NonNullable<T>> {
   const input = isSignal(control) ? control : control.value;
-  const value = linkedSignal(() => input() ?? fallback);
-  value.set = x => input.set(nullCoalesce && x == fallback ? undefined : x);
-  return value;
+  return proxySignal(input, x => x ?? fallback, x => nullCoalesce && x == fallback ? undefined : x);
 }
 
-type InputValueFn = typeof ctor & {
-  nullable: typeof nullable
-};
+type InputValue = {
+  <TIn, T>(
+    control: InputControls<TIn>,
+    importFn: (input: TIn | undefined) => T,
+    exportFn: (value: T) => TIn | undefined
+  ): ProxySignal<T>;
+  <TIn, T>(
+    value: WritableSignal<TIn>,
+    importFn: (input: TIn | undefined) => T,
+    exportFn: (value: T) => TIn | undefined
+  ): ProxySignal<T>;
+
+  nullable: {
+    <T>(
+      control: InputControls<T>,
+      fallback: NonNullable<T>,
+      nullCoalesce?: boolean
+    ): ProxySignal<NonNullable<T>>;
+    <T>(
+      value: WritableSignal<T>,
+      fallback: NonNullable<T>,
+      nullCoalesce?: boolean
+    ): ProxySignal<NonNullable<T>>;
+  }
+}
 
 ctor.nullable = nullable;
 
 
-export const inputValue: InputValueFn = ctor;
+export const inputValue: InputValue = ctor;

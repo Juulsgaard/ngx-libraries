@@ -1,41 +1,44 @@
-import {ChangeDetectionStrategy, Component, input, InputSignal} from '@angular/core';
-import {BaseInputComponent} from '@juulsgaard/ngx-forms';
-import {harmonicaAnimation} from "@juulsgaard/ngx-tools";
+import {booleanAttribute, Component, ElementRef, input, model, viewChild} from '@angular/core';
+import {InputComponent, inputControl, InputControls, inputValue} from '@juulsgaard/ngx-forms';
 import {MatSlideToggle} from "@angular/material/slide-toggle";
 import {FormsModule} from "@angular/forms";
 import {IconDirective} from "@juulsgaard/ngx-ui";
-import {NgIf} from "@angular/common";
 import {MatTooltip} from "@angular/material/tooltip";
+import {IFormInput} from "@juulsgaard/ngx-forms-core";
+import {ThemePalette} from "@angular/material/core";
 
 @Component({
   selector: 'form-bool-input',
   templateUrl: './bool-input.component.html',
   styleUrls: ['./bool-input.component.scss'],
-  animations: [harmonicaAnimation()],
-  changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [
     MatSlideToggle,
     FormsModule,
     IconDirective,
-    NgIf,
     MatTooltip
-  ],
-  standalone: true
+  ]
 })
-export class BoolInputComponent extends BaseInputComponent<boolean, boolean> {
+export class BoolInputComponent implements InputComponent<boolean> {
 
-  readonly labelPosition: InputSignal<"before" | "after"> = input<'before' | 'after'>('after');
+  //<editor-fold desc="Processed Inputs">
+  readonly value = model<boolean>();
+  readonly input = input<IFormInput<boolean>>();
 
-  constructor() {
-    super();
-  }
+  readonly element = viewChild('input', {read: ElementRef<HTMLElement>})
 
-  postprocessValue(value: boolean) {
-    return value;
-  }
+  readonly label = input<string>();
+  readonly tooltip = input<string>();
 
-  preprocessValue(value: boolean | undefined) {
-    return value ?? false;
-  }
+  readonly readonly = input(false, {transform: booleanAttribute});
+  readonly disabled = input(false, {transform: booleanAttribute});
 
+  readonly warning = input<string>();
+  readonly error = input<string>();
+  //</editor-fold>
+
+  readonly control: InputControls<boolean> = inputControl(this);
+  readonly model = inputValue.nullable(this.control, false);
+
+  readonly color = input<ThemePalette>();
+  readonly labelPosition = input<'before' | 'after'>('after');
 }

@@ -15,7 +15,7 @@
     "@angular/router": "catalog:",
     "@juulsgaard/ts-tools": "~1.9.1",
     "@juulsgaard/rxjs-tools": "~1.10.0",
-    "@juulsgaard/signal-tools": "~22.0.0",
+    "@juulsgaard/signal-tools": "~22.0.4",
     "@juulsgaard/ngx-tools": "workspace:~",
     "rxjs": "^7.8.2"
   },

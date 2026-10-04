@@ -1,26 +1,29 @@
 import {
-  booleanAttribute, ChangeDetectionStrategy, Component, computed, input, InputSignalWithTransform, Signal, signal,
-  viewChild, viewChildren
+  booleanAttribute, Component, computed, ElementRef, input, model, Signal, signal, viewChild, viewChildren
 } from '@angular/core';
-import {BaseMultiSelectInputComponent, FormSelectValue, NgxInputDirective} from "@juulsgaard/ngx-forms";
 import {
-  harmonicaAnimation, NgxDragEvent, NgxDragModule, NgxDragService, NoClickBubbleDirective
-} from "@juulsgaard/ngx-tools";
+  inputValue, MultiSelectComponent, NgxInputDirective, selectControl, SelectControls, SelectOption
+} from "@juulsgaard/ngx-forms";
+import {NgxDragEvent, NgxDragModule, NgxDragService, NoClickBubbleDirective} from "@juulsgaard/ngx-tools";
 import {
   MatAutocomplete, MatAutocompleteOrigin, MatAutocompleteSelectedEvent, MatAutocompleteTrigger, MatOption
 } from "@angular/material/autocomplete";
 import {MatFormField, MatLabel, MatSuffix} from "@angular/material/input";
-import {arrToSet, isString} from "@juulsgaard/ts-tools";
+import {arrToSet, isString, MapFunc} from "@juulsgaard/ts-tools";
 import {FormInputErrorsComponent} from "../../components";
 import {MatTooltip} from "@angular/material/tooltip";
 import {ChipComponent, IconDirective} from "@juulsgaard/ngx-ui";
-import {NgIf} from "@angular/common";
-import {throttledSignal} from "@juulsgaard/signal-tools";
+import {ProxySignal, throttledSignal} from "@juulsgaard/signal-tools";
 import Fuse from "fuse.js";
+import {IFormMultiSelect} from "@juulsgaard/ngx-forms-core";
+import {ThemePalette} from "@angular/material/core";
+import {MatFormFieldAppearance} from "@angular/material/form-field";
+import {InputDirection} from "../../helpers/types";
 
 @Component({
   selector: 'form-tag-list-input',
-  standalone: true,
+  templateUrl: './tag-list-input.component.html',
+  styleUrls: ['./tag-list-input.component.scss'],
   imports: [
     ChipComponent,
     IconDirective,
@@ -33,7 +36,6 @@ import Fuse from "fuse.js";
     NgxInputDirective,
     MatTooltip,
     IconDirective,
-    NgIf,
     MatAutocompleteOrigin,
     ChipComponent,
     NgxDragModule,
@@ -41,43 +43,70 @@ import Fuse from "fuse.js";
     MatAutocomplete,
     MatOption
   ],
-  providers: [NgxDragService],
-  animations: [harmonicaAnimation()],
-  templateUrl: './tag-list-input.component.html',
-  styleUrls: ['./tag-list-input.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  providers: [NgxDragService]
 })
-export class TagListInputComponent<TItem> extends BaseMultiSelectInputComponent<string, TItem, string[]> {
+export class TagListInputComponent<TItem> implements MultiSelectComponent<string, TItem> {
 
-  declare inputElement: Signal<HTMLInputElement | undefined>;
+  //<editor-fold desc="Processed Inputs">
+  readonly value = model<string[]>();
+  readonly input = input<IFormMultiSelect<string, TItem>>();
+  readonly items = input<TItem[]>();
+
+  readonly element = viewChild('input', {read: ElementRef<HTMLInputElement>})
+
+  readonly label = input<string>();
+  readonly placeholder = input<string>();
+  readonly tooltip = input<string>();
+
+  readonly readonly = input(false, {transform: booleanAttribute});
+  readonly disabled = input(false, {transform: booleanAttribute});
+  readonly required = input(false, {transform: booleanAttribute});
+
+  readonly hideEmpty = input(false, {transform: booleanAttribute});
+  readonly clearable = input(false, {transform: booleanAttribute});
+
+  readonly bindValue = input<MapFunc<TItem, string>>();
+  readonly bindLabel = input<MapFunc<TItem, string>>();
+  readonly bindOption = input<MapFunc<TItem, string>>();
+
+  readonly warning = input<string>();
+  readonly error = input<string>();
+  //</editor-fold>
+
+  readonly control: SelectControls<string[], string, TItem> = selectControl(this);
+  readonly model: ProxySignal<string[]> = inputValue.nullable(this.control, []);
+
+  readonly color = input<ThemePalette>();
+  readonly appearance = input<MatFormFieldAppearance>('outline');
+  readonly direction = input<InputDirection>();
 
   readonly chips = viewChildren(ChipComponent);
-  readonly canReorder: InputSignalWithTransform<boolean, unknown> = input(false, {transform: booleanAttribute});
+  readonly canReorder = input(false, {transform: booleanAttribute});
 
   readonly query = signal('');
+  readonly options: Signal<Options<TItem>>;
 
-  readonly floatLabel = computed(() => this.value.length ? 'always' : 'auto');
-
-  readonly options: Signal<Options>;
+  readonly floatLabel = computed(() => this.model().length ? 'always' : 'auto');
 
   constructor() {
-    super();
-
     const query = throttledSignal(this.query, 500);
-    const blacklist = computed(() => arrToSet(this.value));
+    const denylist = computed(() => arrToSet(this.model()));
 
-    const searcher = new Fuse<FormSelectValue<TItem, string>>(
+    const searcher = new Fuse<SelectOption<TItem, string>>(
       [],
-      {includeScore: true, isCaseSensitive: true, keys: ['name']}
+      {includeScore: true, isCaseSensitive: true, keys: ['label']}
     );
+
     const filtered = computed(() => {
-      const _blacklist = blacklist();
-      const items = _blacklist.size ? this.mappedItems().filter((x: FormSelectValue<TItem, string>) => !_blacklist.has(x.id)) : this.mappedItems();
+      const deny = denylist();
+      const items = deny.size
+        ? this.control.options().filter((x: SelectOption<TItem, string>) => !deny.has(x.value))
+        : this.control.options();
       searcher.setCollection(items);
       return items;
     });
 
-    this.options = computed(() => {
+    this.options = computed((): Options<TItem> => {
       const _query = query();
       if (!_query.length) return {options: filtered()};
 
@@ -88,31 +117,23 @@ export class TagListInputComponent<TItem> extends BaseMultiSelectInputComponent<
         : result.map(x => x.item);
 
       return {
-        match,
+        match: match,
         query: match ? undefined : _query,
-        options
+        options: options
       }
     });
   }
 
-  postprocessValue(value: string[]): string[] | undefined {
-    return value.length < 1 ? undefined : value;
-  }
-
-  preprocessValue(value: string[] | undefined): string[] {
-    return value ?? [];
-  }
-
   removeTag(tag: string) {
-    const index = this.value.findIndex(x => x === tag);
+    const index = this.model().findIndex((x: string) => x === tag);
     if (index < 0) return;
 
-    const list = [...this.value];
+    const list = [...this.model()];
     list.splice(index, 1);
-    this.value = list;
-    this.markAsTouched();
+    this.model.set(list);
+    this.control.touch();
 
-    const input = this.inputElement();
+    const input = this.element()?.nativeElement;
     if (input) {
       input.focus();
       input.selectionStart = 0;
@@ -126,13 +147,13 @@ export class TagListInputComponent<TItem> extends BaseMultiSelectInputComponent<
     const value = event.option.value;
 
     if (value && isString(value)) {
-      if (!this.value.includes(value)) {
-        this.value = [...this.value, value];
+      if (!this.model().includes(value)) {
+        this.model.update((x: string[]) => [...x, value]);
       }
     }
 
     this.query.set('');
-    const input = this.inputElement();
+    const input = this.element()?.nativeElement;
     if (input) input.value = '';
     setTimeout(() => this.trigger()?.openPanel(), 500);
   }
@@ -156,7 +177,7 @@ export class TagListInputComponent<TItem> extends BaseMultiSelectInputComponent<
 
   onDrop(event: NgxDragEvent<number>, index: number) {
     if (index === event.data) return;
-    this.markAsTouched();
+    this.control.touch();
 
     const target = event.currentTarget as HTMLElement;
     const rect = target.getBoundingClientRect();
@@ -166,7 +187,7 @@ export class TagListInputComponent<TItem> extends BaseMultiSelectInputComponent<
 
   private move(from: number, to: number) {
     if (to === from || to === from + 1) return;
-    const list = [...this.value];
+    const list = [...this.model()];
 
     if (to < from) {
       list.splice(to, 0, ...list.splice(from, 1));
@@ -174,12 +195,12 @@ export class TagListInputComponent<TItem> extends BaseMultiSelectInputComponent<
       list.splice(to - 1, 0, ...list.splice(from, 1));
     }
 
-    this.value = list;
+    this.model.set(list);
   }
 }
 
-interface Options {
-  match?: FormSelectValue<unknown, string>;
+interface Options<TItem> {
+  match?: SelectOption<TItem, string>;
   query?: string;
-  options: FormSelectValue<unknown, string>[];
+  options: SelectOption<TItem, string>[];
 }

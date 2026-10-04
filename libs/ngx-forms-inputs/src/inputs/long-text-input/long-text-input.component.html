@@ -1,16 +1,19 @@
-<div class="wrapper" [@harmonica]="show()">
+@if (!control.hidden()) {
+    <mat-form-field [appearance]="appearance()" [color]="color()" subscriptSizing="dynamic">
 
-    <mat-form-field [appearance]="appearance()" [hideRequiredMarker]="hideRequired()" [color]="color()"
-                    subscriptSizing="dynamic">
+        @if (control.label(); as l) {
+            <mat-label>
+                {{ l }}
+                @if (control.tooltip(); as t) {
+                    <ngx-icon class="tooltip" alias="help" [matTooltip]="t"
+                              matTooltipPosition="above" matTooltipTouchGestures="off"/>
+                }
+            </mat-label>
+        }
 
-        <mat-label *ngIf="label()">
-            {{ label() }}
-            <ngx-icon class="tooltip" alias="help" *ngIf="tooltip() as t" [matTooltip]="t"
-                      matTooltipPosition="above" matTooltipTouchGestures="off"/>
-        </mat-label>
-
-        <textarea type="text" ngxInput [placeholder]="placeholder()" [required]="required()" [readonly]="readonly()"
-                  [(ngxModel)]="value" [showError]="showError()" (touched)="markAsTouched()"
+        <textarea type="text" ngxInput [placeholder]="control.placeholder() ?? ''"
+                  [required]="control.required()" [readonly]="control.readonly()"
+                  [(ngxModel)]="model" [showError]="control.showError()" (touched)="control.touch()"
                   #input cdkTextareaAutosize [attr.dir]="direction()"></textarea>
 
         <div matIconSuffix class="fix">
@@ -19,5 +22,5 @@
 
     </mat-form-field>
 
-    <ngx-form-input-errors [canShow]="canShowError()" [errors]="errors()" [warnings]="warnings()"/>
-</div>
+    <ngx-form-input-errors [control]="control"/>
+}

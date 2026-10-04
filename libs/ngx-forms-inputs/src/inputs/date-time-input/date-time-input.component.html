@@ -1,24 +1,26 @@
-<div class="wrapper" [@harmonica]="show()">
+@if (!control.hidden()) {
+    <mat-form-field [appearance]="appearance()" [color]="color()" subscriptSizing="dynamic">
 
-    <mat-form-field [appearance]="appearance()" [color]="color()"
-                    [hideRequiredMarker]="hideRequired()" subscriptSizing="dynamic">
-
-        <mat-label *ngIf="label()">
-            {{label()}}
-            <ngx-icon class="tooltip" alias="help" *ngIf="tooltip() as t" [matTooltip]="t"
-                      matTooltipPosition="above" matTooltipTouchGestures="off"/>
-        </mat-label>
+        @if (control.label(); as l) {
+            <mat-label>
+                {{ l }}
+                @if (control.tooltip(); as t) {
+                    <ngx-icon class="tooltip" alias="help" [matTooltip]="t"
+                              matTooltipPosition="above" matTooltipTouchGestures="off"/>
+                }
+            </mat-label>
+        }
 
         <ngx-icon-button matIconPrefix alias="date" noClickBubble (click)="openDatePicker()"/>
 
-        <input type="text" ngxInput [placeholder]="placeholder()" [required]="required()"
-               [readonly]="readonly()" [(ngxModel)]="textValue" (touched)="markAsTouched()"
-               [autocomplete]="autocomplete()" [showError]="showError()"
-               #input [disabled]="disabled()" [attr.dir]="direction()">
+        <input type="text" ngxInput [placeholder]="control.placeholder()" [required]="control.required()"
+               [readonly]="control.readonly()" [(ngxModel)]="textValue" (touched)="control.touch()"
+               [autocomplete]="control.autocomplete()" [showError]="control.showError()"
+               #input [disabled]="control.disabled()" [attr.dir]="direction()">
 
     </mat-form-field>
 
-    <ngx-form-input-errors [canShow]="canShowError()" [errors]="errors()" [warnings]="warnings()"/>
-</div>
+    <ngx-form-input-errors [control]="control"/>
 
-<ngx-mat-timepicker [format]="timeFormat" (timeSet)="pickTime($event)"/>
+    <ngx-mat-timepicker [format]="timeFormat" (timeSet)="pickTime($event)"/>
+}

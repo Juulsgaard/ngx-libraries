@@ -1,20 +1,17 @@
-import {ChangeDetectionStrategy, Component, input, InputSignal} from '@angular/core';
-import {BaseInputComponent} from '@juulsgaard/ngx-forms';
+import {booleanAttribute, Component, ElementRef, input, InputSignal, model, viewChild} from '@angular/core';
 import {FileDropDirective, FileSizePipe} from "@juulsgaard/ngx-tools";
-import {NgIf} from "@angular/common";
 import {FormInputErrorsComponent} from "../../components";
 import {ButtonComponent, IconDirective} from "@juulsgaard/ngx-ui";
 import {MatTooltip} from "@angular/material/tooltip";
+import {InputComponent, inputControl, InputControls} from "@juulsgaard/ngx-forms";
+import {IFormInput} from "@juulsgaard/ngx-forms-core";
 
 @Component({
   selector: 'form-file-input',
   templateUrl: './file-input.component.html',
   styleUrls: ['./file-input.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush,
-  standalone: true,
   imports: [
     FileDropDirective,
-    NgIf,
     FileSizePipe,
     FileDropDirective,
     FileSizePipe,
@@ -23,30 +20,39 @@ import {MatTooltip} from "@angular/material/tooltip";
     IconDirective,
     ButtonComponent,
     MatTooltip
-  ],
-  providers: []
+  ]
 })
-export class FileInputComponent extends BaseInputComponent<File, File | undefined> {
+export class FileInputComponent implements InputComponent<File | undefined> {
+
+  //<editor-fold desc="Processed Inputs">
+  readonly value = model<File>();
+  readonly input = input<IFormInput<File|undefined>>();
+
+  readonly element = viewChild('input', {read: ElementRef<HTMLElement>})
+
+  readonly label = input<string>();
+  readonly placeholder = input<string>();
+  readonly tooltip = input<string>();
+  readonly autocomplete = input<string>();
+
+  readonly readonly = input(false, {transform: booleanAttribute});
+  readonly disabled = input(false, {transform: booleanAttribute});
+  readonly required = input(false, {transform: booleanAttribute});
+
+  readonly warning = input<string>();
+  readonly error = input<string>();
+  //</editor-fold>
+
+  readonly control: InputControls<File | undefined> = inputControl(this);
+  readonly model = this.control.value;
 
   readonly accept: InputSignal<string> = input('*');
-
-  constructor() {
-    super();
-  }
-
-  preprocessValue(value: File | undefined) {
-    return value;
-  }
-
-  postprocessValue(value: File | undefined) {
-    return value ?? undefined;
-  }
 
   dropFile(event: DragEvent) {
     const file = event.dataTransfer?.files?.[0];
     if (!file) return;
 
-    this.value = file;
+    this.model.set(file);
   }
 
   selectFile(event: Event) {
@@ -54,8 +60,7 @@ export class FileInputComponent extends BaseInputComponent<File, File | undefine
     const file = input.files?.[0];
     if (!file) return;
 
-    this.value = file;
+    this.value.set(file);
     input.value = '';
   }
-
 }

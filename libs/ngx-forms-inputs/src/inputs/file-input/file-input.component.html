@@ -1,25 +1,37 @@
+@if (!control.hidden()) {
 
-<div class="drop" (fileDrop)="dropFile($event)" [fileDropDisable]="readonly()" [class.empty]="!value">
-    <p class="name" *ngIf="label()">
-        {{label()}}
-        <ngx-icon class="tooltip" alias="help" *ngIf="tooltip() as t" [matTooltip]="t"
-                  matTooltipPosition="above" matTooltipTouchGestures="off"/>
-    </p>
+    <div class="drop" [class.empty]="!model()" #input
+         (fileDrop)="dropFile($event)" [fileDropDisable]="control.readonly()">
 
-    <ngx-icon [alias]="readonly() ? 'download' : 'upload'" [size]="40"/>
+        @if (control.label(); as l) {
+            <p class="name">
+                {{ l }}
+                @if (control.tooltip(); as t) {
+                    <ngx-icon class="tooltip" alias="help" [matTooltip]="t"
+                              matTooltipPosition="above" matTooltipTouchGestures="off"/>
+                }
+            </p>
+        }
 
-    <ngx-button (click)="fileInput.click(); markAsTouched()" *ngIf="!readonly()">Browse Files</ngx-button>
+        <ngx-icon [alias]="control.readonly() ? 'download' : 'upload'" [size]="40"/>
 
-    @if (value) {
-        <p class="file-name">{{value.name}}</p>
-        <p class="file-size">{{value.size | fileSize}}</p>
+        @if (!control.readonly()) {
+            <ngx-button (click)="fileInput.click(); control.touch()">Browse Files</ngx-button>
+        }
+
+        @if (model(); as val) {
+            <p class="file-name">{{val.name}}</p>
+            <p class="file-size">{{val.size | fileSize}}</p>
+        }
+    </div>
+
+    @if (!control.readonly()) {
+        <div class="actions">
+            <ngx-bordered-button color="warn" (click)="model.set(undefined)" [disabled]="!model()">Clear</ngx-bordered-button>
+        </div>
     }
-</div>
 
-<div class="actions">
-    <ngx-bordered-button color="warn" (click)="value = undefined" *ngIf="!readonly()" [disabled]="!value">Clear</ngx-bordered-button>
-</div>
+    <ngx-form-input-errors [control]="control"/>
 
-<ngx-form-input-errors [canShow]="canShowError()" [errors]="errors()" [warnings]="warnings()"/>
-
-<input type="file" (change)="selectFile($event)" #fileInput [accept]="accept()">
+    <input type="file" (change)="selectFile($event)" #fileInput [accept]="accept()">
+}

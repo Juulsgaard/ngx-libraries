@@ -1,12 +1,11 @@
 import {
-  ChangeDetectionStrategy, Component, inject, Injector, LOCALE_ID, OnDestroy, signal, viewChild, WritableSignal
+  booleanAttribute, Component, computed, DestroyRef, ElementRef, inject, Injector, input, LOCALE_ID, model, viewChild
 } from '@angular/core';
-import {BaseInputComponent, NgxInputDirective} from "@juulsgaard/ngx-forms";
-import {NgIf} from "@angular/common";
-import {harmonicaAnimation, NoClickBubbleDirective} from "@juulsgaard/ngx-tools";
-import {MatFormField} from "@angular/material/form-field";
+import {InputComponent, inputControl, InputControls, inputValue, NgxInputDirective} from "@juulsgaard/ngx-forms";
+import {NoClickBubbleDirective} from "@juulsgaard/ngx-tools";
+import {MatFormField, MatFormFieldAppearance} from "@angular/material/form-field";
 import {MatTooltip} from "@angular/material/tooltip";
-import {DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE} from "@angular/material/core";
+import {DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE, ThemePalette} from "@angular/material/core";
 import {DayjsDateAdapter, MAT_DAYJS_DATETIME_FORMATS} from "../../adapters/date-adapter";
 import {NgxMatTimepickerComponent} from "ngx-mat-timepicker";
 import {MatDialog, MatDialogRef} from "@angular/material/dialog";
@@ -18,20 +17,20 @@ import {DayjsHelper} from "../../helpers/dayjs-helper";
 import {MatLabel, MatPrefix} from "@angular/material/input";
 import {FormInputErrorsComponent} from "../../components";
 import {IconButtonComponent, IconDirective} from "@juulsgaard/ngx-ui";
+import {IFormInput} from "@juulsgaard/ngx-forms-core";
+import {InputDirection} from "../../helpers/types";
+import {proxySignal} from "@juulsgaard/signal-tools";
 
 dayjs.extend(utc);
 
 @Component({
   selector: 'form-date-time-input',
-  standalone: true,
   templateUrl: './date-time-input.component.html',
   styleUrls: ['./date-time-input.component.scss'],
-  animations: [harmonicaAnimation()],
   imports: [
     MatFormField,
     MatLabel,
     MatPrefix,
-    NgIf,
     IconDirective,
     MatTooltip,
     IconButtonComponent,
@@ -42,51 +41,84 @@ dayjs.extend(utc);
     IconDirective,
     IconButtonComponent,
   ],
-  changeDetection: ChangeDetectionStrategy.OnPush,
   providers: [
     {
       provide: DateAdapter,
       useClass: DayjsDateAdapter,
       deps: [MAT_DATE_LOCALE]
     },
-    {provide: MAT_DATE_FORMATS, useValue: MAT_DAYJS_DATETIME_FORMATS}
+    {
+      provide: MAT_DATE_FORMATS,
+      useValue: MAT_DAYJS_DATETIME_FORMATS
+    }
   ]
 })
-export class DateTimeInputComponent extends BaseInputComponent<Date, Dayjs | undefined> implements OnDestroy {
+export class DateTimeInputComponent implements InputComponent<Date | undefined> {
 
   private injector = inject(Injector);
   private dialog = inject(MatDialog);
   private locale = inject(LOCALE_ID);
   private helper = new DayjsHelper();
 
+  readonly timeFormat: 12 | 24;
   readonly timePicker = viewChild.required(NgxMatTimepickerComponent);
 
-  timeFormat: 12 | 24;
+  //<editor-fold desc="Processed Inputs">
+  readonly value = model<Date>();
+  readonly input = input<IFormInput<Date | undefined>>();
+
+  readonly element = viewChild('input', {read: ElementRef<HTMLElement>})
+
+  readonly label = input<string>();
+  readonly placeholder = input<string>();
+  readonly tooltip = input<string>();
+  readonly autocomplete = input<string>();
+
+  readonly readonly = input(false, {transform: booleanAttribute});
+  readonly disabled = input(false, {transform: booleanAttribute});
+  readonly required = input(false, {transform: booleanAttribute});
+  readonly autoFocus = input(false, {transform: booleanAttribute});
+
+  readonly warning = input<string>();
+  readonly error = input<string>();
+  //</editor-fold>
+
+  readonly color = input<ThemePalette>();
+  readonly appearance = input<MatFormFieldAppearance>('outline');
+  readonly direction = input<InputDirection>();
+
+  readonly control: InputControls<Date | undefined> = inputControl(this);
+  readonly model = inputValue(
+    this.control,
+    x => x && dayjs.utc(x),
+    x => x?.toDate()
+  );
+
+  readonly textValue = proxySignal(
+    this.model,
+    (x: Dayjs | undefined) => x?.format('L LT'),
+    (val, setError) => {
+      const date = val ? this.helper.parseDateTimeStr(val).utc(true) : undefined;
+      if (date && !date.isValid()) setError('Invalid Date/Time Format');
+      return date?.isValid() ? date : undefined;
+    }
+  );
+
+  readonly localError = computed(() => this.textValue.error()?.message);
+
 
   constructor() {
-    super();
-
     this.timeFormat = new Date(0)
       .toLocaleTimeString(this.locale, {hour: 'numeric'})
       .match(/AM|PM/) ? 12 : 24;
 
-    this._textValue = signal(this.value?.format('L LT'));
+    inject(DestroyRef).onDestroy(() => {
+      this.datePickerSub?.unsubscribe();
+      this.datePickerRef?.close();
+    });
   }
 
-  postprocessValue(value: Dayjs | undefined): Date | undefined {
-    return value == undefined ? undefined : value.toDate();
-  }
-
-  preprocessValue(value: Date | undefined): Dayjs | undefined {
-    const val = value == undefined ? undefined : dayjs.utc(value);
-    this.setTextValue(val);
-    return val;
-  }
-
-  override getInitialValue(): Dayjs | undefined {
-    return undefined;
-  }
-
+  //<editor-fold desc="Date Picker">
   private datePickerRef?: MatDialogRef<DatePickerDialogComponent, Dayjs>;
   private datePickerSub?: Subscription;
 
@@ -107,7 +139,7 @@ export class DateTimeInputComponent extends BaseInputComponent<Date, Dayjs | und
       this.datePickerRef.beforeClosed().subscribe(date => {
         if (!date) return;
 
-        const current = this.value;
+        const current = this.model();
 
         if (current) {
           date = date.set('hour', current.get('hour'))
@@ -116,9 +148,7 @@ export class DateTimeInputComponent extends BaseInputComponent<Date, Dayjs | und
             .set('millisecond', current.get('millisecond'));
         }
 
-        this.value = date;
-        this.setTextValue(date);
-
+        this.model.set(date);
         this.openTimePicker();
       })
     );
@@ -128,47 +158,29 @@ export class DateTimeInputComponent extends BaseInputComponent<Date, Dayjs | und
     );
   }
 
-  ngOnDestroy() {
-    this.datePickerSub?.unsubscribe();
-    this.datePickerRef?.close();
-  }
+  //</editor-fold>
 
+  //<editor-fold desc="Time Picker">
   openTimePicker() {
     const picker = this.timePicker();
     if (!picker) return;
 
-    const date = this.value ?? dayjs.utc('1970-01-01T12:00:00Z');
+    const date = this.model() ?? dayjs.utc('1970-01-01T12:00:00Z');
     picker.defaultTime = date.format('LT');
     picker.open();
   }
 
   pickTime(time: string) {
     const value = dayjs(`1970-01-01 ${time}`).utc(true);
-    const current = this.value ?? dayjs.utc();
+    const current = this.model() ?? dayjs.utc();
 
     const result = current.set('hour', value.get('hour'))
       .set('minute', value.get('minute'))
       .set('second', value.get('second'))
       .set('millisecond', value.get('millisecond'));
 
-    this.value = result;
-    this.setTextValue(result);
+    this.model.set(result);
   }
 
-  private readonly _textValue: WritableSignal<string | undefined>;
-  get textValue() {
-    return this._textValue()
-  };
-
-  set textValue(val: string | undefined) {
-    this._textValue.set(val);
-    const date = val ? this.helper.parseDateTimeStr(val).utc(true) : undefined;
-    this.inputError.set(date && !date.isValid() ? 'Invalid Date/Time Format' : undefined);
-    this.value = date?.isValid() ? date : undefined;
-  }
-
-  private setTextValue(value: Dayjs | undefined) {
-    this.inputError.set(undefined)
-    this._textValue.set(value?.format('L LT'));
-  }
+  //</editor-fold>
 }

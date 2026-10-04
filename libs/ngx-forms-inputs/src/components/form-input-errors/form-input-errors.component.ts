@@ -1,7 +1,8 @@
 import {
-  booleanAttribute, ChangeDetectionStrategy, Component, input, InputSignal, InputSignalWithTransform
+  booleanAttribute, ChangeDetectionStrategy, Component, computed, input, InputSignal, InputSignalWithTransform
 } from '@angular/core';
 import {harmonicaInAnimation} from "@juulsgaard/ngx-tools";
+import {InputControls} from "@juulsgaard/ngx-forms";
 
 @Component({
   selector: 'ngx-form-input-errors',
@@ -14,9 +15,15 @@ import {harmonicaInAnimation} from "@juulsgaard/ngx-tools";
 })
 export class FormInputErrorsComponent {
 
-  canShow: InputSignalWithTransform<boolean, unknown> = input(true, {transform: booleanAttribute});
+  readonly control: InputSignal<InputControls<any>|undefined> = input<InputControls<any>>();
 
-  errors: InputSignal<string[]> = input([] as string[]);
-  warnings: InputSignal<string[]> = input([] as string[]);
+  readonly canShowIn: InputSignalWithTransform<boolean, unknown> = input(true, {transform: booleanAttribute});
+  readonly canShow = computed(() => this.control()?.showValidation() ?? this.canShowIn());
+
+  readonly errorsIn: InputSignal<string[]> = input<string[]>([]);
+  readonly errors = computed(() => this.control()?.errors() ?? this.errorsIn());
+
+  readonly warningsIn: InputSignal<string[]> = input<string[]>([]);
+  readonly warnings = computed(() => this.control()?.warnings() ?? this.warningsIn());
 
 }

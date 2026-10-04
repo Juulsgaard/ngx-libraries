@@ -1,12 +1,14 @@
+@if (!control.hidden()) {
+    <mat-form-field [appearance]="appearance()" [color]="color()" subscriptSizing="dynamic">
 
-<mat-form-field appearance="fill" [color]="color()" subscriptSizing="dynamic">
+        <ngx-icon matIconPrefix class="search" alias="search"/>
 
-	<ngx-icon matIconPrefix class="search" alias="search"/>
+        <input type="search" ngxInput [placeholder]="control.placeholder()" [readonly]="control.readonly()"
+               [(ngxModel)]="model" (touched)="control.touch()" #input
+               [attr.dir]="direction()" [showError]="control.showError()">
 
-	<input type="search" ngxInput [placeholder]="placeholder()" [readonly]="readonly()"
-           [(ngxModel)]="value" (touched)="markAsTouched()" #input [attr.dir]="direction()" [showError]="showError()">
+        <ngx-icon-button alias="close" matIconSuffix (click)="clear()" [disabled]="!model().length"
+                         noClickBubble (mousedown)="$event.preventDefault()"/>
 
-	<ngx-icon-button alias="close" matIconSuffix (click)="clear()" [disabled]="!value?.length"
-                     noClickBubble (mousedown)="$event.preventDefault()"/>
-
-</mat-form-field>
+    </mat-form-field>
+}

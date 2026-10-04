@@ -8,24 +8,24 @@
         <p ngxFormCardTitle>Form Section</p>
         <p ngxFormCardDescription>Section description</p>
 
-        <form-bool-input [control]="root.bool"/>
-        <form-text-input [control]="root.str"/>
+        <form-bool-input [input]="root.bool"/>
+        <form-text-input [input]="root.str"/>
     </ngx-form-card>
 
     <ngx-form-card *ngxFormLayer="root.layer as layer">
 
         <p ngxFormCardTitle>Date & Time</p>
 
-        <form-date-input [control]="layer.date"/>
-        <form-time-input [control]="layer.time"/>
+        <form-date-input [input]="layer.date"/>
+        <form-time-input [input]="layer.time"/>
     </ngx-form-card>
 
     <ngx-form-card>
 
         <p ngxFormCardTitle>Misc</p>
 
-        <form-date-time-input [control]="root.dateTime"/>
-        <form-number-input [control]="root.number"/>
+        <form-date-time-input [input]="root.dateTime"/>
+        <form-number-input [input]="root.number"/>
     </ngx-form-card>
 
     <ngx-form-submit [form]="form" disableShortcut/>

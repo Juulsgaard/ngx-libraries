@@ -1,15 +1,15 @@
-import {FormNodeType} from "@juulsgaard/ngx-forms-core";
 import {Provider, Type} from "@angular/core";
-import {BaseInputComponent} from "../lib/ngx-forms-tools";
+import {InputComponent} from "../lib/ngx-input-component";
+import {FormInputType} from "@juulsgaard/ngx-forms-core";
 
 export interface FormInputConfig {
-  register(type: FormNodeType, component: Type<BaseInputComponent<any, any>>): this;
+  register<T>(type: FormInputType, component: Type<InputComponent<T>>): this;
 }
 
 class InternalFormInputConfig implements FormInputConfig {
-  readonly map = new Map<FormNodeType, Type<BaseInputComponent<any, any>>>;
+  readonly map = new Map<FormInputType, Type<InputComponent<any>>>;
 
-  register(type: FormNodeType, component: Type<BaseInputComponent<any, any>>): this {
+  register<T>(type: FormInputType, component: Type<InputComponent<T>>): this {
     this.map.set(type, component);
     return this;
   }
@@ -17,10 +17,10 @@ class InternalFormInputConfig implements FormInputConfig {
 
 export class FormInputRegistry {
 
-  constructor(private map: Map<FormNodeType, Type<BaseInputComponent<any, any>>>) {
+  constructor(private map: Map<FormInputType, Type<InputComponent<any>>>) {
   }
 
-  getComponent(type: FormNodeType) {
+  getComponent(type: FormInputType) {
     return this.map.get(type);
   }
 }

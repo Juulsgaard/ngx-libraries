@@ -1,38 +1,34 @@
-
-<div class="wrapper" [@harmonica]="show()">
-
-    <mat-form-field [appearance]="appearance()" [hideRequiredMarker]="hideRequired()" [color]="color()"
-                    subscriptSizing="dynamic" matAutocompleteOrigin #container="matAutocompleteOrigin"
+@if (!control.hidden()) {
+    <mat-form-field [appearance]="appearance()" [color]="color()" subscriptSizing="dynamic"
+                    matAutocompleteOrigin #container="matAutocompleteOrigin"
                     [floatLabel]="floatLabel()">
 
-        @if (label()) {
+        @if (label(); as l) {
             <mat-label>
-                {{label()}}
-
+                {{ l }}
                 @if (tooltip(); as t) {
                     <ngx-icon class="tooltip" alias="help" [matTooltip]="t"
                               matTooltipPosition="above" matTooltipTouchGestures="off"/>
                 }
-
             </mat-label>
         }
 
         <div class="row">
 
-            @for (tag of value; track tag) {
+            @for (tag of model(); track tag) {
                 <ngx-chip (removed)="removeTag(tag)"
-                          noClickBubble (click)="$event.stopPropagation()" [canRemove]="!readonly()"
+                          noClickBubble (click)="$event.stopPropagation()" [canRemove]="!control.readonly()"
                           ngxDrag [dragData]="$index" [disableDrag]="!canReorder()"
                           ngxDropArea (ngxDrop)="onDrop($event, $index)" [dropPredicate]="getCanDrop($index)">
-                    {{tag}}
+                    {{ tag }}
                 </ngx-chip>
             }
 
             @if (!readonly()) {
-                <input type="text" ngxInput [placeholder]="placeholder()" [required]="required()"
-                       [(ngxModel)]="query" (touched)="markAsTouched()"
-                       [showError]="showError()" #input
-                       [disabled]="disabled()" [attr.dir]="direction()"
+                <input type="text" ngxInput [placeholder]="control.placeholder()" [required]="control.required()"
+                       [(ngxModel)]="query" (touched)="control.touch()"
+                       [showError]="control.showError()" #input
+                       [disabled]="control.disabled()" [attr.dir]="direction()"
                        [matAutocomplete]="optionsTmp" [matAutocompleteConnectedTo]="container"
                        (keydown.backspace)="onBackspace($event)">
             }
@@ -45,23 +41,23 @@
 
     </mat-form-field>
 
-    <ngx-form-input-errors [canShow]="canShowError()" [errors]="errors()" [warnings]="warnings()"/>
-</div>
+    <ngx-form-input-errors [control]="control"/>
 
-<mat-autocomplete #optionsTmp [autoActiveFirstOption]="true" (optionSelected)="onSelected($event)">
+    <mat-autocomplete #optionsTmp [autoActiveFirstOption]="true" (optionSelected)="onSelected($event)">
 
-    @if (options().match; as match) {
-        <mat-option [value]="match.id">{{match.name}}</mat-option>
-    }
+        @if (options().match; as match) {
+            <mat-option [value]="match.value">{{ match.label }}</mat-option>
+        }
 
-    @if (options().query; as query) {
-        <mat-option [value]="query">
-            <ngx-icon alias="add"/>
-            <span>Add <i>{{query}}</i></span>
-        </mat-option>
-    }
+        @if (options().query; as query) {
+            <mat-option [value]="query">
+                <ngx-icon alias="add"/>
+                <span>Add <i>{{ query }}</i></span>
+            </mat-option>
+        }
 
-    @for (opt of options().options; track opt) {
-        <mat-option [value]="opt.id">{{opt.name}}</mat-option>
-    }
-</mat-autocomplete>
+        @for (opt of options().options; track opt) {
+            <mat-option [value]="opt.value">{{ opt.label }}</mat-option>
+        }
+    </mat-autocomplete>
+}

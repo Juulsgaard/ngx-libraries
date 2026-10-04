@@ -1,21 +1,24 @@
 import {
-  booleanAttribute, ChangeDetectionStrategy, Component, EventEmitter, HostListener, input, InputSignalWithTransform,
-  NgZone, Output
+  booleanAttribute, Component, ElementRef, HostListener, inject, input, model, NgZone, output, viewChild
 } from '@angular/core';
-import {BaseInputComponent, NgxInputDirective} from '@juulsgaard/ngx-forms';
+import {InputComponent, inputControl, InputControls, inputValue, NgxInputDirective} from '@juulsgaard/ngx-forms';
 import {fromEvent} from "rxjs";
 import {filter} from "rxjs/operators";
 import {NoClickBubbleDirective} from "@juulsgaard/ngx-tools";
 import {MatFormField, MatPrefix, MatSuffix} from "@angular/material/input";
 import {takeUntilDestroyed} from "@angular/core/rxjs-interop";
 import {IconButtonComponent, IconDirective} from "@juulsgaard/ngx-ui";
+import {ThemePalette} from "@angular/material/core";
+import {MatFormFieldAppearance} from "@angular/material/form-field";
+import {InputDirection} from "../../helpers/types";
+import {IFormInput} from "@juulsgaard/ngx-forms-core";
+import {ProxySignal} from "@juulsgaard/signal-tools";
 
 
 @Component({
   selector: 'form-search-input',
   templateUrl: './search-input.component.html',
   styleUrls: ['./search-input.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [
     NoClickBubbleDirective,
     IconDirective,
@@ -26,30 +29,53 @@ import {IconButtonComponent, IconDirective} from "@juulsgaard/ngx-ui";
     NgxInputDirective,
     IconButtonComponent,
     IconDirective
-  ],
-  standalone: true
+  ]
 })
-export class SearchInputComponent extends BaseInputComponent<string, string|undefined> {
+export class SearchInputComponent implements InputComponent<string|undefined> {
 
-  @Output() submitted = new EventEmitter<string|undefined>();
+  //<editor-fold desc="Processed Inputs">
+  readonly value = model<string>();
+  readonly input = input<IFormInput<string | undefined>>();
+
+  readonly element = viewChild('input', {read: ElementRef<HTMLElement>})
+
+  readonly placeholder = input<string>();
+  readonly autocomplete = input<string>();
+
+  readonly readonly = input(false, {transform: booleanAttribute});
+  readonly disabled = input(false, {transform: booleanAttribute});
+  readonly autoFocus = input(false, {transform: booleanAttribute});
+
+  readonly warning = input<string>();
+  readonly error = input<string>();
+  //</editor-fold>
+
+  readonly control: InputControls<string | undefined> = inputControl(this);
+  readonly model: ProxySignal<string> = inputValue.nullable(this.control, '', true);
+
+  readonly color = input<ThemePalette>();
+  readonly appearance = input<MatFormFieldAppearance>('fill');
+  readonly direction = input<InputDirection>();
+
+  readonly submitted = output<string>();
 
   @HostListener('keydown.enter', ['$event'])
   onEnter(_event: Event) {
-    if (!this.submitted.observed) return;
-    this.submitted.emit(this.externalValue());
+    this.submitted.emit(this.model());
   }
 
   @HostListener('keydown.escape', ['$event'])
   escape(event: Event) {
     event.stopPropagation();
-    this.value = '';
-    this.inputElement()?.blur();
+    this.model.set('');
+    this.element()?.nativeElement?.blur();
   }
 
-  readonly globalFocus: InputSignalWithTransform<boolean, unknown> = input(false, {transform: booleanAttribute});
+  readonly globalFocus = input(false, {transform: booleanAttribute});
 
-  constructor(zone: NgZone) {
-    super();
+  constructor() {
+
+    const zone = inject(NgZone);
 
     // Listen to key input that isn't in an input
     zone.runOutsideAngular(() => {
@@ -63,21 +89,13 @@ export class SearchInputComponent extends BaseInputComponent<string, string|unde
         ),
         takeUntilDestroyed()
       ).subscribe(e => zone.run(() => {
-        this.focus();
-        this.value = this.value + e.key;
+        this.control.focus();
+        this.model.update(x => x + e.key);
       }));
     })
   }
 
-  postprocessValue(value: string|undefined): string | undefined {
-    return value || undefined;
-  }
-
-  preprocessValue(value: string|undefined): string | undefined {
-    return value;
-  }
-
   clear() {
-    this.value = undefined;
+    this.model.set('');
   }
 }

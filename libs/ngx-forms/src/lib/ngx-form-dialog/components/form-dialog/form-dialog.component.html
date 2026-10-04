@@ -8,8 +8,10 @@
         @if (formTemplate()) {
             <ng-content/>
         } @else {
-            @for (input of config().form.nodes(); track input) {
-                <form-input *ngIf="!input.readonly" [control]="input"/>
+            @for (input of config().form.inputs(); track input) {
+                @if (!input.readonly) {
+                    <form-input [input]="input"/>
+                }
             }
         }
     </div>

@@ -1,20 +1,20 @@
 import {Directive, effect, EmbeddedViewRef, input, InputSignal, TemplateRef, ViewContainerRef} from '@angular/core';
-import {FormLayer, FormUnit} from "@juulsgaard/ngx-forms-core";
+import {FormLayerControls, IFormLayer} from "@juulsgaard/ngx-forms-core";
 
 @Directive({
   selector: '[ngxFormLayer]',
   standalone: true
 })
-export class FormLayerDirective<TControls extends Record<string, FormUnit>> {
+export class FormLayerDirective<T> {
 
-  readonly layer: InputSignal<FormLayer<TControls, any>> = input.required({alias: 'ngxFormLayer'});
+  readonly layer: InputSignal<IFormLayer<T>> = input.required({alias: 'ngxFormLayer'});
 
   readonly show: InputSignal<boolean> = input(true, {alias: 'ngxFormLayerWhen'});
 
-  view?: EmbeddedViewRef<FormLayerDirectiveContext<TControls>>;
+  view?: EmbeddedViewRef<FormLayerDirectiveContext<T>>;
 
   constructor(
-    private templateRef: TemplateRef<FormLayerDirectiveContext<TControls>>,
+    private templateRef: TemplateRef<FormLayerDirectiveContext<T>>,
     private viewContainer: ViewContainerRef
   ) {
 
@@ -36,14 +36,14 @@ export class FormLayerDirective<TControls extends Record<string, FormUnit>> {
     });
   }
 
-  static ngTemplateContextGuard<TControls extends Record<string, FormUnit>>(
-    directive: FormLayerDirective<TControls>,
+  static ngTemplateContextGuard<T>(
+    directive: FormLayerDirective<T>,
     context: unknown
-  ): context is FormLayerDirectiveContext<TControls> {
+  ): context is FormLayerDirectiveContext<T> {
     return true;
   }
 }
 
-interface FormLayerDirectiveContext<TControls extends Record<string, FormUnit>> {
-  ngxFormLayer: TControls;
+interface FormLayerDirectiveContext<T> {
+  ngxFormLayer: FormLayerControls<T>;
 }

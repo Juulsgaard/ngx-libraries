@@ -3,7 +3,7 @@
   "description": "Basic utilities for working with Angular",
   "repository": "git@github.com:Juulsgaard/ngx-libraries.git",
   "homepage": "https://github.com/Juulsgaard/ngx-libraries/tree/main/libs/ngx-tools",
-  "version": "21.0.1",
+  "version": "22.0.0",
   "main": "src/index.ts",
   "publishConfig": {
     "directory": "../../dist/libs/ngx-tools"
@@ -14,13 +14,13 @@
     "@angular/core": "catalog:",
     "@angular/router": "catalog:",
     "@angular/cdk": "catalog:",
-    "@juulsgaard/signal-tools": "^21.0.0",
-    "@juulsgaard/rxjs-tools": "~1.9.0",
-    "@juulsgaard/ts-tools": "~1.8.0",
+    "@juulsgaard/signal-tools": "^22.0.0",
+    "@juulsgaard/rxjs-tools": "~1.10.0",
+    "@juulsgaard/ts-tools": "~1.9.1",
     "rxjs": "^7.8.2"
   },
   "dependencies": {
-    "@ctrl/tinycolor": "^4.2.0",
+    "@ctrl/tinycolor": "^4.2.1",
     "tslib": "2.8.1"
   },
   "devDependencies": {

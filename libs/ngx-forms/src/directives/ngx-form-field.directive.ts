@@ -2,8 +2,8 @@ import {
   booleanAttribute, computed, DestroyRef, Directive, effect, ElementRef, inject, input, InputSignal,
   InputSignalWithTransform, model, ModelSignal, output, signal, untracked
 } from '@angular/core';
-import {FormNode} from "@juulsgaard/ngx-forms-core";
 import {MatFormFieldControl} from "@angular/material/form-field";
+import {IFormInput} from "@juulsgaard/ngx-forms-core";
 import {Subject} from "rxjs";
 
 @Directive()
@@ -19,7 +19,7 @@ export abstract class NgxFormFieldDirective<T> implements MatFormFieldControl<T 
   }
 
   readonly ngxModel: ModelSignal<T | undefined> = model<T | undefined>(undefined);
-  readonly control: InputSignal<FormNode<T> | FormNode<T|undefined> | undefined> = input<FormNode<T> | FormNode<T|undefined>>();
+  readonly control: InputSignal<IFormInput<T> | IFormInput<T|undefined> | undefined> = input<IFormInput<T> | IFormInput<T|undefined>>();
 
   private readonly _value = computed(() => {
     const node = this.control();

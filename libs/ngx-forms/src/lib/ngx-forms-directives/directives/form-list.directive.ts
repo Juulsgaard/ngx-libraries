@@ -1,21 +1,21 @@
 import {Directive, effect, EmbeddedViewRef, input, InputSignal, TemplateRef, ViewContainerRef} from "@angular/core";
-import {ControlFormLayer, FormList, FormUnit} from "@juulsgaard/ngx-forms-core";
+import {FormLayerControls, IFormLayer, IFormList} from "@juulsgaard/ngx-forms-core";
 import {arrToSet} from "@juulsgaard/ts-tools";
 
 @Directive({
   selector: '[ngxFormList][ngxFormListIn]',
   standalone: true
 })
-export class FormListDirective<TControls extends Record<string, FormUnit>> {
+export class FormListDirective<T> {
 
-  readonly list: InputSignal<FormList<TControls, any, any>> = input.required<FormList<TControls, any, any>>({alias: 'ngxFormListIn'});
+  readonly list: InputSignal<IFormList<T>> = input.required<IFormList<T>>({alias: 'ngxFormListIn'});
 
   readonly show: InputSignal<boolean> = input(true, {alias: 'ngxFormListWhen'});
 
-  views = new Map<ControlFormLayer<TControls>, EmbeddedViewRef<FormListDirectiveContext<TControls>>>();
+  views = new Map<IFormLayer<T>, EmbeddedViewRef<FormListDirectiveContext<T>>>();
 
   constructor(
-    private templateRef: TemplateRef<FormListDirectiveContext<TControls>>,
+    private templateRef: TemplateRef<FormListDirectiveContext<T>>,
     private viewContainer: ViewContainerRef
   ) {
 
@@ -64,29 +64,29 @@ export class FormListDirective<TControls extends Record<string, FormUnit>> {
     this.views.clear();
   }
 
-  static ngTemplateContextGuard<TControls extends Record<string, FormUnit>>(
-    directive: FormListDirective<TControls>,
+  static ngTemplateContextGuard<T>(
+    directive: FormListDirective<T>,
     context: unknown
-  ): context is FormListDirectiveContext<TControls> {
+  ): context is FormListDirectiveContext<T> {
     return true;
   }
 }
 
-class FormListDirectiveContext<TControls extends Record<string, FormUnit>> {
+class FormListDirectiveContext<T> {
 
-  $implicit: TControls;
-  ngxFormListIn: TControls[];
+  $implicit: FormLayerControls<T>;
+  ngxFormListIn: FormLayerControls<T>[];
   index: number;
-  layer: ControlFormLayer<TControls>;
+  layer: IFormLayer<T>;
 
-  constructor(layer: ControlFormLayer<TControls>, index: number, list: TControls[]) {
+  constructor(layer: IFormLayer<T>, index: number, list: FormLayerControls<T>[]) {
     this.layer = layer;
     this.$implicit = layer.controls();
     this.index = index;
     this.ngxFormListIn = list;
   }
 
-  update(layer: ControlFormLayer<TControls>, index: number, list: TControls[]): boolean {
+  update(layer: IFormLayer<T>, index: number, list:  FormLayerControls<T>[]): boolean {
     let changed = false;
 
     if (this.layer != layer) {

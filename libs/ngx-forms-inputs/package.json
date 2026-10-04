@@ -3,7 +3,7 @@
   "description": "A library containing default input components for different input types",
   "repository": "git@github.com:Juulsgaard/ngx-libraries.git",
   "homepage": "https://github.com/Juulsgaard/ngx-libraries/tree/main/libs/ngx-forms-inputs",
-  "version": "21.0.0",
+  "version": "22.0.0",
   "publishConfig": {
     "directory": "../../dist/libs/ngx-forms-inputs"
   },
@@ -14,15 +14,15 @@
     "@angular/forms": "catalog:",
     "@angular/material": "catalog:",
     "@juulsgaard/ngx-forms": "workspace:~",
-    "@juulsgaard/ngx-forms-core": "~21.0.0",
+    "@juulsgaard/ngx-forms-core": "~22.0.2",
     "@juulsgaard/ngx-tools": "workspace:~",
     "@juulsgaard/ngx-ui": "workspace:~",
-    "@juulsgaard/signal-tools": "~21.0.0",
-    "@juulsgaard/ts-tools": "~1.8.0",
-    "dayjs": "^1.11.20",
-    "fuse.js": "^7.3.0",
-    "ngx-colors": "^3.6.0",
-    "ngx-mat-timepicker": "^21.0.0",
+    "@juulsgaard/signal-tools": "~22.0.0",
+    "@juulsgaard/ts-tools": "~1.9.1",
+    "dayjs": "^1.11.23",
+    "fuse.js": "^7.5.0",
+    "ngx-colors": "^4.0.2",
+    "ngx-mat-timepicker": "^22.1.0",
     "rxjs": "^7.8.2"
   },
   "dependencies": {

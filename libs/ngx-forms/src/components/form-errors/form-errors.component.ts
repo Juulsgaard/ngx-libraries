@@ -2,7 +2,7 @@ import {
   booleanAttribute, ChangeDetectionStrategy, Component, computed, effect, input, InputSignalWithTransform, model,
   ModelSignal, Signal, signal
 } from '@angular/core';
-import {FormValidationContext, isFormNode} from "@juulsgaard/ngx-forms-core";
+import {FormValidationContext, isFormInput} from "@juulsgaard/ngx-forms-core";
 import {harmonicaInAnimation} from "@juulsgaard/ngx-tools";
 import {NgIf} from "@angular/common";
 import {isString} from "@juulsgaard/ts-tools";
@@ -87,7 +87,7 @@ function formatData(data: FormValidationContext | string, type: 'warning' | 'err
 
   const unit = data.data.unit;
 
-  if (isFormNode(unit)) {
+  if (isFormInput(unit)) {
     return {
       type,
       message: data.data.message,

@@ -3,7 +3,7 @@
   "description": "Utilities for working with Service Workers in Angular",
   "repository": "git@github.com:Juulsgaard/ngx-libraries.git",
   "homepage": "https://github.com/Juulsgaard/ngx-libraries/tree/main/libs/ngx-service-worker",
-  "version": "21.0.0",
+  "version": "22.0.0",
   "publishConfig": {
     "directory": "../../dist/libs/ngx-service-worker"
   },

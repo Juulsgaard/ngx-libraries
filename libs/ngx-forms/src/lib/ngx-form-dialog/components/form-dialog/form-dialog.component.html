@@ -20,5 +20,5 @@
 <ng-template #footer ngxSource>
     <ngx-button (click)="config().close()">Cancel</ngx-button>
     <ngx-button color="primary" (click)="config().submit()" [disabled]="!config().canSubmit()" [ngxLoading]="config().working()">{{config().buttonText}}</ngx-button>
-    <ngx-form-error-state [errors]="config().errorState()" [warnings]="config().warningState()" button [(show)]="showErrors"/>
+    <ngx-form-error-state [errors]="config().errorState()" [warnings]="config().warningState()" button [show]="showErrors()"/>
 </ng-template>

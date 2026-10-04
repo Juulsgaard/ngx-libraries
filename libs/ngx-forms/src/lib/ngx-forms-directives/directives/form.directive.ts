@@ -1,28 +1,28 @@
 import {
   Directive, effect, EmbeddedViewRef, input, InputSignal, InputSignalWithTransform, TemplateRef, ViewContainerRef
 } from '@angular/core';
-import {FormRoot, FormUnit, isFormRoot} from "@juulsgaard/ngx-forms-core";
+import {FormLayerControls, IFormRoot} from "@juulsgaard/ngx-forms-core";
 
 @Directive({
   selector: '[ngxForm]',
   standalone: true
 })
-export class FormDirective<TControls extends Record<string, FormUnit>> {
+export class FormDirective<T> {
 
   form: InputSignalWithTransform<
-    FormRoot<TControls, any>,
-    FormRoot<TControls, any> | { readonly form: FormRoot<TControls, any> }
+    IFormRoot<T>,
+    IFormRoot<T> | { readonly form: IFormRoot<T> }
   > = input.required({
     alias: 'ngxForm',
-    transform: (form: FormRoot<TControls, any>|{readonly form: FormRoot<TControls, any>}) => isFormRoot(form) ? form : form.form
+    transform: (form: IFormRoot<T>|{readonly form: IFormRoot<T>}) => 'form' in form ? form.form : form
   });
 
   readonly show: InputSignal<boolean> = input(true, {alias: 'ngxFormWhen'});
 
-  view?: EmbeddedViewRef<FormDirectiveContext<TControls>>
+  view?: EmbeddedViewRef<FormDirectiveContext<T>>
 
   constructor(
-    private templateRef: TemplateRef<FormDirectiveContext<TControls>>,
+    private templateRef: TemplateRef<FormDirectiveContext<T>>,
     private viewContainer: ViewContainerRef
   ) {
 
@@ -48,14 +48,14 @@ export class FormDirective<TControls extends Record<string, FormUnit>> {
     return this.form();
   }
 
-  static ngTemplateContextGuard<TControls extends Record<string, FormUnit>>(
-    directive: FormDirective<TControls>,
+  static ngTemplateContextGuard<T>(
+    directive: FormDirective<T>,
     context: unknown
-  ): context is FormDirectiveContext<TControls> {
+  ): context is FormDirectiveContext<T> {
     return true;
   }
 }
 
-interface FormDirectiveContext<TControls extends Record<string, FormUnit>> {
-  ngxForm: TControls;
+interface FormDirectiveContext<T> {
+  ngxForm: FormLayerControls<T>;
 }

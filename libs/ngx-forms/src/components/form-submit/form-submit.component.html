@@ -18,7 +18,7 @@
         {{form().submitBtnText}}
     </ngx-raised-button>
 
-    <ngx-form-error-state [errors]="form().form.errorState()" [warnings]="form().form.warningState()" button [(show)]="showErrors" (showChange)="onShowChange($event)"/>
+    <ngx-form-error-state [errors]="form().form.errorState()" [warnings]="form().form.warningState()" button [show]="showErrors()" (showChange)="onShowChange($event)"/>
 
 </div>
 

@@ -3,7 +3,7 @@
   "description": "This library contains Angular components and tools for working with Forms",
   "repository": "git@github.com:Juulsgaard/ngx-libraries.git",
   "homepage": "https://github.com/Juulsgaard/ngx-libraries/tree/main/libs/ngx-forms",
-  "version": "21.0.0",
+  "version": "22.0.0",
   "publishConfig": {
     "directory": "../../dist/libs/ngx-forms"
   },
@@ -14,9 +14,9 @@
     "@angular/forms": "catalog:",
     "@angular/material": "catalog:",
     "@juulsgaard/ngx-tools": "workspace:~",
-    "@juulsgaard/ngx-forms-core": "~21.0.0",
+    "@juulsgaard/ngx-forms-core": "~22.0.2",
     "@juulsgaard/ngx-ui": "workspace:~",
-    "@juulsgaard/ts-tools": "~1.8.0",
+    "@juulsgaard/ts-tools": "~1.9.1",
     "rxjs": "^7.8.2"
   },
   "dependencies": {

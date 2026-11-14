@@ -1,3 +1,13 @@
+## 22.0.2 (2026-11-14)
+
+### 🩹 Fixes
+
+- Correct FormInput binding ([2d03f94](https://github.com/Juulsgaard/ngx-libraries/commit/2d03f94))
+
+### ❤️ Thank You
+
+- Frederik Sørensen @Juulsgaard
+
 ## 22.0.1 (2026-11-14)
 
 ### 🧱 Updated Dependencies

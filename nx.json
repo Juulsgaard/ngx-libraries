@@ -19,7 +19,8 @@
   "release": {
     "projectsRelationship": "independent",
     "version": {
-      "updateDependents": "never"
+      "updateDependents": "never",
+      "conventionalCommits": true
     },
     "changelog": {
       "projectChangelogs": true,

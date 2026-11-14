@@ -2,7 +2,7 @@ import {
   booleanAttribute, ChangeDetectionStrategy, Component, computed, contentChild, effect, inject, Injector, input,
   InputSignal, InputSignalWithTransform, OnDestroy, signal, viewChild
 } from '@angular/core';
-import {FormDialog} from "@juulsgaard/ngx-forms-core";
+import {IFormDialog} from "@juulsgaard/ngx-forms-core";
 import {LoadingDirective, RenderSourceDirective} from "@juulsgaard/ngx-tools";
 import {FormDialogDirective} from "../../directives/dialog-form.directive";
 import {toObservable, toSignal} from "@angular/core/rxjs-interop";
@@ -32,7 +32,7 @@ export class FormDialogComponent<T extends Record<string, unknown>> implements O
 
   readonly showErrors = signal(false);
 
-  readonly config: InputSignal<FormDialog<T>> = input.required<FormDialog<T>>();
+  readonly config: InputSignal<IFormDialog<T>> = input.required<IFormDialog<T>>();
   readonly formTemplate = contentChild(FormDialogDirective);
   readonly content = viewChild.required('content', {read: RenderSourceDirective});
   readonly footer = viewChild.required('footer', {read: RenderSourceDirective});

@@ -5,7 +5,7 @@ import {
 import {LoadingDirective, setElementClasses} from "@juulsgaard/ngx-tools";
 import {MatRipple} from "@angular/material/core";
 import {NgIf} from "@angular/common";
-import {FormPage} from "@juulsgaard/ngx-forms-core";
+import {IFormPage} from "@juulsgaard/ngx-forms-core";
 import {FormErrorStateComponent} from "../form-error-state/form-error-state.component";
 import {SimpleObject} from "@juulsgaard/ts-tools";
 import {ButtonComponent, IconButtonComponent, UIScopeContext} from "@juulsgaard/ngx-ui";
@@ -28,7 +28,7 @@ import {ButtonComponent, IconButtonComponent, UIScopeContext} from "@juulsgaard/
 })
 export class FormHeaderComponent<T extends SimpleObject> {
 
-  readonly form: InputSignal<FormPage<T>> = input.required<FormPage<T>>();
+  readonly form: InputSignal<IFormPage<T>> = input.required<IFormPage<T>>();
 
   @Output() back = new EventEmitter<void>();
   @Output() close = new EventEmitter<void>();

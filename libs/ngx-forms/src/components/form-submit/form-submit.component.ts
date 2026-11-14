@@ -1,7 +1,6 @@
 import {
   booleanAttribute, ChangeDetectionStrategy, Component, computed, inject, input, InputSignal, NgZone, signal
 } from '@angular/core';
-import {FormPage} from "@juulsgaard/ngx-forms-core";
 import {SimpleObject} from "@juulsgaard/ts-tools";
 import {FormContext} from "../../lib/ngx-forms-tools";
 import {filter, fromEvent, mergeWith, tap, throttleTime} from "rxjs";
@@ -11,6 +10,7 @@ import {FormErrorsComponent} from "../form-errors/form-errors.component";
 import {FormErrorStateComponent} from "../form-error-state/form-error-state.component";
 import {ButtonComponent, NgxTabContext} from "@juulsgaard/ngx-ui";
 import {LoadingDirective} from "@juulsgaard/ngx-tools";
+import {IFormPage} from "@juulsgaard/ngx-forms-core";
 
 @Component({
   selector: 'ngx-form-submit',
@@ -28,7 +28,7 @@ import {LoadingDirective} from "@juulsgaard/ngx-tools";
 })
 export class FormSubmitComponent<T extends SimpleObject> {
 
-  readonly form: InputSignal<FormPage<T>> = input.required<FormPage<T>>();
+  readonly form: InputSignal<IFormPage<T>> = input.required<IFormPage<T>>();
   readonly disableShortcut = input(false, {transform: booleanAttribute});
 
   private tabContext = inject(NgxTabContext, {optional: true});

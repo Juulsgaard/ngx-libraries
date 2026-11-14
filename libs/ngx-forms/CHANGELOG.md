@@ -1,3 +1,10 @@
+## 22.0.1 (2026-11-14)
+
+### 🧱 Updated Dependencies
+
+- Updated ngx-tools to 22.0.1
+- Updated ngx-ui to 22.0.1
+
 # 22.0.0 (2026-11-14)
 
 ### 🧱 Updated Dependencies

@@ -1,23 +1,12 @@
 
 .ngx-form-input {
-  display: block;
+  display: flex;
+  flex-flow: column;
   margin-bottom: 8px;
   transition: margin-bottom 400ms ease;
 
   &.hidden {
     margin-bottom: 0;
-  }
-
-  > .wrapper {
-    display: flex;
-    flex-flow: column;
-    align-items: stretch;
-  }
-
-  .mat-mdc-form-field {
-    &.mat-form-field-appearance-outline {
-      padding-top: 10px;
-    }
   }
 
   .required {
@@ -31,8 +20,18 @@
     cursor: help;
   }
 
+  .fix:empty {
+    display: none;
+  }
+
   .mdc-floating-label {
     z-index: 1;
+  }
+
+  .mat-mdc-form-field {
+    &.mat-form-field-appearance-outline {
+      padding-top: 10px;
+    }
   }
 
   .mat-mdc-form-field-icon-prefix, .mat-mdc-form-field-icon-suffix {
@@ -58,9 +57,4 @@
   .mat-mdc-form-field-icon-suffix:has(.fix:empty) {
     display: none;
   }
-
-  .fix:empty {
-    display: none;
-  }
-
 }

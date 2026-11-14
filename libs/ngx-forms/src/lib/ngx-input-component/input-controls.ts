@@ -4,7 +4,7 @@ import {
 } from "@angular/core";
 import {ErrorStateMatcher} from "@angular/material/core";
 import {scrollToElement} from "@juulsgaard/ts-tools";
-import {ScrollContext} from "@juulsgaard/ngx-tools";
+import {elementClassManager, ScrollContext} from "@juulsgaard/ngx-tools";
 import {takeUntilDestroyed} from "@angular/core/rxjs-interop";
 import {FormInputEvent, InputEvents} from "@juulsgaard/ngx-forms-core";
 import {FormContext} from "../ngx-forms-tools";
@@ -41,8 +41,8 @@ export interface InputControls<T> {
 
 export class InputControlsImpl<T> implements InputControls<T> {
 
-  private scrollContainer = inject(ScrollContext, {optional: true});
-  protected input = computed(() => this.component.input());
+  private readonly scrollContainer = inject(ScrollContext, {optional: true});
+  protected readonly input = computed(() => this.component.input());
 
   readonly value: WritableSignal<T | undefined>;
 
@@ -113,6 +113,9 @@ export class InputControlsImpl<T> implements InputControls<T> {
   readonly touched: Signal<boolean> = computed(() => this.input()?.touched() ?? this._touched());
 
   constructor(protected readonly component: InputComponent<T>) {
+
+    const classManager = elementClassManager();
+    classManager.add('ngx-form-input');
 
     this.value = linkedSignal(() => {
       const input = component.input();

@@ -1,3 +1,9 @@
+# 22.0.0 (2026-11-14)
+
+### 🧱 Updated Dependencies
+
+- Updated ngx-tools to 22.0.0
+
 ## 19.0.3 (2024-12-07)
 
 This was a version bump only for ngx-ui to align it with other projects, there were no code changes.

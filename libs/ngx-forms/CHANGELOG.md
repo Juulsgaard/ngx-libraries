@@ -1,3 +1,10 @@
+# 22.0.0 (2026-11-14)
+
+### 🧱 Updated Dependencies
+
+- Updated ngx-tools to 22.0.0
+- Updated ngx-ui to 22.0.0
+
 ## 19.0.2 (2024-12-05)
 
 This was a version bump only for ngx-forms to align it with other projects, there were no code changes.

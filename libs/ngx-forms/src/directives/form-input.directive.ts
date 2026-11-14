@@ -51,6 +51,6 @@ export class FormInputDirective {
     const input = this.input();
     if (!isFormInput(input)) return undefined;
 
-    component.setInput('control', input);
+    component.setInput('input' satisfies keyof InputComponent<any>, input);
   }
 }

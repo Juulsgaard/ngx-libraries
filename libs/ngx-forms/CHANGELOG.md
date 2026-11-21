@@ -1,3 +1,13 @@
+## 22.0.5 (2026-11-21)
+
+### 🩹 Fixes
+
+- ngxDialogForm context (again) ([05b72f1](https://github.com/Juulsgaard/ngx-libraries/commit/05b72f1))
+
+### ❤️ Thank You
+
+- Frederik Sørensen @Juulsgaard
+
 ## 22.0.4 (2026-11-21)
 
 ### 🩹 Fixes

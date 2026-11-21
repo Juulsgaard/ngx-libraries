@@ -28,7 +28,7 @@ import {FormErrorsComponent, FormErrorStateComponent} from "../../../../componen
   ],
   standalone: true
 })
-export class FormDialogComponent<T extends Record<string, unknown>> implements OnDestroy {
+export class FormDialogComponent<T> implements OnDestroy {
 
   readonly showErrors = signal(false);
 

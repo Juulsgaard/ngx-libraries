@@ -1,3 +1,14 @@
+## 22.0.3 (2026-11-21)
+
+### 🩹 Fixes
+
+- Fix form dialog type ([4777c96](https://github.com/Juulsgaard/ngx-libraries/commit/4777c96))
+- Fix FormDialogDirective selector ([2146862](https://github.com/Juulsgaard/ngx-libraries/commit/2146862))
+
+### ❤️ Thank You
+
+- Frederik Sørensen @Juulsgaard
+
 ## 22.0.2 (2026-11-14)
 
 ### 🩹 Fixes

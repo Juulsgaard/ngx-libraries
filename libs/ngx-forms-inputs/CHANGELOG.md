@@ -1,3 +1,9 @@
+## 22.0.3 (2026-11-21)
+
+### 🧱 Updated Dependencies
+
+- Updated ngx-forms to 22.0.3
+
 ## 22.0.2 (2026-11-14)
 
 ### 🧱 Updated Dependencies

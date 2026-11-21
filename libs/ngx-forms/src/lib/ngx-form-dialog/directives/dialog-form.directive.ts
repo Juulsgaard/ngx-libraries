@@ -33,11 +33,11 @@ export class FormDialogDirective<T> {
       const _controls = controls();
 
       if (!this.view) {
-        this.view = this.viewContainer.createEmbeddedView(this.template, {FormDialogComponent: _controls});
+        this.view = this.viewContainer.createEmbeddedView(this.template, {ngxDialogForm: _controls});
         return;
       }
 
-      this.view.context.FormDialogComponent = _controls;
+      this.view.context.ngxDialogForm = _controls;
       this.view.markForCheck();
     });
   }
@@ -51,5 +51,5 @@ export class FormDialogDirective<T> {
 }
 
 export interface DialogFormContext<T> {
-  FormDialogComponent: FormLayerControls<T>;
+  ngxDialogForm: FormLayerControls<T>;
 }

@@ -8,7 +8,7 @@ import {FormLayerControls, IFormDialog, IFormRoot} from "@juulsgaard/ngx-forms-c
 export class FormDialogDirective<T> {
 
   form: InputSignalWithTransform<IFormRoot<T>, IFormDialog<T>> = input.required({
-    alias: 'dialogForm',
+    alias: 'ngxDialogForm',
     transform: (dialog: IFormDialog<T>) => dialog.form
   });
 

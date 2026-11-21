@@ -1,3 +1,13 @@
+## 22.0.4 (2026-11-21)
+
+### 🩹 Fixes
+
+- ngxDialogForm context ([a4f9f28](https://github.com/Juulsgaard/ngx-libraries/commit/a4f9f28))
+
+### ❤️ Thank You
+
+- Frederik Sørensen @Juulsgaard
+
 ## 22.0.3 (2026-11-21)
 
 ### 🩹 Fixes

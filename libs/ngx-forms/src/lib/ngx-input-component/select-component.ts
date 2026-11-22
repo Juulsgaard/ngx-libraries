@@ -1,5 +1,5 @@
 import {Signal} from "@angular/core";
-import {IFormInput, IFormSelect, IFormSingleSelect} from "@juulsgaard/ngx-forms-core";
+import {IFormInput, IFormMultiSelect, IFormSelect, IFormSingleSelect} from "@juulsgaard/ngx-forms-core";
 import {MapFunc} from "@juulsgaard/ts-tools";
 import {InputComponent} from "./input-component";
 
@@ -20,5 +20,5 @@ export interface SingleSelectComponent<T, TItem> extends SelectComponent<T, T, T
 }
 
 export interface MultiSelectComponent<T, TItem> extends SelectComponent<T[], T, TItem> {
-  readonly input: Signal<IFormSingleSelect<T[], TItem> | IFormInput<T[]> | undefined>;
+  readonly input: Signal<IFormMultiSelect<T, TItem> | IFormInput<T[]> | undefined>;
 }

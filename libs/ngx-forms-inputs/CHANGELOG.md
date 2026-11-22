@@ -1,3 +1,17 @@
+## 22.0.6 (2026-11-22)
+
+### 🩹 Fixes
+
+- Handle complex default values in select components ([979742c](https://github.com/Juulsgaard/ngx-libraries/commit/979742c))
+
+### 🧱 Updated Dependencies
+
+- Updated ngx-forms to 22.0.6
+
+### ❤️ Thank You
+
+- Frederik Sørensen @Juulsgaard
+
 ## 22.0.5 (2026-11-21)
 
 ### 🧱 Updated Dependencies

@@ -1,3 +1,13 @@
+## 22.0.6 (2026-11-22)
+
+### 🩹 Fixes
+
+- Tweak MultiSelectComponent input signature ([77e6745](https://github.com/Juulsgaard/ngx-libraries/commit/77e6745))
+
+### ❤️ Thank You
+
+- Frederik Sørensen @Juulsgaard
+
 ## 22.0.5 (2026-11-21)
 
 ### 🩹 Fixes

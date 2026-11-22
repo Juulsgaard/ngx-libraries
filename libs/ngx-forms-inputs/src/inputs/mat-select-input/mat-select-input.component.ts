@@ -8,7 +8,7 @@ import {MatLabel} from "@angular/material/input";
 import {booleanAttribute, Component, ElementRef, input, model, viewChild} from "@angular/core";
 import {selectControl, SelectControls, SingleSelectComponent} from "@juulsgaard/ngx-forms";
 import {IFormSingleSelect} from "@juulsgaard/ngx-forms-core";
-import {MapFunc} from "@juulsgaard/ts-tools";
+import {deepEquals, MapFunc} from "@juulsgaard/ts-tools";
 import {ThemePalette} from "@angular/material/core";
 
 @Component({
@@ -65,4 +65,6 @@ export class MatSelectInputComponent<TValue, TItem> implements SingleSelectCompo
     if (opened) return;
     this.control.touch();
   }
+
+  protected readonly deepEquals = deepEquals;
 }

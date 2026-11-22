@@ -13,7 +13,7 @@
 
         <mat-select [errorStateMatcher]="control.errorMatcher()" (openedChange)="onOpenStatus($event)"
                     [(ngModel)]="model" [ngModelOptions]="{standalone: true}" #input
-                    [multiple]="true" [placeholder]="control.placeholder() ?? ''"
+                    [multiple]="true" [placeholder]="control.placeholder() ?? ''" [compareWith]="deepEquals"
                     [required]="control.required()" [disabled]="control.readonly()">
 
             @if (control.clearable()) {

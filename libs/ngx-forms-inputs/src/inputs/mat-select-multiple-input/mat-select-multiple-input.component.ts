@@ -9,7 +9,7 @@ import {FormsModule} from "@angular/forms";
 import {MatLabel} from "@angular/material/input";
 import {ThemePalette} from "@angular/material/core";
 import {IFormMultiSelect} from "@juulsgaard/ngx-forms-core";
-import {MapFunc} from "@juulsgaard/ts-tools";
+import {deepEquals, MapFunc} from "@juulsgaard/ts-tools";
 
 @Component({
   selector: 'form-mat-select-multiple',
@@ -71,4 +71,6 @@ export class MatSelectMultipleInputComponent<TValue, TItem> implements MultiSele
   clear() {
     this.model.set([]);
   }
+
+  protected readonly deepEquals = deepEquals;
 }

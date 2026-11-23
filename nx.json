@@ -25,6 +25,13 @@
     "changelog": {
       "projectChangelogs": true,
       "workspaceChangelog": false
+    },
+    "conventionalCommits": {
+      "types": {
+        "feat": {
+          "semverBump": "patch"
+        }
+      }
     }
   },
   "targetDefaults": {
